@@ -11,7 +11,7 @@ function ReelsEvent() {
     centerMode: true,
     infinite: true,
     centerPadding: "60px",
-    slidesToShow: 4,
+    slidesToShow: 3,
     speed: 500,
     rows: 2,
     slidesPerRow: 1,
