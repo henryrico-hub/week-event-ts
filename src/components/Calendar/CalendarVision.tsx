@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getCalendar, getlatestEvent } from "../../models/event.server";
+import { getCalendar } from "../../models/event.server";
 import { EventType } from "../../types";
 
 import {
@@ -8,7 +8,7 @@ import {
   faPersonSwimming,
   faPersonThroughWindow,
 } from "@fortawesome/free-solid-svg-icons";
-import OwlBreakingNews from "../OwlBreakingNews";
+import OwlBreakingNews from "../OwlBreakingNewsCopy";
 import imgbanner from "../../assets/images/news-800x500-3.jpg";
 import { Badge, Calendar, Avatar, Tooltip, Flex, Typography, Spin } from "antd";
 
@@ -68,7 +68,7 @@ export default function CalendarVision() {
   }, [selectedValue, dataEvent]);
 
   const getListData = (value: Dayjs) => {
-    let listData: {
+    const listData: {
       type: string;
       content: string;
       categoryName: string;

@@ -63,14 +63,16 @@ export async function getEventsDesc() {
 }
 
 export async function getEventsCurrents(date: string) {
-  const respuesta = await fetch(
-    `${
-      import.meta.env.VITE_API_URL
-    }/events?fields[0]=name&fields[1]=date_event&fields[2]=url&populate[category][fields][0]=name&populate[img_main][fields][0]=url&filters[date_event][$gt]=2025-03-04&sort[0]=date_event:asc&pagination[page]=1&pagination[pageSize]=9`
-  );
-  const resultado = await respuesta.json();
+  if (date) {
+    const respuesta = await fetch(
+      `${
+        import.meta.env.VITE_API_URL
+      }/events?fields[0]=name&fields[1]=date_event&fields[2]=url&populate[category][fields][0]=name&populate[img_main][fields][0]=url&filters[date_event][$gt]=2025-03-04&sort[0]=date_event:asc&pagination[page]=1&pagination[pageSize]=9`
+    );
+    const resultado = await respuesta.json();
 
-  return resultado;
+    return resultado;
+  }
 }
 
 export async function getEventsLastOne() {

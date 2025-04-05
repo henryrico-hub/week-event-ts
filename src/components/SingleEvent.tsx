@@ -24,7 +24,7 @@ import BlockRendererClient from "./BlockRendererClient";
 import "../assets/css/left_card.css";
 import { Col, Image, Row } from "antd";
 
-import OwlBreakingNews from "./OwlBreakingNews";
+import OwlBreakingNews from "./OwlBreakingNewsCopy";
 import logo1 from "../assets/images/logo1.jpeg";
 import GradientButton from "./Button/GradientButton";
 

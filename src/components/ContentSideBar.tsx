@@ -1,18 +1,12 @@
 /* import { type BlocksContent } from '@strapi/blocks-react-renderer'
 import BlockRendererClient from './BlockRendererClient' */
-import img_lg from "../assets/images/news-800x500-3.jpg";
 /* import ads_img from '../assets/images/ads-728x90.png'
 import perfil_img from '../assets/images/user.jpg' */
 import { EventType } from "../types";
 import { useState, useEffect } from "react";
 import { getlatestEvent } from "../models/event.server";
-import { formatearFecha } from "../utils/helpers";
-import { Link } from "react-router-dom";
-import { category } from "../data";
 import { SkeletonGrid2 } from "./skeleton/SkeletonCustom";
 import SocialEvents from "./SocialEvents";
-import logosm from "../assets/images/logo1.jpeg";
-import { Card, Typography } from "antd";
 import CardEvent from "./CardEvent";
 
 const SizeContent = {
@@ -56,18 +50,18 @@ export default function ContentSideBar() {
     fetchData();
   }, [setlatestEvent]);
 
-  function encodeImg(img_url: string, width: number, height: number) {
-    const img_resized = encodeURIComponent(img_url);
-    const imgCDN = "https://imagecdn.app/v1/images/";
-    const cadenaWH = `?width=${width}&height=${height}`;
-    return imgCDN + img_resized + cadenaWH;
-  }
+  // function encodeImg(img_url: string, width: number, height: number) {
+  //   const img_resized = encodeURIComponent(img_url);
+  //   const imgCDN = "https://imagecdn.app/v1/images/";
+  //   const cadenaWH = `?width=${width}&height=${height}`;
+  //   return imgCDN + img_resized + cadenaWH;
+  // }
   /* console.log(latestEvent[1]); */
 
   return (
     <>
       {/* <!-- News With Sidebar Start --> */}
-      <div className="container-fluid">
+      <div className="container-fluid mb-5">
         <div className="container-md">
           <div className="row">
             <div className="col-lg-8">
@@ -101,7 +95,7 @@ export default function ContentSideBar() {
                       </div>
                     </div>
 
-                    {latestEvent.map((eve, key) => (
+                    {latestEvent.slice(0, 6).map((eve, key) => (
                       <CardEvent eve={eve} colSpan={6} key={key} />
                       // <div key={key} className="col-lg-6 py-2">
                       //   <Link
@@ -275,7 +269,7 @@ export default function ContentSideBar() {
                 )}
 
                 {/* Agrgar carousel ? */}
-                {latestEvent.slice(4, 9).map((eve, key) => (
+                {/* {latestEvent.slice(4, 9).map((eve, key) => (
                   <div key={key} className="col-lg-12">
                     <div className="row news-lg mx-0 mb-3">
                       <div className="col-md-6 h-100 px-0">
@@ -343,7 +337,8 @@ export default function ContentSideBar() {
                       </div>
                     </div>
                   </div>
-                ))}
+                ))} */}
+
                 {/* <div className="col-lg-6">
                 <div className="d-flex align-items-center bg-white mb-3" style={{height: '110px'}}>
                   <img className="img-fluid" src={img_sm} alt=""/>
@@ -399,6 +394,7 @@ export default function ContentSideBar() {
           </div>
         </div>
       </div>
+
       {/* <!-- News With Sidebar End --> */}
     </>
   );

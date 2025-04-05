@@ -8,6 +8,8 @@ export default defineConfig({
     react(),
 
     inject({
+      // include: ["**/*.js", "**/*.ts", "**/*.jsx", "**/*.tsx"], // Include only JS/TS files
+      // exclude: ["**/*.css", "**/*.scss", "**/*.sass"], // Exclude CSS and other styles
       $: "jquery",
       jQuery: "jquery",
       "window.jQuery": "jquery",

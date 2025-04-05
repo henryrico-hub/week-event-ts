@@ -13,95 +13,15 @@ import {
   PopoverPanel,
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { ChevronDownIcon, CalendarDaysIcon } from "@heroicons/react/20/solid";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPersonRunning,
-  faPersonBiking,
-  faPersonSwimming,
-  faPersonThroughWindow,
-} from "@fortawesome/free-solid-svg-icons";
 import { FlipProp } from "@fortawesome/fontawesome-svg-core";
 import { Trail_icon, MtbV3_icon } from "./Icons/Icons";
 import { Link, NavLink } from "react-router-dom";
 import { getAllEvents } from "../models/event.server";
 import { EventType } from "../types";
 import Selector from "./Selector";
-
-const categories = [
-  {
-    name: "Carrera",
-    description:
-      "Mayormente plana (poco desnivel), calles, avenidas, caminos asfaltados",
-    href: "/categoria/",
-    url: "correr",
-    icon: faPersonRunning,
-    svg: "",
-  },
-  {
-    name: "Trail Run",
-    description: "Carrera con desnivel en senderos, cerros, montaña.",
-    href: "/categoria/",
-    url: "trail-run",
-    icon: faPersonRunning,
-    svg: "trail",
-  },
-  {
-    name: "Ciclismo de Ruta",
-    description: "Se caracteriza por sus largas distancias y alta velocidad",
-    href: "/categoria/",
-    url: "ciclismo-de-ruta",
-    icon: faPersonBiking,
-    svg: "",
-  },
-  /* { name: 'Ciclismo de Montaña (MTB)', description: 'Competición en circuitos naturales, bosques, caminos angostos con cuestas empinadas', href: '/categoria/', url:'ciclismo-de-montana', icon: faPersonRunning, svg: 'mtb' }, */
-  {
-    name: "Ciclismo de Montaña (MTB)",
-    description:
-      "Competición en circuitos naturales, bosques, caminos con cuestas ",
-    href: "/categoria/",
-    url: "ciclismo-de-montana",
-    icon: faPersonRunning,
-    svg: "mtb",
-  },
-  {
-    name: "Triatlón",
-    description:
-      "Implica 3 disciplinas deportivas, natación, ciclismo y carrera a pie",
-    href: "/categoria/",
-    url: "triatlon",
-    icon: faPersonSwimming,
-    settings: "horizontal",
-    svg: "",
-  },
-  /* { name: 'Duatlón', description: 'Deporte individual o por equipos que reúne dos disciplinas: atletismo y ciclismo', href: '/categoria/', url:'duatlon', icon: faPersonThroughWindow, svg: '' }, */
-  {
-    name: "Duatlón",
-    description:
-      "Deporte individual o por equipos, que implica ciclismo y carrera a pie",
-    href: "/categoria/",
-    url: "duatlon",
-    icon: faPersonThroughWindow,
-    svg: "",
-  },
-];
-/* 
-const products = [
-  { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
-  { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
-  { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon },
-  { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: SquaresPlusIcon },
-  { name: 'Automationsd', description: 'Build strategic funnels that will convert', href: '#', icon: ArrowPathIcon },
-] */
-const callsToAction = [
-  { name: "Busqueda por fecha", href: "/calendario", icon: CalendarDaysIcon },
-  /* { name: 'Contact sales', href: '#', icon: PhoneIcon }, */
-];
-
-/* type optionType = {
-  value: string;
-  label: string;
-} */
+import { categories, callsToAction } from "../data";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -114,7 +34,6 @@ export default function Header() {
         setDataE(events.data);
       } catch (error) {
         console.error("Error fetching events:", error);
-      } finally {
       }
     };
 
@@ -411,6 +330,7 @@ export default function Header() {
                   <NavLink
                     to={"/calendario"}
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-slate-100 hover:bg-gray-700"
+                    onClick={() => setMobileMenuOpen(false)}
                   >
                     Calendario
                   </NavLink>

@@ -1,12 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 /* import img from '../assets/images/news-700x435-1.jpg' */
-import OwlCarousel from "react-owl-carousel";
+// import OwlCarousel from "react-owl-carousel";
 import { getEventsLastOne } from "../models/event.server";
 import { EventType } from "../types";
 import { formatearFecha } from "../utils/helpers";
 import { Link } from "react-router-dom";
 import { SkeletonLarge } from "./skeleton/SkeletonCustom";
 import logosm from "../assets/images/logo1.jpeg";
+import Slider from "react-slick";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const SizeContent_lg = {
   Ipx: "1rem",
@@ -22,26 +26,61 @@ const SizeContent_lg = {
 };
 
 export default function OwlFeaturedNews() {
-  const options = {
-    responsive: {
-      0: {
-        items: 1,
-      },
-      600: {
-        items: 3,
-      },
-      1000: {
-        items: 4,
-      },
-    },
-    nav: true,
-    dots: false,
-    loop: true,
-    autoplay: true,
-    margin: 20,
-  };
+  const sliderRef = useRef<Slider | null>(null);
+
+  // const options = {
+  //   responsive: {
+  //     0: {
+  //       items: 1,
+  //     },
+  //     600: {
+  //       items: 3,
+  //     },
+  //     1000: {
+  //       items: 4,
+  //     },
+  //   },
+  //   nav: true,
+  //   dots: false,
+  //   loop: true,
+  //   autoplay: true,
+  //   margin: 20,
+  // };
+
   const [eventArray, setEventArray] = useState<EventType[]>([]); // Initialize state with an empty array
   const [loading, setLoading] = useState(false);
+
+  const settings = {
+    autoplay: false,
+    infinite: true,
+    arrows: false,
+    slidesToShow: 4,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          arrows: false,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false,
+        },
+      },
+    ],
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -59,6 +98,13 @@ export default function OwlFeaturedNews() {
     };
     fetchData();
   }, [setEventArray]);
+
+  const next = () => {
+    sliderRef.current?.slickNext();
+  };
+  const previous = () => {
+    sliderRef.current?.slickPrev();
+  };
 
   return (
     <>
@@ -78,16 +124,27 @@ export default function OwlFeaturedNews() {
               <h4 className="m-0 text-lg text-uppercase font-weight-bold">
                 Aparta estas fechas
               </h4>
+              <div className="owl-nav">
+                <button className="owl-prev" onClick={previous}>
+                  <i className="fas fa-chevron-left"></i>
+                </button>
+                <button className="owl-next" onClick={next}>
+                  <i className="fas fa-chevron-right"></i>
+                </button>
+              </div>
             </div>
-            <OwlCarousel
-              className="news-carousel position-relative"
-              {...options}
+            <Slider
+              ref={(slider) => {
+                if (slider) sliderRef.current = slider;
+              }}
+              className="slider-container"
+              {...settings}
             >
               {/* <div className="owl-carousel news-carousel carousel-item-4 position-relative"> */}
               {eventArray.slice(0, 9).map((even, key) => (
-                <Link key={key} to={`/evento/${even.url}`} className=" ">
+                <Link key={key} to={`/evento/${even.url}`}>
                   <div
-                    className="position-relative overflow-hidden"
+                    className="position-relative overflow-hidden mx-2"
                     style={{ height: "300px", transition: "transform 0.3s" }}
                     onMouseEnter={(e) =>
                       (e.currentTarget.style.transform = "scale(1.05)")
@@ -98,19 +155,25 @@ export default function OwlFeaturedNews() {
                   >
                     {even.img_main ? (
                       <img
-                        className="img-fluid h-100"
                         src={`${import.meta.env.VITE_API_URL_SHORT}${
                           even.img_main.url
                         }`}
                         alt={`image title - ${even.name}`}
-                        style={{ objectFit: "cover" }}
+                        style={{
+                          height: "100%",
+                          width: "100%",
+                          objectFit: "cover",
+                        }}
                       />
                     ) : (
                       <img
-                        className="img-fluid h-100"
                         src={logosm}
                         alt={`image title - ${even.name}`}
-                        style={{ objectFit: "cover" }}
+                        style={{
+                          height: "100%",
+                          width: "100%",
+                          objectFit: "cover",
+                        }}
                       />
                     )}
                     <div className="overlay">
@@ -138,7 +201,7 @@ export default function OwlFeaturedNews() {
                   </div>
                 </Link>
               ))}
-            </OwlCarousel>
+            </Slider>
           </SkeletonLarge>
         </div>
       </div>

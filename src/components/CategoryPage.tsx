@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Category, EventType } from "../types";
 import { getEventsParams } from "../models/event.server";
 import adds_img from "../assets/images/ads-728x90.png";
-import perfil_img from "../assets/images/user.jpg";
-import { formatearFecha } from "../utils/helpers";
-import logosm from "../assets/images/logo1.jpeg";
+
 import CardEvent from "./CardEvent";
 type paramsCateProps = {
   category_url: string;
@@ -21,7 +19,7 @@ export default function CategoryPage({ categories }: categoriesProps) {
 
   const [data, setData] = useState<EventType[]>([]); // Initialize state with an empty array
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(6);
+  const [itemsPerPage] = useState(6);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,7 +57,7 @@ export default function CategoryPage({ categories }: categoriesProps) {
     setCurrentPage(currentPage - 1);
   };
 
-  let paginationNumber = [];
+  const paginationNumber = [];
   for (let i = 1; i <= Math.ceil(data.length / itemsPerPage); i++) {
     paginationNumber.push(i);
   }

@@ -4,7 +4,7 @@ import { formatearFecha } from "../utils/helpers";
 import Newsletter from "./Newsletter";
 import { EventType } from "../types";
 import img_lg from "../assets/images/news-800x500-3.jpg";
-import { Divider, Flex, Skeleton, Typography } from "antd";
+import { Divider, Flex, Skeleton } from "antd";
 import { SkeletonGridSocial } from "./skeleton/SkeletonCustom";
 import logosm from "../assets/images/logo1.jpeg";
 
@@ -29,8 +29,8 @@ const SizeContent = {
 export default function SocialEvents({
   latestEvent,
   loading,
-  setLoading,
-}: SocialEventsProps) {
+}: // setLoading,
+SocialEventsProps) {
   return (
     <>
       <div className="col-lg-4">

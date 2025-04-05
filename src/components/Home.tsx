@@ -1,12 +1,13 @@
-import OwlMain from "./OwlMain";
-import OwlBreakingNews from "./OwlBreakingNews";
+import OwlMain from "./OwlMainCopy";
+import OwlBreakingNews from "./OwlBreakingNewsCopy";
 /* import ads_img from '../assets/images/ads-728x90.png' */
 import OwlFeaturedNews from "./OwlFeaturedNews";
 import ContentSideBar from "./ContentSideBar";
+import StatesSlide from "./slick-carousel/StatesSlide";
 
 export default function Home() {
   return (
-    <div className="mb-5">
+    <div>
       {/* <!-- Topbar Start --> */}
       {/* <div className="container-fluid d-none d-lg-block">
         <div className="row align-items-center bg-dark px-lg-5">
@@ -106,6 +107,12 @@ export default function Home() {
       <OwlMain />
 
       {/* <!-- Main News Slider End --> */}
+
+      {/* <!-- States Start--> */}
+
+      <StatesSlide />
+
+      {/* <!-- States End--> */}
 
       {/* <!-- Breaking News Start --> */}
 

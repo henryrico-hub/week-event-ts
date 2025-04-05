@@ -2,9 +2,10 @@ import Slider from "react-slick";
 import { reelsEvents } from "../../data";
 
 function ReelsEvent() {
-  var settings = {
+  const settings = {
     nav: true,
     arrows: true,
+    infinite: false,
     // speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,

@@ -1,5 +1,4 @@
-import { Card, ConfigProvider, Tooltip, Typography } from "antd";
-
+import { Card, Tooltip, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { formatearFecha } from "../utils/helpers";
 import { EventType } from "../types";
@@ -67,7 +66,7 @@ const CardEvent: React.FC<CardEventProps> = ({ eve, colSpan }) => {
                         whiteSpace: "normal",
                         wordWrap: "break-word",
                       }}
-                      className="descript-resume"
+                      className="name-resume"
                     >
                       {eve.name}
                     </Title>

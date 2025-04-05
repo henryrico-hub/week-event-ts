@@ -13,7 +13,7 @@ import imgbanner from "../assets/images/news-800x500-3.jpg";
 import Selector from "./Selector";
 import { faHandsClapping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import OwlBreakingNews from "./OwlBreakingNews";
+import OwlBreakingNews from "./OwlBreakingNewsCopy";
 import { SkeletonGrid2 } from "./skeleton/SkeletonCustom";
 
 const SizeContent = {

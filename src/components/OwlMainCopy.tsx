@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import OwlCarousel from "react-owl-carousel";
+// import OwlCarousel from "react-owl-carousel";
 import { formatearFecha } from "../utils/helpers";
+import Slider from "react-slick";
 import { getEventsCurrents } from "../models/event.server";
 import { EventType } from "../types";
 import { SkeletonCustom, SkeletonGrid } from "./skeleton/SkeletonCustom";
 import logosm from "../assets/images/logo1.jpeg";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const SizeContent_lg = {
   Ipx: "3rem",
@@ -35,12 +38,36 @@ const SizeContent_md = {
 };
 
 export default function OwlMain() {
-  const options = {
-    items: 1,
-    nav: false,
+  const settings = {
+    autoplay: false,
+    infinite: true,
+    arrows: false,
+    slidesToShow: 1,
     dots: true,
+
+    // appendDots: (dots: any) => <ul style={{ margin: "0px" }}> {dots} </ul>,
+    customPaging: () => (
+      <button className="owl-dot">
+        <span></span>
+      </button>
+    ),
   };
 
+  /*
+    main-carousel
+      <ul>-slick-dots
+        <li>-
+          <button-owl-dot>
+            <span>
+  */
+
+  /*
+    main-carousel
+      owl-dots
+        owl-dots
+          <button>-owl-dot
+            <span>
+  */
   const [currentEvent, setcurrentEvent] = useState<EventType[]>([]); // Initialize state with an empty array
   const [loading, setLoading] = useState(false);
 
@@ -70,7 +97,7 @@ export default function OwlMain() {
 
   return (
     <>
-      <div className="container-fluid">
+      <div className="container-fluid bg-dark">
         <div className="row">
           <div className="col-lg-7 px-0">
             <SkeletonCustom
@@ -84,56 +111,57 @@ export default function OwlMain() {
               }}
             >
               {currentEvent && (
-                <OwlCarousel
-                  className="main-carousel relative"
-                  loop
-                  autoplay
-                  {...options}
+                <Slider
+                  className="main-carousel2 position-relative"
+                  {...settings}
                 >
                   {/* <div className="owl-carousel main-carousel position-relative"> */}
                   {currentEvent.slice(0, 5).map((eve, key) => (
-                    <div
-                      key={key}
-                      className="position-relative overflow-hidden"
-                      style={{ height: "500px" }}
-                    >
-                      {eve.img_main ? (
-                        <img
-                          className="img-fluid w-100 h-100"
-                          src={`${import.meta.env.VITE_API_URL_SHORT}${
-                            eve.img_main.url
-                          }`}
-                          style={{ objectFit: "cover" }}
-                        />
-                      ) : (
-                        <img
-                          className="img-fluid w-100 h-100"
-                          src={logosm}
-                          style={{ objectFit: "cover" }}
-                        />
-                      )}
-                      <div className="overlay">
-                        <div className="mb-2">
-                          <a
-                            className="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                            aria-disabled={true}
+                    <div key={key}>
+                      <div
+                        className="position-relative overflow-hidden"
+                        style={{ height: "493px" }}
+                      >
+                        {eve.img_main ? (
+                          <img
+                            className="img-fluid w-100 h-100"
+                            src={`${import.meta.env.VITE_API_URL_SHORT}${
+                              eve.img_main.url
+                            }`}
+                            style={{
+                              objectFit: "cover",
+                            }}
+                          />
+                        ) : (
+                          <img
+                            className="img-fluid w-100 h-100"
+                            src={logosm}
+                            style={{ objectFit: "cover" }}
+                          />
+                        )}
+                        <div className="overlay">
+                          <div className="mb-2">
+                            <a
+                              className="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
+                              aria-disabled={true}
+                            >
+                              {eve.category.name}
+                            </a>
+                            <a className="text-white" aria-disabled={true}>
+                              {formatearFecha(eve.date_event)}
+                            </a>
+                          </div>
+                          <Link
+                            className="h2 m-0 text-white text-uppercase font-weight-bold"
+                            to={`/evento/${eve.url}`}
                           >
-                            {eve.category.name}
-                          </a>
-                          <a className="text-white" aria-disabled={true}>
-                            {formatearFecha(eve.date_event)}
-                          </a>
+                            {eve.name}
+                          </Link>
                         </div>
-                        <Link
-                          className="h2 m-0 text-white text-uppercase font-weight-bold"
-                          to={`/evento/${eve.url}`}
-                        >
-                          {eve.name}
-                        </Link>
                       </div>
                     </div>
                   ))}
-                </OwlCarousel>
+                </Slider>
               )}
             </SkeletonCustom>
           </div>

@@ -5,14 +5,14 @@ import Home from "./components/Home";
 import "./assets/css/style.css";
 import CategoryPage from "./components/CategoryPage";
 import SingleEvent from "./components/SingleEvent";
-import ScrollToTop from "./utils/scrollToTop";
+import { Wrapper } from "./utils/scrollToTop";
 // import FilterCalendar from "./components/Calendar/FilterCalendar";
 import CommunityPage from "./components/CommunityPage";
 import SinglePost from "./components/SinglePost";
 import ErrorBoundary from "./components/ErrorPage";
 import Payment from "./components/payment";
 import CalendarVision from "./components/Calendar/CalendarVision";
-import MapSection from "./components/Maps/MapSection";
+import StatesSlide from "./components/slick-carousel/StatesSlide";
 
 function App() {
   const categories = [
@@ -27,25 +27,29 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />}></Route>
-            <Route path="/evento/:url" element={<SingleEvent />}></Route>
-            <Route path="/calendario/" element={<CalendarVision />}></Route>
+        <Wrapper>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />}></Route>
+              <Route path="/evento/:url" element={<SingleEvent />}></Route>
+              <Route path="/calendario/" element={<CalendarVision />}></Route>
 
-            <Route path="/comunidad/" element={<CommunityPage />}></Route>
-            <Route path="/maps/" element={<MapSection />}></Route>
-            <Route path="/comunidad/post/:url" element={<SinglePost />}></Route>
-            <Route path="/payment/" element={<Payment />}></Route>
+              <Route path="/comunidad/" element={<CommunityPage />}></Route>
+              <Route path="/maps/" element={<StatesSlide />}></Route>
+              <Route
+                path="/comunidad/post/:url"
+                element={<SinglePost />}
+              ></Route>
+              <Route path="/payment/" element={<Payment />}></Route>
 
-            <Route
-              path="/categoria/:category_url"
-              element={<CategoryPage categories={categories} />}
-            ></Route>
-            <Route path="*" element={<ErrorBoundary />} />
-          </Route>
-        </Routes>
+              <Route
+                path="/categoria/:category_url"
+                element={<CategoryPage categories={categories} />}
+              ></Route>
+              <Route path="*" element={<ErrorBoundary />} />
+            </Route>
+          </Routes>
+        </Wrapper>
       </BrowserRouter>
     </>
   );

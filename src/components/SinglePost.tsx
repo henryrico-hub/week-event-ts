@@ -9,7 +9,7 @@ import { ArticleType } from "../types";
 /* import perfil_img from '../assets/images/user.jpg' */
 import { category } from "../data";
 import img_lg from "../assets/images/news-700x435-2.jpg";
-import TrandingEvents from "./TrandingEvents";
+import TrandingEvents from "./TrandingEventsCopy";
 
 import {
   faHandsClapping,
@@ -17,28 +17,27 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ErrorBoundary from "./ErrorPage";
 import { Flex, Skeleton } from "antd";
-import { SkeletonCustom } from "./skeleton/SkeletonCustom";
+// import { SkeletonCustom } from "./skeleton/SkeletonCustom";
 
 type StatusButton = JSX.Element;
 type paramsEventProps = {
   url: string;
 };
-const SizeContent = {
-  Ipx: "3rem",
-  Ipy: "2rem",
-  Im: "1rem",
-  Imy: "3rem",
-  Imx: "3rem",
-  Ppb: "3rem",
-  Ppl: "3rem",
-  zero: "0px",
-  height: "200px",
-  width: "100%",
-  Ppt: "",
-  Ppr: "",
-};
+// const SizeContent = {
+//   Ipx: "3rem",
+//   Ipy: "2rem",
+//   Im: "1rem",
+//   Imy: "3rem",
+//   Imx: "3rem",
+//   Ppb: "3rem",
+//   Ppl: "3rem",
+//   zero: "0px",
+//   height: "200px",
+//   width: "100%",
+//   Ppt: "",
+//   Ppr: "",
+// };
 
 export default function SinglePost() {
   const params = useParams<paramsEventProps>();
@@ -104,7 +103,6 @@ export default function SinglePost() {
         setTimeout(() => {
           setStatusClaps("error");
         }, 2000);
-      } finally {
       }
     }, 3000);
   };
