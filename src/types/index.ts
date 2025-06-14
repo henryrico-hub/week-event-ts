@@ -136,7 +136,7 @@ export type Payment = {
   url: string;
   previewUrl: string | null;
   provider: string;
-  provider_metadata: any | null;
+  provider_metadata: undefined | null;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;

@@ -1,6 +1,5 @@
 import { EventType } from "src/types";
 import { TicketPass } from "./Upload/TicketPass";
-import { useEffect } from "react";
 
 type Step2Props = {
   id: string;
@@ -9,16 +8,7 @@ type Step2Props = {
   dataParticipant: any;
 };
 
-export default function Step3({
-  id,
-  data,
-  setUpdateData,
-  dataParticipant,
-}: Step2Props) {
-  // setUpdateData((prev) => !prev);
-
-  // const [loading, setLoading] = useState(false);
-
+export default function Step3({ id, data, dataParticipant }: Step2Props) {
   return (
     <>
       <div className="md:py-5 lg:py-10 lg:px-10 flex justify-center">

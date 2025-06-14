@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { category } from "../data";
+import { category } from "src/data/index";
 import { Icon } from "@iconify-icon/react";
 
 function Footer() {

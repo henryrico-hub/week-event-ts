@@ -1,8 +1,5 @@
-import { CloseCircleTwoTone } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import {
-  Form,
-  Button,
   Typography,
   Row,
   Col,
@@ -16,16 +13,11 @@ import {
 import { getParticipant } from "../../models/event.server";
 import { BlocksContent } from "@strapi/blocks-react-renderer";
 import BlockRendererClient from "src/components/BlockRendererClient";
-import type { CollapseProps, FormInstance, NotificationArgsProps } from "antd";
+import type { CollapseProps } from "antd";
 import { EventType } from "src/types";
 import { Icon } from "@iconify-icon/react";
 import ImageUpload from "src/components/Forms/Upload/ImageUpload";
 import { formatearFechalg } from "src/utils/helpers";
-
-interface SubmitButtonProps {
-  form: FormInstance;
-}
-type NotificationPlacement = NotificationArgsProps["placement"];
 
 type Step2Props = {
   next: () => void;
@@ -54,11 +46,9 @@ export default function Step2({
 }: Step2Props) {
   const [tranferPaymentData] = useState<BlocksContent>(data?.transfer_payment);
   const [digitalPaymentData] = useState<BlocksContent>(data?.digital_payment);
-  const [api, contextHolder] = notification.useNotification();
-  const [loading, setLoading] = useState(false);
+  const [contextHolder] = notification.useNotification();
+  const [, setLoading] = useState(false);
   const [partId, setPartId] = useState<string>();
-  const [validForm, setValidForm] = useState(false);
-  const [validBeat, setValidBeat] = useState<boolean>(true);
 
   useEffect(() => {
     setLoading(true);
@@ -66,14 +56,11 @@ export default function Step2({
       try {
         if (!id) {
           return;
-          // setErrorUrl(true);
         }
         const response = await getParticipant(id);
         setPartId(response.data[0].documentId);
-        // console.log(response.data[0].documentId);
       } catch (error) {
         console.error("Error fetching events:", error);
-        // console.log("error -" + errorUrl);
       } finally {
         setTimeout(() => {
           setLoading(false);

@@ -39,7 +39,7 @@ const data2 = [
   { n: "5" },
   { n: "6" },
 ];
-const data3 = [{ n: "1" }, { n: "2" }, { n: "3" }, { n: "4" }, { n: "5" }];
+// const data3 = [{ n: "1" }, { n: "2" }, { n: "3" }, { n: "4" }, { n: "5" }];
 const data4 = [{ n: "1" }, { n: "2" }, { n: "3" }];
 
 export function SkeletonCustom({

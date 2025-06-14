@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
-import JsBarcode from "jsbarcode";
-
+import * as JsBarcode from "jsbarcode";
 interface BarcodeProps {
   value: string;
   width?: number;

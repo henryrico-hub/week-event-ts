@@ -9,12 +9,10 @@ import {
   message,
   Button,
   Space,
-  Tooltip,
 } from "antd";
 import type { GetProp, UploadFile, UploadProps } from "antd";
 import ModalConfirm from "./ModalConfirm";
 import axios from "axios";
-import { Icon } from "@iconify-icon/react";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
@@ -23,7 +21,7 @@ type Props = {
   next: () => void;
   setUpdateData: React.Dispatch<React.SetStateAction<boolean>>;
 };
-const uploadComp = ({ partId, next, setUpdateData }: Props) => {
+const uploadComp = ({ partId, setUpdateData }: Props) => {
   const [loading, setLoading] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
@@ -31,9 +29,7 @@ const uploadComp = ({ partId, next, setUpdateData }: Props) => {
   const [open, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
 
-  const [res, setRes] = useState<AxiosResponse<any, any> | undefined>(
-    undefined
-  );
+  const [, setRes] = useState<AxiosResponse<any, any> | undefined>(undefined);
 
   const getBase64 = (file: FileType): Promise<string> =>
     new Promise((resolve, reject) => {
@@ -192,21 +188,6 @@ const uploadComp = ({ partId, next, setUpdateData }: Props) => {
           ></Typography.Paragraph>
         </Typography.Title>
       </Space>
-    );
-  };
-
-  const bodySuccess = () => {
-    return (
-      <Typography.Title level={3} style={{ textAlign: "center" }}>
-        Atención
-        <Tooltip title="¿Para conocer el estado de tu registro ve a la sección 'Check Inscripción'.">
-          <Icon
-            icon={"material-symbols:shield-question"}
-            className="px-2"
-            inline={true}
-          />
-        </Tooltip>
-      </Typography.Title>
     );
   };
 

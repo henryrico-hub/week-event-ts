@@ -1,9 +1,8 @@
 import Slider from "react-slick";
-import { statesOfMexico } from "../../data";
 import { Col, ConfigProvider, Row } from "antd";
 import { Icon } from "@iconify-icon/react";
 import { useEffect, useState } from "react";
-import { SkeletonGeneric, SkeletonStates } from "../skeleton/SkeletonCustom";
+import { SkeletonGeneric } from "../skeleton/SkeletonCustom";
 import { getEventsParams } from "src/models/event.server";
 import { EventType } from "src/types";
 

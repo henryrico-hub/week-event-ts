@@ -4,7 +4,6 @@ import { getSingleEvent } from "../models/event.server";
 import { EventType } from "../types";
 import { useParams } from "react-router-dom";
 import {
-  formatearFechalg,
   formatearDayStyle,
   formatearHora,
   formatearPrice,

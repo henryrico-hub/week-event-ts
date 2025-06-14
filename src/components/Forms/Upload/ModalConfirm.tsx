@@ -54,9 +54,6 @@ const ModalConfirm = ({
 
   return (
     <>
-      {/* <Button type="primary" onClick={showModal}>
-        Open Modal with async logic
-      </Button> */}
       <Modal
         title={title}
         open={open}
@@ -65,7 +62,6 @@ const ModalConfirm = ({
         // onCancel={handleCancel}
         footer={getFooterButtons}
       >
-        {/* <p>{"¿Estas seguro de que deseas continuar?"}</p> */}
         {content}
       </Modal>
     </>

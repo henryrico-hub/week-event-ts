@@ -1,6 +1,6 @@
 // BoardingPass.tsx
 import { toPng } from "html-to-image";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { EventType } from "src/types";
 import { formatearMesDiaHora, formatearPrice } from "src/utils/helpers";
 import Barcode from "./BarCode";
@@ -13,11 +13,7 @@ interface BoardingPassProps {
   dataParticipant: any;
 }
 
-export const TicketPass = ({
-  data,
-  id,
-  dataParticipant,
-}: BoardingPassProps) => {
+export const TicketPass = ({ data, dataParticipant }: BoardingPassProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   // const [participante, setParticipante] = useState<EventType>();
 

@@ -1,4 +1,3 @@
-import { CloseCircleTwoTone } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import {
   Form,
@@ -14,16 +13,11 @@ import {
 import { Icon } from "@iconify-icon/react";
 import Title from "antd/es/typography/Title";
 // import { City, Country, ICountry, State } from "country-state-city";
-import type { FormInstance, NotificationArgsProps } from "antd";
+import type { FormInstance } from "antd";
 import { notification } from "antd";
 import { postParticipant } from "src/models/event.server";
 import { EventType } from "src/types";
 import ModalConfirm from "./Upload/ModalConfirm";
-
-type CountryStatesCityTypes = {
-  label: string;
-  value: string;
-};
 
 const { Text } = Typography;
 type FieldType =
@@ -50,7 +44,7 @@ type FieldType =
 interface SubmitButtonProps {
   form: FormInstance;
 }
-type NotificationPlacement = NotificationArgsProps["placement"];
+// type NotificationPlacement = NotificationArgsProps["placement"];
 
 type Step1Props = {
   next: () => void;
@@ -59,14 +53,14 @@ type Step1Props = {
 };
 
 export default function Step1({ next, setRegisterId, data }: Step1Props) {
-  const [api, contextHolder] = notification.useNotification();
+  const [, contextHolder] = notification.useNotification();
 
   const [form] = Form.useForm();
   const variant = Form.useWatch("variant", form);
 
   const [loading, setLoading] = useState(false);
-  const [validForm, setValidForm] = useState(false);
-  const [jersey, setjersey] = useState<boolean>(true);
+  const [validForm] = useState(false);
+  // const [jersey, setjersey] = useState<boolean>(true);
 
   const [open, setOpen] = useState(false);
 
@@ -74,14 +68,14 @@ export default function Step1({ next, setRegisterId, data }: Step1Props) {
     console.log("Errores ->", errorInfo);
   };
 
-  const openNotificationError = (placement: NotificationPlacement) => {
-    api.info({
-      message: `Ocurrio un error mientras se hacia el registro`,
-      description: "Intentelo de nuevo",
-      placement,
-      icon: <CloseCircleTwoTone twoToneColor="rgb(255, 77, 79)" />,
-    });
-  };
+  // const openNotificationError = (placement: NotificationPlacement) => {
+  //   api.info({
+  //     message: `Ocurrio un error mientras se hacia el registro`,
+  //     description: "Intentelo de nuevo",
+  //     placement,
+  //     icon: <CloseCircleTwoTone twoToneColor="rgb(255, 77, 79)" />,
+  //   });
+  // };
 
   // const bottomEle = document.querySelector("#flag-success");
   // console.log("--->", data);
@@ -161,9 +155,9 @@ export default function Step1({ next, setRegisterId, data }: Step1Props) {
     createUser();
   };
 
-  const onChange1 = () => {
-    setjersey(!jersey);
-  };
+  // const onChange1 = () => {
+  //   setjersey(!jersey);
+  // };
 
   const contentText = () => {
     return (
