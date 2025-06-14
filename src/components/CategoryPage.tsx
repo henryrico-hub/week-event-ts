@@ -100,8 +100,8 @@ export default function CategoryPage({ categories }: categoriesProps) {
                     {/* <a className="text-secondary font-weight-medium text-decoration-none" href="">View All</a> */}
                   </div>
                 </div>
-                {currentItems.map((eve) => (
-                  <CardEvent eve={eve} colSpan={4} />
+                {currentItems.map((eve, key) => (
+                  <CardEvent key={key} eve={eve} colSpan={4} />
                   // <div key={key} className="col-lg-4">
                   //   <div className="position-relative mb-3">
                   //     { eve.img_main ?

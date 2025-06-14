@@ -38,8 +38,9 @@ const data2 = [
   { n: "4" },
   { n: "5" },
   { n: "6" },
-  { n: "7" },
 ];
+const data3 = [{ n: "1" }, { n: "2" }, { n: "3" }, { n: "4" }, { n: "5" }];
+const data4 = [{ n: "1" }, { n: "2" }, { n: "3" }];
 
 export function SkeletonCustom({
   loading,
@@ -342,6 +343,240 @@ export function SkeletonGridSocial({
                     {children}
                   </Skeleton>
                 </Flex>
+              </List.Item>
+            )}
+          />
+        </>
+      )}
+    </>
+  );
+}
+export function SkeletonTitleSection({
+  loading,
+  avatar,
+  title,
+  paragraph,
+  children,
+  sizeContent,
+}: skeletonTypes) {
+  return (
+    <>
+      <Skeleton
+        loading={loading}
+        active
+        avatar={avatar}
+        title={title}
+        paragraph={paragraph}
+        className="py-56 px-16 md:py-40 md:px-32 lg:py-32 lg:px-64"
+        style={{
+          width: sizeContent.width,
+        }}
+      >
+        {children}
+      </Skeleton>
+    </>
+  );
+}
+export function SkeletonCard({
+  avatar,
+  title,
+  paragraph,
+  children,
+  sizeContent,
+}: skeletonTypes) {
+  return (
+    <>
+      <Skeleton.Image
+        active
+        style={{
+          padding: sizeContent.Ipx,
+          marginTop: sizeContent.Imy,
+          marginLeft: sizeContent.Im,
+          marginRight: sizeContent.Im,
+          height: sizeContent.height,
+          width: sizeContent.width,
+        }}
+      />
+
+      <Skeleton
+        loading={true}
+        active
+        avatar={avatar}
+        title={title}
+        paragraph={paragraph}
+        style={{
+          paddingBottom: sizeContent.Ppl,
+          padding: sizeContent.Ppb,
+          paddingLeft: sizeContent.Ppl,
+          paddingRight: sizeContent.Ppb,
+        }}
+      >
+        {children}
+      </Skeleton>
+      <Flex
+        gap={"middle"}
+        style={{
+          paddingLeft: sizeContent.Ppl,
+          paddingRight: sizeContent.Ppb,
+          paddingBottom: sizeContent.Ppl,
+        }}
+      >
+        <Skeleton.Avatar active size={"large"} />
+        <Skeleton.Button active size={"large"} block={true} />
+      </Flex>
+    </>
+  );
+}
+export function SkeletonRigthSection({
+  loading,
+  avatar,
+  title,
+  paragraph,
+  children,
+  sizeContent,
+}: skeletonTypes) {
+  return (
+    <Flex vertical gap={"large"} align="center">
+      <Skeleton.Button
+        active
+        size={"large"}
+        block={true}
+        style={{
+          marginBottom: "1rem",
+        }}
+      />
+      <Skeleton
+        loading={loading}
+        active
+        avatar={avatar}
+        title={title}
+        paragraph={paragraph}
+        style={{
+          width: sizeContent.width,
+        }}
+      >
+        {children}
+      </Skeleton>
+      <Skeleton.Image
+        active
+        style={{
+          width: "250px",
+          height: "180px",
+        }}
+      />
+      <Skeleton
+        loading={loading}
+        active
+        avatar={avatar}
+        title={title}
+        paragraph={paragraph}
+        style={{
+          width: sizeContent.width,
+        }}
+      ></Skeleton>
+    </Flex>
+  );
+}
+export function SkeletonGeneric({ loading, sizeContent }: skeletonTypes) {
+  return (
+    <>
+      {loading && (
+        <>
+          <Skeleton.Button
+            active
+            block={true}
+            size={"large"}
+            style={{
+              width: "100%",
+              marginTop: "4rem",
+              marginBottom: "1rem",
+              paddingRight: "1rem",
+              paddingLeft: "2rem",
+            }}
+          />
+          <List
+            grid={{
+              gutter: 0,
+              xs: 1,
+              sm: 1,
+              md: 2,
+              lg: 3,
+              xl: 4,
+              xxl: 5,
+            }}
+            dataSource={data4}
+            renderItem={() => (
+              <List.Item>
+                <Skeleton.Image
+                  active
+                  style={{
+                    paddingLeft: sizeContent.Ipx,
+                    paddingRight: sizeContent.Ipx,
+                    paddingTop: sizeContent.Ipy,
+                    paddingBottom: sizeContent.Ipy,
+                    marginTop: sizeContent.Imy,
+                    marginBottom: sizeContent.Imy,
+                    marginLeft: sizeContent.Imx,
+                    marginRight: sizeContent.Imx,
+
+                    height: sizeContent.height,
+                    width: sizeContent.width,
+                  }}
+                />
+              </List.Item>
+            )}
+          />
+        </>
+      )}
+    </>
+  );
+}
+export function SkeletonStates({ loading, sizeContent }: skeletonTypes) {
+  return (
+    <>
+      {loading && (
+        <>
+          <Skeleton.Button
+            active
+            block={true}
+            size={"large"}
+            style={{
+              width: "100%",
+              marginTop: "4rem",
+              marginBottom: "1rem",
+              paddingRight: "1rem",
+              paddingLeft: "2rem",
+            }}
+          />
+          <List
+            grid={{
+              gutter: 0,
+              xs: 1,
+              sm: 1,
+              md: 2,
+              lg: 3,
+              xl: 4,
+              xxl: 5,
+            }}
+            dataSource={data4}
+            renderItem={() => (
+              <List.Item>
+                <Skeleton.Image
+                  active
+                  style={{
+                    paddingLeft: sizeContent.Ipx,
+                    paddingRight: sizeContent.Ipx,
+                    paddingTop: sizeContent.Ipy,
+                    paddingBottom: sizeContent.Ipy,
+                    marginTop: sizeContent.Imy,
+                    marginBottom: sizeContent.Imy,
+                    marginLeft: sizeContent.Imx,
+                    marginRight: sizeContent.Imx,
+
+                    height: sizeContent.height,
+                    width: sizeContent.width,
+                  }}
+                />
               </List.Item>
             )}
           />

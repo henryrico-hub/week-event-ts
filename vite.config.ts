@@ -6,7 +6,6 @@ import react from "@vitejs/plugin-react-swc";
 export default defineConfig({
   plugins: [
     react(),
-
     inject({
       // include: ["**/*.js", "**/*.ts", "**/*.jsx", "**/*.tsx"], // Include only JS/TS files
       // exclude: ["**/*.css", "**/*.scss", "**/*.sass"], // Exclude CSS and other styles
@@ -15,4 +14,9 @@ export default defineConfig({
       "window.jQuery": "jquery",
     }),
   ],
+  resolve: {
+    alias: {
+      src: "/src",
+    },
+  },
 });

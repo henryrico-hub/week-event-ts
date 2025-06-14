@@ -1,8 +1,30 @@
+import axios from "axios";
+
 ///
 // -Consulta eventos apartir de la fecha actual
 
 export async function getEventsParams(url: string) {
   const respuesta = await fetch(`${import.meta.env.VITE_API_URL}${url}`);
+  const resultado = await respuesta.json();
+
+  return resultado;
+}
+export async function getUserEventsArticles(user: string) {
+  const respuesta = await fetch(
+    `${
+      import.meta.env.VITE_API_URL
+    }/users?filters[id][$eq]=${user}&populate[author_scs][populate][article_scs]=true&populate[author_scs][populate][events][populate][category]=true&populate[author_scs][populate][events][populate][participants]=true`
+  );
+  const resultado = await respuesta.json();
+
+  return resultado;
+}
+export async function getParticipantListByEvent(url: string) {
+  const respuesta = await fetch(
+    `${
+      import.meta.env.VITE_API_URL
+    }/events?filters[url][$eq]=${url}&populate[participants][populate][payment]=true`
+  );
   const resultado = await respuesta.json();
 
   return resultado;
@@ -22,6 +44,32 @@ export async function putClapsArticle(id: string, dataClap: number) {
   const resultado = await respuesta.json();
 
   return resultado;
+}
+
+// --------------------- POST  --------------------- --------------------- ---------------------
+
+export async function postParticipant(participantData: any) {
+  const respuesta = await axios.post(
+    `${import.meta.env.VITE_API_URL}/participants`,
+    {
+      data: participantData,
+    }
+  );
+
+  return respuesta.data;
+}
+export async function updateParticipant(formData: any) {
+  const respuesta = await axios.post(
+    `${import.meta.env.VITE_API_URL}/upload`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+
+  return respuesta.data;
 }
 
 // --------------------- --------------------- --------------------- ---------------------
@@ -45,6 +93,16 @@ export async function getCategoryEvents(category_url: string) {
     `${
       import.meta.env.VITE_API_URL
     }/events?filters[category][slug][$eq]=${category_url}&[populate][category][fields][0]=name&[populate][img_main][fields][0]=url`
+  );
+  const resultado = await respuesta.json();
+
+  return resultado;
+}
+export async function getEventsState(state: string) {
+  const respuesta = await fetch(
+    `${
+      import.meta.env.VITE_API_URL
+    }/events?filters[state][slug][$eq]=${state}&[populate][category][fields][0]=name&[populate][category][fields][1]=slug&[populate][img_main][fields][0]=url&populate[author_sc][populate][0]=avatar&populate[state][fields]*`
   );
   const resultado = await respuesta.json();
 
@@ -141,7 +199,7 @@ export async function getSingleEvent(url: string) {
   const respuesta = await fetch(
     `${
       import.meta.env.VITE_API_URL
-    }/events?filters[url][$eq]=${url}&fields[0]=name&fields[1]=description1&fields[2]=date_event&fields[3]=author_desc&fields[4]=distance_category&fields[5]=city_state&fields[6]=price&fields[7]=registration_prices&fields[8]=claps&fields[9]=kit_delivery&fields[10]=services&populate[category][fields][0]=name&populate[img_main][fields]*&populate[img_desc1][fields]*&populate[img_desc2][fields]*&populate[state][fields]*`
+    }/events?filters[url][$eq]=${url}&fields[0]=name&fields[1]=description1&fields[2]=date_event&fields[3]=author_desc&fields[4]=distance_category&fields[5]=city_state&fields[6]=price&fields[7]=registration_prices&fields[8]=claps&fields[9]=kit_delivery&fields[10]=services&populate[category][fields][0]=name&populate[img_main][fields]*&populate[img_desc1][fields]*&populate[img_desc2][fields]*&populate[state][fields]*&populate[reels][fields]&fields[11]=transfer_payment&fields[12]=digital_payment&populate[event_category_scs][fields][]=*`
   );
   const resultado = await respuesta.json();
 
@@ -172,6 +230,17 @@ export async function getSingleArticle(url: string) {
     `${
       import.meta.env.VITE_API_URL
     }/article-scs?filters[url][$eq]=${url}&populate[author_sc][populate][0]=avatar&populate[event_category][fields][0]=name&populate[img_main][fields][0]=url`
+  );
+  const resultado = await respuesta.json();
+
+  return resultado;
+}
+
+export async function getParticipant(id: string) {
+  const respuesta = await fetch(
+    `${
+      import.meta.env.VITE_API_URL
+    }/participants?filters[documentId][$contains]=${id}&populate[event][fields][0]=url&populate[payment][fields][0]=*`
   );
   const resultado = await respuesta.json();
 

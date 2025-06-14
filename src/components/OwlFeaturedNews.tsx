@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 /* import img from '../assets/images/news-700x435-1.jpg' */
 // import OwlCarousel from "react-owl-carousel";
+import { Icon } from "@iconify-icon/react";
 import { getEventsLastOne } from "../models/event.server";
 import { EventType } from "../types";
 import { formatearFecha } from "../utils/helpers";
@@ -11,6 +12,7 @@ import Slider from "react-slick";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Typography } from "antd";
 
 const SizeContent_lg = {
   Ipx: "1rem",
@@ -51,7 +53,7 @@ export default function OwlFeaturedNews() {
   const [loading, setLoading] = useState(false);
 
   const settings = {
-    autoplay: false,
+    autoplay: true,
     infinite: true,
     arrows: false,
     slidesToShow: 4,
@@ -126,10 +128,11 @@ export default function OwlFeaturedNews() {
               </h4>
               <div className="owl-nav">
                 <button className="owl-prev" onClick={previous}>
-                  <i className="fas fa-chevron-left"></i>
+                  {/* <i className="fas fa-chevron-left"></i> */}
+                  <Icon icon={"fa-solid:chevron-left"} />
                 </button>
                 <button className="owl-next" onClick={next}>
-                  <i className="fas fa-chevron-right"></i>
+                  <Icon icon={"fa-solid:chevron-right"} />
                 </button>
               </div>
             </div>
@@ -191,12 +194,12 @@ export default function OwlFeaturedNews() {
                           <small>{formatearFecha(even.date_event)}</small>
                         </a>
                       </div>
-                      <Link
+                      <Typography.Text
                         className="h6 m-0 text-white text-uppercase font-weight-semi-bold text-decoration-none"
-                        to={`/evento/${even.url}`}
+                        // to={`/evento/${even.url}`}
                       >
                         {even.name}
-                      </Link>
+                      </Typography.Text>
                     </div>
                   </div>
                 </Link>

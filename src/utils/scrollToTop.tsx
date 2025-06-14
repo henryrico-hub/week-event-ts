@@ -1,13 +1,15 @@
-import { ReactNode, useLayoutEffect } from "react";
+// src/utils/ScrollToTop.tsx
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-export const Wrapper = ({ children }: { children: ReactNode }) => {
-  const location = useLocation();
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
 
-  useLayoutEffect(() => {
-    // Scroll to the top of the page when the route changes
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-  }, [location.pathname]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
-  return children;
+  return null;
 };
+
+export default ScrollToTop;

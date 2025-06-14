@@ -10,14 +10,8 @@ import { ArticleType } from "../types";
 import { category } from "../data";
 import img_lg from "../assets/images/news-700x435-2.jpg";
 import TrandingEvents from "./TrandingEventsCopy";
-
-import {
-  faHandsClapping,
-  faSpinner,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Flex, Skeleton } from "antd";
+import { Icon } from "@iconify-icon/react";
+import { Flex, Skeleton, Typography } from "antd";
 // import { SkeletonCustom } from "./skeleton/SkeletonCustom";
 
 type StatusButton = JSX.Element;
@@ -110,46 +104,57 @@ export default function SinglePost() {
   const statusButtons: Record<string, StatusButton> = {
     init: (
       <button className="ml-2" onClick={handleSubmit}>
-        <FontAwesomeIcon icon={faHandsClapping} bounce size="lg" />
+        {/* <FontAwesomeIcon icon={faHandsClapping} bounce size="lg" /> */}
+        <Icon icon={"fa6-solid:hands-clapping"} />
       </button>
     ),
     loader: (
       <button className="ml-2" onClick={handleSubmit} disabled>
-        <FontAwesomeIcon
+        <Icon
+          icon={"fa-solid:spinner"}
+          // spin
+          // size="lg"
+          style={{ color: "#f97316" }}
+        />
+        {/* <FontAwesomeIcon
           icon={faSpinner}
           spin
           size="lg"
           style={{ color: "#f97316" }}
-        />
+        /> */}
       </button>
     ),
     "success-bounce": (
       <button className="ml-2" onClick={handleSubmit} disabled>
-        <FontAwesomeIcon
+        <Icon icon={"fa6-solid:hands-clapping"} style={{ color: "#f97316" }} />
+        {/* <FontAwesomeIcon
           icon={faHandsClapping}
           bounce
           size="lg"
           style={{ color: "#f97316" }}
-        />
+        /> */}
       </button>
     ),
     success: (
       <button className="ml-2" onClick={handleSubmit} disabled>
-        <FontAwesomeIcon
+        <Icon icon={"fa6-solid:hands-clapping"} style={{ color: "#f97316" }} />
+        {/* <FontAwesomeIcon
           icon={faHandsClapping}
           size="lg"
           style={{ color: "#f97316" }}
-        />
+        /> */}
       </button>
     ),
     "error-beat": (
       <button className="ml-2" onClick={handleSubmit} disabled>
-        <FontAwesomeIcon icon={faXmark} beatFade size="xl" />
+        {/* <FontAwesomeIcon icon={faXmark} beatFade size="xl" /> */}
+        <Icon icon={"fa6-regular:circle-xmark"} />
       </button>
     ),
     error: (
       <button className="ml-2" onClick={handleSubmit} disabled>
-        <FontAwesomeIcon icon={faXmark} size="xl" />
+        {/* <FontAwesomeIcon icon={faXmark} size="xl" /> */}
+        <Icon icon={"fa6-regular:circle-xmark"} />
       </button>
     ),
   };
@@ -206,8 +211,10 @@ export default function SinglePost() {
                         <small>{eve.author_sc.name}</small>
                       </div>
                       <div className="d-flex align-items-center">
-                        <i className="far fa-eye "></i>
-                        <small className="mx-2">12345</small>
+                        <Icon icon={"fa-regular:eye"} className="mr-1" />
+                        <Typography.Text type="secondary" className="mr-2">
+                          12345
+                        </Typography.Text>
 
                         {/* <small className="ml-3"><i className="far fa-comment mr-2"></i>123</small> */}
                         {statusButtons[statusClaps]}

@@ -1,42 +1,38 @@
-import {
-  faPersonRunning,
-  faPersonBiking,
-  faPersonSwimming,
-  faPersonThroughWindow,
-} from "@fortawesome/free-solid-svg-icons";
-import { CalendarDaysIcon } from "@heroicons/react/20/solid";
-import AGS from "/src/assets/images/states/AGS.jpg";
-import BC from "/src/assets/images/states/BC.jpg";
-import BCS from "/src/assets/images/states/BCS.jpg";
-import CAM from "/src/assets/images/states/CAM.jpg";
-import CHI from "/src/assets/images/states/CHI.jpg";
-import CHIH from "/src/assets/images/states/CHIH.jpg";
-import COA from "/src/assets/images/states/COA.jpg";
-import COL from "/src/assets/images/states/COL.jpg";
-import DGO from "/src/assets/images/states/DGO.jpg";
-import GTO from "/src/assets/images/states/GTO.jpg";
-import GUE from "/src/assets/images/states/GUE.jpg";
-import HDO from "/src/assets/images/states/HDO.jpg";
-import JAL from "/src/assets/images/states/JAL.jpg";
-import CDMX from "/src/assets/images/states/CDMX.jpg";
-import EDOMEX from "/src/assets/images/states/EDOMEX.jpg";
-import MICH from "/src/assets/images/states/MICH.jpg";
-import MOR from "/src/assets/images/states/MOR.jpg";
-import NAY from "/src/assets/images/states/NAY.jpeg";
-import NL from "/src/assets/images/states/NL.jpeg";
-import OAX from "/src/assets/images/states/OAX.jpg";
-import PUE from "/src/assets/images/states/PUE.jpg";
-import QTO from "/src/assets/images/states/QTO.jpg";
-import QRO from "/src/assets/images/states/QRO.jpg";
-import SLP from "/src/assets/images/states/SLP.jpeg";
-import SNL from "/src/assets/images/states/SNL.jpg";
-import SON from "/src/assets/images/states/SON.jpeg";
-import TAB from "/src/assets/images/states/TAB.jpeg";
-import TAM from "/src/assets/images/states/TAM.jpg";
-import TLAX from "/src/assets/images/states/TLAX.jpg";
-import VER from "/src/assets/images/states/VER.jpg";
-import YUC from "/src/assets/images/states/YUC.jpg";
-import ZAC from "/src/assets/images/states/ZAC.png";
+import { Icon } from "@iconify-icon/react";
+import { MtbV3_icon, Trail_icon2 } from "src/components/Icons/Icons";
+
+// import AGS from "/src/assets/images/states/AGS.jpg";
+// import BC from "/src/assets/images/states/BC.jpg";
+// import BCS from "/src/assets/images/states/BCS.jpg";
+// import CAM from "/src/assets/images/states/CAM.jpg";
+// import CHI from "/src/assets/images/states/CHI.jpg";
+// import CHIH from "/src/assets/images/states/CHIH.jpg";
+// import COA from "/src/assets/images/states/COA.jpg";
+// import COL from "/src/assets/images/states/COL.jpg";
+// import DGO from "/src/assets/images/states/DGO.jpg";
+// import GTO from "/src/assets/images/states/GTO.jpg";
+// import GUE from "/src/assets/images/states/GUE.jpg";
+// import HDO from "/src/assets/images/states/HDO.jpg";
+// import JAL from "/src/assets/images/states/JAL.jpg";
+// import CDMX from "/src/assets/images/states/CDMX.jpg";
+// import EDOMEX from "/src/assets/images/states/EDOMEX.jpg";
+// import MICH from "/src/assets/images/states/MICH.jpg";
+// import MOR from "/src/assets/images/states/MOR.jpg";
+// import NAY from "/src/assets/images/states/NAY.jpeg";
+// import NL from "/src/assets/images/states/NL.jpeg";
+// import OAX from "/src/assets/images/states/OAX.jpg";
+// import PUE from "/src/assets/images/states/PUE.jpg";
+// import QTO from "/src/assets/images/states/QTO.jpg";
+// import QRO from "/src/assets/images/states/QRO.jpg";
+// import SLP from "/src/assets/images/states/SLP.jpeg";
+// import SNL from "/src/assets/images/states/SNL.jpg";
+// import SON from "/src/assets/images/states/SON.jpeg";
+// import TAB from "/src/assets/images/states/TAB.jpeg";
+// import TAM from "/src/assets/images/states/TAM.jpg";
+// import TLAX from "/src/assets/images/states/TLAX.jpg";
+// import VER from "/src/assets/images/states/VER.jpg";
+// import YUC from "/src/assets/images/states/YUC.jpg";
+// import ZAC from "/src/assets/images/states/ZAC.png";
 
 export const category = [
   { slug: "correr", name: "Carrera" },
@@ -54,7 +50,8 @@ export const categories = [
       "Mayormente plana (poco desnivel), calles, avenidas, caminos asfaltados",
     href: "/categoria/",
     url: "correr",
-    icon: faPersonRunning,
+    icon: "healthicons:running-outline-24px",
+    // icon: faPersonRunning,
     svg: "",
   },
   {
@@ -62,7 +59,7 @@ export const categories = [
     description: "Carrera con desnivel en senderos, cerros, montaña.",
     href: "/categoria/",
     url: "trail-run",
-    icon: faPersonRunning,
+    icon: "",
     svg: "trail",
   },
   {
@@ -70,7 +67,8 @@ export const categories = [
     description: "Se caracteriza por sus largas distancias y alta velocidad",
     href: "/categoria/",
     url: "ciclismo-de-ruta",
-    icon: faPersonBiking,
+    // icon: faPersonBiking,
+    icon: "mdi:bike-fast",
     svg: "",
   },
   /* { name: 'Ciclismo de Montaña (MTB)', description: 'Competición en circuitos naturales, bosques, caminos angostos con cuestas empinadas', href: '/categoria/', url:'ciclismo-de-montana', icon: faPersonRunning, svg: 'mtb' }, */
@@ -80,7 +78,7 @@ export const categories = [
       "Competición en circuitos naturales, bosques, caminos con cuestas ",
     href: "/categoria/",
     url: "ciclismo-de-montana",
-    icon: faPersonRunning,
+    icon: "",
     svg: "mtb",
   },
   {
@@ -89,8 +87,9 @@ export const categories = [
       "Implica 3 disciplinas deportivas, natación, ciclismo y carrera a pie",
     href: "/categoria/",
     url: "triatlon",
-    icon: faPersonSwimming,
-    settings: "horizontal",
+    icon: "healthicons:swim",
+    // icon: faPersonSwimming,
+    // settings: "horizontal",
     svg: "",
   },
   /* { name: 'Duatlón', description: 'Deporte individual o por equipos que reúne dos disciplinas: atletismo y ciclismo', href: '/categoria/', url:'duatlon', icon: faPersonThroughWindow, svg: '' }, */
@@ -100,13 +99,18 @@ export const categories = [
       "Deporte individual o por equipos, que implica ciclismo y carrera a pie",
     href: "/categoria/",
     url: "duatlon",
-    icon: faPersonThroughWindow,
+    icon: "healthicons:globe-outline-24px",
+    // icon: faPersonThroughWindow,
     svg: "",
   },
 ];
 
 export const callsToAction = [
-  { name: "Busqueda por fecha", href: "/calendario", icon: CalendarDaysIcon },
+  {
+    name: "Buscar en el calendario",
+    href: "/calendario",
+    icon: "ion:calendar",
+  },
   /* { name: 'Contact sales', href: '#', icon: PhoneIcon }, */
 ];
 
@@ -137,200 +141,297 @@ export const statesOfMexico = [
     id: 1,
     slug: "aguascalientes",
     name: "Aguascalientes",
-    src: AGS,
+    src: "AGS.jpg",
     alt: "Image of Aguascalientes",
   },
   {
     id: 2,
     slug: "baja-california",
     name: "Baja California",
-    src: BC,
+    src: "BC.jpg",
     alt: "Image of Baja California",
   },
   {
     id: 3,
     slug: "baja-california-sur",
     name: "Baja California Sur",
-    src: BCS,
+    src: "BCS.jpg",
     alt: "Image of Baja California Sur",
   },
   {
     id: 4,
     slug: "campeche",
     name: "Campeche",
-    src: CAM,
+    src: "CAM.jpg",
     alt: "Image of Campeche",
   },
   {
     id: 5,
     slug: "chiapas",
     name: "Chiapas",
-    src: CHI,
+    src: "CHI.jpg",
     alt: "Image of Chiapas",
   },
   {
     id: 6,
     slug: "chihuahua",
     name: "Chihuahua",
-    src: CHIH,
+    src: "CHIH.jpg",
     alt: "Image of Chihuahua",
   },
   {
     id: 7,
     slug: "coahuila",
     name: "Coahuila",
-    src: COA,
+    src: "COA.jpg",
     alt: "Image of Coahuila",
   },
-  { id: 8, slug: "colima", name: "Colima", src: COL, alt: "Image of Colima" },
+  {
+    id: 8,
+    slug: "colima",
+    name: "Colima",
+    src: "COL.jpg",
+    alt: "Image of Colima",
+  },
   {
     id: 9,
     slug: "durango",
     name: "Durango",
-    src: DGO,
+    src: "DGO.jpg",
     alt: "Image of Durango",
   },
   {
     id: 10,
     slug: "guanajuato",
     name: "Guanajuato",
-    src: GTO,
+    src: "GTO.jpg",
     alt: "Image of Guanajuato",
   },
   {
     id: 11,
     slug: "guerrero",
     name: "Guerrero",
-    src: GUE,
+    src: "GUE.jpg",
     alt: "Image of Guerrero",
   },
   {
     id: 12,
     slug: "hidalgo",
     name: "Hidalgo",
-    src: HDO,
+    src: "HDO.jpg",
     alt: "Image of Hidalgo",
   },
   {
     id: 13,
     slug: "jalisco",
     name: "Jalisco",
-    src: JAL,
+    src: "JAL.jpg",
     alt: "Image of Jalisco",
   },
   {
     id: 14,
     slug: "mexico-city",
     name: "Ciudad de México",
-    src: CDMX,
+    src: "CDMX.jpg",
     alt: "Image of Ciudad de México",
   },
   {
     id: 15,
     slug: "mexico-state",
     name: "Estado de México",
-    src: EDOMEX,
+    src: "EDOMEX.jpg",
     alt: "Image of Estado de México",
   },
   {
     id: 16,
     slug: "michoacan",
     name: "Michoacán",
-    src: MICH,
+    src: "MICH.jpg",
     alt: "Image of Michoacán",
   },
   {
     id: 17,
     slug: "morelos",
     name: "Morelos",
-    src: MOR,
+    src: "MOR.jpg",
     alt: "Image of Morelos",
   },
   {
     id: 18,
     slug: "nayarit",
     name: "Nayarit",
-    src: NAY,
+    src: "NAY.jpeg",
     alt: "Image of Nayarit",
   },
   {
     id: 19,
     slug: "nuevo-leon",
     name: "Nuevo León",
-    src: NL,
+    src: "NL.jpeg",
     alt: "Image of Nuevo León",
   },
-  { id: 20, slug: "oaxaca", name: "Oaxaca", src: OAX, alt: "Image of Oaxaca" },
-  { id: 21, slug: "puebla", name: "Puebla", src: PUE, alt: "Image of Puebla" },
+  {
+    id: 20,
+    slug: "oaxaca",
+    name: "Oaxaca",
+    src: "OAX.jpg",
+    alt: "Image of Oaxaca",
+  },
+  {
+    id: 21,
+    slug: "puebla",
+    name: "Puebla",
+    src: "PUE.jpg",
+    alt: "Image of Puebla",
+  },
   {
     id: 22,
     slug: "queretaro",
     name: "Querétaro",
-    src: QTO,
+    src: "QTO.jpg",
     alt: "Image of Querétaro",
   },
   {
     id: 23,
     slug: "quintana-roo",
     name: "Quintana Roo",
-    src: QRO,
+    src: "QRO.jpg",
     alt: "Image of Quintana Roo",
   },
   {
     id: 24,
     slug: "san-luis-potosi",
     name: "San Luis Potosí",
-    src: SLP,
+    src: "SLP.jpeg",
     alt: "Image of San Luis Potosí",
   },
   {
     id: 25,
     slug: "sinaloa",
     name: "Sinaloa",
-    src: SNL,
+    src: "SNL.jpg",
     alt: "Image of Sinaloa",
   },
-  { id: 26, slug: "sonora", name: "Sonora", src: SON, alt: "Image of Sonora" },
+  {
+    id: 26,
+    slug: "sonora",
+    name: "Sonora",
+    src: "SON.jpeg",
+    alt: "Image of Sonora",
+  },
   {
     id: 27,
     slug: "tabasco",
     name: "Tabasco",
-    src: TAB,
+    src: "TAB.jpeg",
     alt: "Image of Tabasco",
   },
   {
     id: 28,
     slug: "tamaulipas",
     name: "Tamaulipas",
-    src: TAM,
+    src: "TAM.jpg",
     alt: "Image of Tamaulipas",
   },
   {
     id: 29,
     slug: "tlaxcala",
     name: "Tlaxcala",
-    src: TLAX,
+    src: "TLAX.jpg",
     alt: "Image of Tlaxcala",
   },
   {
     id: 30,
     slug: "veracruz",
     name: "Veracruz",
-    src: VER,
+    src: "VER.jpg",
     alt: "Image of Veracruz",
   },
   {
     id: 31,
     slug: "yucatan",
     name: "Yucatán",
-    src: YUC,
+    src: "YUC.jpg",
     alt: "Image of Yucatán",
   },
   {
     id: 32,
     slug: "zacatecas",
     name: "Zacatecas",
-    src: ZAC,
+    src: "ZAC.png",
     alt: "Image of Zacatecas",
+  },
+];
+
+export const iconMap = [
+  {
+    category: "Triatlón",
+    slug: "triatlon",
+    backgroundColor: "#87CEEB",
+    Icon: (
+      <Icon
+        icon={"healthicons:swim"}
+        // flip="horizontal"
+        // size="xl"
+        className="text-gray-600 pt-2"
+        width={36}
+        height={36}
+      />
+    ),
+    className: "text-gray-600",
+  },
+  {
+    category: "Correr",
+    slug: "correr",
+    backgroundColor: "#87D068",
+    Icon: (
+      <Icon
+        icon={"healthicons:running-outline-24px"}
+        // size="xl"
+        className="text-gray-600 pt-2"
+        width={36}
+        height={36}
+      />
+    ),
+  },
+  {
+    category: "Ciclismo de Montaña",
+    slug: "ciclismo-de-montana",
+    backgroundColor: "#98FB98",
+    Icon: <MtbV3_icon className="fill-current w-20 h-20 text-gray-600 top-2" />,
+  },
+  {
+    category: "Trail Run",
+    slug: "trail-run",
+    backgroundColor: "#F08080",
+    Icon: <Trail_icon2 className="fill-current w-20 h-20 text-gray-600" />,
+  },
+
+  {
+    category: "Ciclismo de Ruta",
+    slug: "ciclismo-de-ruta",
+    backgroundColor: "#FAFAD2",
+    Icon: (
+      <Icon
+        icon={"mdi:bike-fast"}
+        className="text-gray-600 pt-2"
+        width={30}
+        height={30}
+      />
+    ),
+  },
+  {
+    category: "Duatlón",
+    slug: "duatlon",
+    backgroundColor: "#AFEEEE",
+    Icon: (
+      <Icon
+        icon={"healthicons:globe-outline-24px"}
+        // size="xl"
+        className=" text-gray-600 pt-2"
+        width={32}
+        height={32}
+      />
+    ),
   },
 ];

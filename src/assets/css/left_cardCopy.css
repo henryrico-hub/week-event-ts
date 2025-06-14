@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap');
+
+*, *:after, *:before {
+	box-sizing: border-box;
+}
+
+.card-image img {
+	max-width: 100%;
+	display: block;
+}
+
+.card-list {
+	margin-bottom: 1rem;
+	width: 100%;
+	max-width: 100%;
+	position: sticky;
+	top: 10px;
+}
+
+.card {
+	background-color: #2A2C30;
+	/* background-color: #FFF; */
+	box-shadow: 0 0 0 1px rgba(#000, .05), 0 20px 50px 0 rgba(#000, .1);
+	border-radius: 15px;
+	overflow: hidden;
+	padding: .8rem;
+	position: relative;
+	transition: .15s ease-in;
+	box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+	&:hover, &:focus-within {
+		box-shadow: 0 0 0 2px #16C79A, 0 10px 60px 0 rgba(#000, .1);
+			transform: translatey(-10px);
+	}
+	
+}
+
+.card-image {
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.card-header {
+	display: flex;
+	align-items: center;
+  background-color: #2A2C30;
+  border-bottom: 1px solid #2A2C30;
+	justify-content: space-between;
+	a {
+		font-weight: 600;
+		font-size: 1.75rem;
+		line-height: 1.25;
+		padding-right: 1rem;
+		text-decoration: none;
+		color: #FFF;
+		will-change: transform;
+	}
+}
+
+.icon-button {
+	border: 0;
+	background-color: #2A2C30;
+	border-radius: 50%;
+	width: 2.5rem;
+	height: 2.5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-shrink: 0;
+	font-size: 1.25rem;
+	transition: .25s ease;
+	box-shadow: 0 0 0 1px rgba(#000, .05), 0 3px 8px 0 rgba(#000, .15);
+	z-index: 1;
+	cursor: pointer;
+	color: #565656;
+	
+	svg {
+		width: 1em;
+		height: 1em;
+	}
+	&:hover, &:focus {
+		background-color: #EC4646;
+		color: #FFF;
+	}
+}
+
+.card-footer {
+	margin-top: 1rem;
+	/* margin-top: 1.25rem; */
+	border-top: 4px solid #3A3D42;
+  background-color: #2A2C30;
+	display: flex;
+	flex-direction: column;
+	gap: .5rem;
+	
+}
+
+.card-meta {	
+	display: flex;
+	align-items: center;
+	color: #787878;
+}

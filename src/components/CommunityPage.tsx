@@ -1,8 +1,5 @@
-/* import { type BlocksContent } from '@strapi/blocks-react-renderer'
-import BlockRendererClient from './BlockRendererClient' */
-
+import { Icon } from "@iconify-icon/react";
 import ads_img from "../assets/images/ads-728x90.png";
-/* import perfil_img from '../assets/images/user.jpg' */
 import { ArticleType } from "../types";
 import { useState, useEffect } from "react";
 import { getAllArticle } from "../models/event.server";
@@ -11,10 +8,11 @@ import { Link } from "react-router-dom";
 
 import imgbanner from "../assets/images/news-800x500-3.jpg";
 import Selector from "./Selector";
-import { faHandsClapping } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import OwlBreakingNews from "./OwlBreakingNewsCopy";
 import { SkeletonGrid2 } from "./skeleton/SkeletonCustom";
+import { Typography } from "antd";
+
+const { Text } = Typography;
 
 const SizeContent = {
   Ipx: "1rem",
@@ -122,7 +120,7 @@ export default function CommunityPage() {
                         <Selector
                           dataE={allArticle}
                           setMobileMenuOpen={setMobileMenuOpen}
-                          style={"w-10/12 "}
+                          style={{ width: "50%" }}
                           type_props="Post"
                         />
                         <h4 className="m-0 text-uppercase font-weight-bold">
@@ -181,13 +179,19 @@ export default function CommunityPage() {
                             </div>
                             <div className="d-flex align-items-center">
                               <small className="ml-3">
-                                <i className="far fa-eye mr-2"></i>12345
+                                <div className="d-flex align-items-center ml-3">
+                                  <Icon
+                                    icon={"fa-regular:eye"}
+                                    className="mr-1"
+                                  />
+                                  <Text type="secondary">12345</Text>
+                                </div>
                               </small>
                               {/* <small className="ml-3"><i className="far fa-comment mr-2"></i>123</small> */}
                               <button disabled>
                                 <strong className="ml-3">
-                                  <FontAwesomeIcon
-                                    icon={faHandsClapping}
+                                  <Icon
+                                    icon={"fa6-solid:hands-clapping"}
                                     className="mr-2"
                                   />
                                   {eve.claps}

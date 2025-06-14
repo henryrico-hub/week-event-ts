@@ -1,6 +1,6 @@
-import { AntDesignOutlined, PlayCircleFilled } from "@ant-design/icons";
-import { Button, ConfigProvider, Flex } from "antd";
+import { Button, ConfigProvider } from "antd";
 import { createStyles } from "antd-style";
+import { useNavigate } from "react-router-dom";
 
 const useStyle = createStyles(({ prefixCls, css }) => ({
   linearGradientButton: css`
@@ -27,15 +27,18 @@ const useStyle = createStyles(({ prefixCls, css }) => ({
     }
   `,
 }));
+type GradientButtonProps = {
+  url: string | undefined;
+  text?: string;
+  icon?: React.ReactNode;
+};
 
-const GradientButton = () => {
+const GradientButton = ({ url, text, icon }: GradientButtonProps) => {
   const { styles } = useStyle();
+  const navigate = useNavigate();
 
-  const scroll = () => {
-    const sliderElement = document.getElementById("slider");
-    if (sliderElement) {
-      sliderElement.scrollIntoView({ behavior: "smooth" });
-    }
+  const handleNavigate = () => {
+    navigate(`/form/${url}`);
   };
 
   return (
@@ -44,14 +47,16 @@ const GradientButton = () => {
         className: styles.linearGradientButton,
       }}
     >
-      <Flex style={{ paddingTop: 5, gap: 10, alignItems: "center" }}>
-        <Button type="primary" size="large" block icon={<AntDesignOutlined />}>
-          Gradient Button
-        </Button>
-        <Button type="primary" shape="circle" size="large" onClick={scroll}>
-          <PlayCircleFilled style={{ fontSize: 20 }} />
-        </Button>
-      </Flex>
+      <Button
+        type="primary"
+        size="large"
+        block
+        onClick={handleNavigate}
+        icon={icon}
+        className="uppercase font-bold"
+      >
+        {text}
+      </Button>
     </ConfigProvider>
   );
 };

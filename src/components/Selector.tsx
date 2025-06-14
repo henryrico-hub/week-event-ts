@@ -1,43 +1,48 @@
-import { Select } from 'antd';
-import { ArticleType, EventType } from '../types';
-import { useNavigate } from 'react-router-dom';
+import { Select } from "antd";
+import { ArticleType, EventType } from "../types";
+import { useNavigate } from "react-router-dom";
+import React from "react";
 
 type OptionType = {
   value: string;
   label: string;
-}
+};
 
 type dataEProps = {
-  dataE: EventType[] | ArticleType[]
-  setMobileMenuOpen : React.Dispatch<React.SetStateAction<boolean>>
-  style : string
-  type_props : string
-}
+  dataE: EventType[] | ArticleType[];
+  setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  style: React.CSSProperties;
+  type_props: string;
+};
 
-export default function SelectSearch ({ dataE, setMobileMenuOpen, style, type_props } : dataEProps ) {
+export default function SelectSearch({
+  dataE,
+  setMobileMenuOpen,
+  style,
+  type_props,
+}: dataEProps) {
   const navigate = useNavigate();
-  
-  const ArrayOptions : OptionType[] = dataE?.map(eve => ({
+
+  const ArrayOptions: OptionType[] = dataE?.map((eve) => ({
     value: eve.url,
-    label: eve.name
-  }))
+    label: eve.name,
+  }));
 
   const onChange = (value: string) => {
-    if(type_props === 'Evento') {
+    if (type_props === "Evento") {
       if (value) {
         navigate(`/evento/${value}`);
-        setMobileMenuOpen(false)
+        setMobileMenuOpen(false);
       }
-
     } else {
       if (value) {
         navigate(`/comunidad/post/${value}`);
-        setMobileMenuOpen(false)
+        setMobileMenuOpen(false);
       }
     }
     //console.log(`selected ${value}`);
   };
-  
+
   /* const onSearch = (value: string) => {
     console.log('search:', value);
   }; */
@@ -45,7 +50,8 @@ export default function SelectSearch ({ dataE, setMobileMenuOpen, style, type_pr
   return (
     <>
       <Select
-        className={`${style}`}
+        // className={`${style}`}
+        style={style}
         showSearch
         placeholder={`Buscar ${type_props}`}
         optionFilterProp="label"
@@ -54,5 +60,5 @@ export default function SelectSearch ({ dataE, setMobileMenuOpen, style, type_pr
         options={ArrayOptions}
       />
     </>
-  )
+  );
 }

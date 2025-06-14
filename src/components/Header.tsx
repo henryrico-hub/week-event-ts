@@ -12,16 +12,14 @@ import {
   PopoverGroup,
   PopoverPanel,
 } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FlipProp } from "@fortawesome/fontawesome-svg-core";
+import { Icon } from "@iconify-icon/react";
 import { Trail_icon, MtbV3_icon } from "./Icons/Icons";
 import { Link, NavLink } from "react-router-dom";
 import { getAllEvents } from "../models/event.server";
 import { EventType } from "../types";
 import Selector from "./Selector";
 import { categories, callsToAction } from "../data";
+import CheckIn from "./Forms/CheckIn";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -39,8 +37,6 @@ export default function Header() {
 
     fetchData();
   }, [setDataE]);
-
-  /* console.log(dataE); */
 
   return (
     <>
@@ -66,35 +62,42 @@ export default function Header() {
           </div>
           <div className="col-lg-3 text-right d-none d-md-block">
             <nav className="navbar navbar-expand-sm bg-dark p-0">
-              <ul className="navbar-nav ml-auto mr-n2">
+              <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
                   <a className="nav-link text-body" href="#">
-                    <small className="fab fa-twitter"></small>
+                    <Icon
+                      icon="ri:twitter-x-fill"
+                      className=" hover:text-slate-200 "
+                      inline={true}
+                    />
                   </a>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link text-body" href="#">
-                    <small className="fab fa-facebook-f"></small>
+                    <Icon
+                      icon="flowbite:facebook-solid"
+                      className=" hover:text-slate-200 "
+                      inline={true}
+                    />
+                  </a>
+                </li>
+
+                <li className="nav-item">
+                  <a className="nav-link text-body" href="#">
+                    <Icon
+                      icon="flowbite:instagram-solid"
+                      className=" hover:text-slate-200 "
+                      inline={true}
+                    />
                   </a>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link text-body" href="#">
-                    <small className="fab fa-linkedin-in"></small>
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link text-body" href="#">
-                    <small className="fab fa-instagram"></small>
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link text-body" href="#">
-                    <small className="fab fa-google-plus-g"></small>
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link text-body" href="#">
-                    <small className="fab fa-youtube"></small>
+                    <Icon
+                      icon="flowbite:youtube-solid"
+                      className=" hover:text-slate-200 "
+                      inline={true}
+                    />
                   </a>
                 </li>
               </ul>
@@ -130,16 +133,26 @@ export default function Header() {
               className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
             >
               <span className="sr-only">Open main menu</span>
-              <Bars3Icon aria-hidden="true" className="h-6 w-6 text-gray-300" />
+              {/* <Bars3Icon aria-hidden="true" className="h-6 w-6 text-gray-300" /> */}
+              <Icon
+                aria-hidden="true"
+                icon={"heroicons:bars-3-16-solid"}
+                className="text-gray-300 hover:"
+                height={"28"}
+                width={"28"}
+              />
             </button>
           </div>
           <PopoverGroup className="hidden lg:flex lg:gap-x-12 ml-10">
             <Popover className="relative">
               <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-slate-100">
-                Categoria
-                <ChevronDownIcon
+                Categorias
+                <Icon
                   aria-hidden="true"
-                  className="h-5 w-5 flex-none text-gray-300"
+                  icon={"heroicons:chevron-down"}
+                  className="flex-none text-gray-300"
+                  width="20"
+                  height="20"
                 />
               </PopoverButton>
 
@@ -157,15 +170,21 @@ export default function Header() {
                       <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                         {/* <item.icon aria-hidden="true" className="h-6 w-6 text-gray-600 group-hover:text-orange-500" /> */}
                         {item.svg === "" ? (
-                          <FontAwesomeIcon
-                            icon={item.icon}
-                            className="h-6 w-6 text-gray-600 group-hover:text-orange-500"
-                            flip={item.settings as FlipProp}
+                          // <FontAwesomeIcon
+                          //   icon={item.icon}
+                          //   className="h-6 w-6 text-gray-600 group-hover:text-orange-500"
+                          //   flip={item.settings as FlipProp}
+                          // />
+                          <Icon
+                            icon={item.icon + ""}
+                            width={36}
+                            height={36}
+                            className="text-gray-600 group-hover:text-orange-500"
                           />
                         ) : item.svg === "trail" ? (
-                          <Trail_icon className="fill-current h-7 w-7 text-gray-600 group-hover:text-orange-500" />
+                          <Trail_icon className="fill-current h-10 w-10 text-gray-600 group-hover:text-orange-500" />
                         ) : item.svg === "mtb" ? (
-                          <MtbV3_icon className="fill-current h-8 w-8 text-gray-600 group-hover:text-orange-500" />
+                          <MtbV3_icon className="fill-current h-10 w-10 text-gray-600 group-hover:text-orange-500" />
                         ) : (
                           <></>
                         )}
@@ -191,17 +210,26 @@ export default function Header() {
                 {/* <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50"> */}
                 <div className="grid divide-x divide-gray-900/5 bg-gray-50">
                   {callsToAction.map((item) => (
-                    <Link
-                      key={item.name}
-                      to={item.href}
-                      className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
-                    >
-                      <item.icon
+                    <div key={item.name} className="group relative">
+                      <Link
+                        to={item.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
+                      >
+                        {/* <item.icon
                         aria-hidden="true"
                         className="h-5 w-5 flex-none text-gray-400"
-                      />
-                      {item.name}
-                    </Link>
+                      /> */}
+                        <Icon
+                          icon={item.icon}
+                          aria-hidden="true"
+                          className="flex-none text-gray-400 group-hover:text-orange-500"
+                          width={28}
+                          height={28}
+                        />
+                        {item.name}
+                      </Link>
+                    </div>
                   ))}
                 </div>
               </PopoverPanel>
@@ -211,36 +239,19 @@ export default function Header() {
               to={"/"}
               className="text-sm font-semibold leading-6 text-slate-100"
             >
-              Home
+              Inicio
             </NavLink>
+            <CheckIn />
 
-            <NavLink
-              to={`/calendario`}
-              className="text-sm font-semibold leading-6 text-slate-100"
-            >
-              Calendario
-            </NavLink>
-            <NavLink
-              to={"/maps"}
-              className="text-sm font-semibold leading-6 text-slate-100"
-            >
-              Maps
-            </NavLink>
-            {/* <NavLink
-              to={"/comunidad"}
-              className="text-sm font-semibold leading-6 text-slate-100"
-            >
-              Community
-            </NavLink> */}
             {/* <NavLink to={"/payment"} className="text-sm font-semibold leading-6 text-slate-100">
               Payment
             </NavLink> */}
           </PopoverGroup>
-          <div className="w-48 hidden lg:flex lg:flex-1 lg:justify-end">
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <Selector
               dataE={dataE}
               setMobileMenuOpen={setMobileMenuOpen}
-              style={"w-10/12"}
+              style={{ width: "80%", maxWidth: "340px" }}
               type_props="Evento"
             />
             {/* <a href="#" className="text-sm font-semibold leading-6 text-slate-100">
@@ -249,6 +260,7 @@ export default function Header() {
           </div>
         </nav>
 
+        {/* Mobile */}
         <Dialog
           open={mobileMenuOpen}
           onClose={setMobileMenuOpen}
@@ -281,9 +293,16 @@ export default function Header() {
                 className="-m-2.5 rounded-md p-2.5 text-gray-700"
               >
                 <span className="sr-only">Close menu</span>
-                <XMarkIcon
+                {/* <XMarkIcon
                   aria-hidden="true"
                   className="h-6 w-6 text-gray-300"
+                /> */}
+                <Icon
+                  icon="heroicons:x-mark"
+                  aria-hidden="true"
+                  className="text-gray-300 hover:text-gray-400"
+                  width="32"
+                  height="32"
                 />
               </button>
             </div>
@@ -295,15 +314,22 @@ export default function Header() {
                       <Selector
                         dataE={dataE}
                         setMobileMenuOpen={setMobileMenuOpen}
-                        style={"w-full"}
+                        style={{ width: "100%" }}
                         type_props="Evento"
                       />
                     </DisclosureButton>
                     <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-slate-100 hover:bg-gray-700">
                       Categorias
-                      <ChevronDownIcon
+                      {/* <ChevronDownIcon
                         aria-hidden="true"
                         className="h-5 w-5 flex-none group-data-[open]:rotate-180"
+                      /> */}
+                      <Icon
+                        icon={"heroicons:chevron-down"}
+                        aria-hidden="true"
+                        className="flex-none group-data-[open]:rotate-180"
+                        width="20"
+                        height="20"
                       />
                     </DisclosureButton>
                     <DisclosurePanel className="mt-2 space-y-2 transition-all duration-300 ease-in-out transform">
@@ -325,7 +351,7 @@ export default function Header() {
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-slate-100 hover:bg-gray-700"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    Home
+                    Inicio
                   </NavLink>
                   <NavLink
                     to={"/calendario"}
@@ -341,15 +367,20 @@ export default function Header() {
                   >
                     Comunidad
                   </NavLink>
+                  <CheckIn setMobileMenuOpen={setMobileMenuOpen} />
                 </div>
+
+                {/* 
+                vn6d6o
                 <div className="py-6">
+                
                   <a
                     href="#"
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-slate-100 hover:bg-gray-700"
                   >
                     Log in
                   </a>
-                </div>
+                </div> */}
               </div>
             </div>
           </DialogPanel>

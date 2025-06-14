@@ -8,6 +8,7 @@ import { formatearFecha } from "../utils/helpers";
 import { Skeleton } from "antd";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Icon } from "@iconify-icon/react";
 
 export default function TrandingEvents() {
   const [loading, setLoading] = useState(false);
@@ -83,10 +84,10 @@ export default function TrandingEvents() {
                   </Slider>
                   <div className="owl-nav">
                     <button className="owl-prev" onClick={previous}>
-                      <i className="fas fa-chevron-left"></i>
+                      <Icon icon={"fa-solid:chevron-left"} />
                     </button>
                     <button className="owl-next" onClick={next}>
-                      <i className="fas fa-chevron-right"></i>
+                      <Icon icon={"fa-solid:chevron-right"} />
                     </button>
                   </div>
                 </div>

@@ -1,13 +1,7 @@
 import { useState, useEffect } from "react";
 import { getCalendar } from "../../models/event.server";
 import { EventType } from "../../types";
-
-import {
-  faBiking,
-  faPersonRunning,
-  faPersonSwimming,
-  faPersonThroughWindow,
-} from "@fortawesome/free-solid-svg-icons";
+import { Icon } from "@iconify-icon/react";
 import OwlBreakingNews from "../OwlBreakingNewsCopy";
 import imgbanner from "../../assets/images/news-800x500-3.jpg";
 import { Badge, Calendar, Avatar, Tooltip, Flex, Typography, Spin } from "antd";
@@ -18,8 +12,6 @@ import type { Dayjs } from "dayjs";
 import type { BadgeProps, CalendarProps } from "antd";
 import dayjs from "dayjs";
 import { dayjsES } from "../../utils/helpers";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CardEvent from "../CardEvent";
 
 export default function CalendarVision() {
@@ -105,20 +97,30 @@ export default function CalendarVision() {
           <Avatar
             style={{ backgroundColor: "#87CEEB" }}
             icon={
-              <FontAwesomeIcon
-                icon={faPersonSwimming}
-                flip="horizontal"
-                className="h-5 w-5 text-gray-600 "
+              <Icon
+                icon={"healthicons:swim"}
+                width={24}
+                className="text-gray-600 "
               />
+              // <FontAwesomeIcon
+              //   icon={faPersonSwimming}
+              //   flip="horizontal"
+              //   className="h-5 w-5 text-gray-600 "
+              // />
             }
           />
           <Avatar
             style={{ backgroundColor: "#87D068" }}
             icon={
-              <FontAwesomeIcon
-                icon={faPersonRunning}
-                className="h-5 w-5 text-gray-600 "
+              <Icon
+                icon={"healthicons:running-outline-24px"}
+                width={24}
+                className="text-gray-600 "
               />
+              // <FontAwesomeIcon
+              //   icon={faPersonRunning}
+              //   className="h-5 w-5 text-gray-600 "
+              // />
             }
           />
           <Avatar
@@ -147,11 +149,16 @@ export default function CalendarVision() {
           <Avatar
             style={{ backgroundColor: "#87CEEB" }}
             icon={
-              <FontAwesomeIcon
-                icon={faPersonSwimming}
-                flip="horizontal"
-                className="h-5 w-5 text-gray-600 "
+              <Icon
+                icon={"healthicons:swim"}
+                width={24}
+                className="text-gray-600 "
               />
+              // <FontAwesomeIcon
+              //   icon={faPersonSwimming}
+              //   flip="horizontal"
+              //   className="h-5 w-5 text-gray-600 "
+              // />
             }
           />
         );
@@ -160,12 +167,22 @@ export default function CalendarVision() {
           <Avatar
             style={{ backgroundColor: "#87D068" }}
             icon={
-              <FontAwesomeIcon
-                icon={faPersonRunning}
-                className="h-5 w-5 text-gray-600 "
+              <Icon
+                icon={"healthicons:running-outline-24px"}
+                width={24}
+                className="text-gray-600 "
               />
             }
           />
+          // <Avatar
+          //   style={{ backgroundColor: "#87D068" }}
+          //   icon={
+          //     <FontAwesomeIcon
+          //       icon={faPersonRunning}
+          //       className="h-5 w-5 text-gray-600 "
+          //     />
+          //   }
+          // />
         );
       case "ciclismo-de-montana":
         return (
@@ -190,10 +207,15 @@ export default function CalendarVision() {
           <Avatar
             style={{ backgroundColor: "#FAFAD2" }}
             icon={
-              <FontAwesomeIcon
-                icon={faBiking}
-                className="h-5 w-5 text-gray-600 "
+              <Icon
+                icon={"mdi:bike-fast"}
+                width={24}
+                className="text-gray-600"
               />
+              // <FontAwesomeIcon
+              //   icon={faBiking}
+              //   className="h-5 w-5 text-gray-600 "
+              // />
             }
           />
         );
@@ -202,10 +224,15 @@ export default function CalendarVision() {
           <Avatar
             style={{ backgroundColor: "#AFEEEE" }}
             icon={
-              <FontAwesomeIcon
-                icon={faPersonThroughWindow}
-                className="h-6 w-6 text-gray-600 "
+              <Icon
+                icon={"healthicons:globe-outline-24px"}
+                width={24}
+                className="text-gray-600"
               />
+              // <FontAwesomeIcon
+              //   icon={faPersonThroughWindow}
+              //   className="h-6 w-6 text-gray-600 "
+              // />
             }
           />
         );

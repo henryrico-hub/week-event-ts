@@ -2,6 +2,7 @@ import { Card, Tooltip, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { formatearFecha } from "../utils/helpers";
 import { EventType } from "../types";
+import { Icon } from "@iconify-icon/react";
 
 interface CardEventProps {
   eve: EventType;
@@ -97,13 +98,14 @@ const CardEvent: React.FC<CardEventProps> = ({ eve, colSpan }) => {
                     </Text>
                   </div>
                   <div className="d-flex align-items-center">
-                    <Text type="secondary" className="ml-3">
-                      <i className="far fa-eye mr-2"></i>12345
-                    </Text>
-                    <Text type="secondary" className="ml-3">
-                      <i className="far fa-comment mr-2"></i>
-                      123
-                    </Text>
+                    <div className="d-flex align-items-center ml-3">
+                      <Icon icon={"fa-regular:eye"} className="mr-1" />
+                      <Text type="secondary">12345</Text>
+                    </div>
+                    <div className="d-flex align-items-center ml-3">
+                      <Icon icon={"fa-regular:comment"} className="mr-1" />
+                      <Text type="secondary">123</Text>
+                    </div>
                   </div>
                 </div>
               </>

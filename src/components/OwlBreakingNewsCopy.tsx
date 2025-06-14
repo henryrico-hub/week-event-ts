@@ -6,6 +6,7 @@ import { getEventsDesc } from "../models/event.server";
 import { Link } from "react-router-dom";
 import { SkeletonBreaking } from "./skeleton/SkeletonCustom";
 import Slider from "react-slick";
+import { Icon } from "@iconify-icon/react";
 
 const SizeContent_breaking = {
   Ppt: ".5rem",
@@ -66,7 +67,7 @@ export default function OwlBreakingNews() {
         }}
       >
         <div className="breaking-events d-none d-lg-block">
-          <div className="container-fluid bg-dark py-3 mb-3">
+          <div className="container-fluid bg-dark py-3">
             <div className="container-md">
               <div className="col-12">
                 <div className="tranding-carousel flex align-items-center">
@@ -93,10 +94,10 @@ export default function OwlBreakingNews() {
                   </Slider>
                   <div className="owl-nav">
                     <button className="owl-prev" onClick={previous}>
-                      <i className="fas fa-chevron-left"></i>
+                      <Icon icon={"fa-solid:chevron-left"} />
                     </button>
                     <button className="owl-next" onClick={next}>
-                      <i className="fas fa-chevron-right"></i>
+                      <Icon icon={"fa-solid:chevron-right"} />
                     </button>
                   </div>
                 </div>

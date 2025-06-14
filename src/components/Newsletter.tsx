@@ -1,14 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
-import "../assets/css/loader.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faXmark, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import "src/assets/css/loader.css";
+import { Icon } from "@iconify-icon/react";
 
 type StatusButton = JSX.Element;
 
 export default function Newsletter() {
   const [formData, setFormData] = useState({});
-
+  const [loading, setLoading] = useState(false);
   const [statusEmail, setStatusEmail] = useState("init");
 
   const statusButtons: Record<string, StatusButton> = {
@@ -17,27 +16,32 @@ export default function Newsletter() {
     ),
     loader: (
       <button className="btn btn-primary font-weight-bold px-3" disabled>
-        <FontAwesomeIcon icon={faSpinner} spin size="xl" />
+        {/* <Icon icon={"fa6-solid:spinner"} inline={true} width={24} /> */}
+        <Icon icon="svg-spinners:ring-resize" width="24" height="24" />
       </button>
     ),
     "success-beat": (
       <button className="btn btn-primary font-weight-bold px-3" disabled>
-        <FontAwesomeIcon icon={faCheck} beatFade size="xl" />
+        {/* <FontAwesomeIcon icon={faCheck} beatFade size="xl" /> */}
+        <Icon icon={"fa-regular:check-circle"} inline={true} width={24} />
       </button>
     ),
     success: (
       <button className="btn btn-primary font-weight-bold px-3" disabled>
-        <FontAwesomeIcon icon={faCheck} size="xl" />
+        {/* <FontAwesomeIcon icon={faCheck} size="xl" /> */}
+        <Icon icon={"fa-regular:check-circle"} inline={true} width={24} />
       </button>
     ),
     "error-beat": (
       <button className="btn btn-primary font-weight-bold px-3" disabled>
-        <FontAwesomeIcon icon={faXmark} beatFade size="xl" />
+        {/* <FontAwesomeIcon icon={faXmark} beatFade size="xl" /> */}
+        <Icon icon={"fa6-regular:circle-xmark"} inline={true} width={24} />
       </button>
     ),
     error: (
       <button className="btn btn-primary font-weight-bold px-3" disabled>
-        <FontAwesomeIcon icon={faXmark} size="xl" />
+        {/* <FontAwesomeIcon icon={faXmark} size="xl" /> */}
+        <Icon icon={"fa6-regular:circle-xmark"} inline={true} width={24} />
       </button>
     ),
   };
@@ -53,6 +57,7 @@ export default function Newsletter() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     setStatusEmail("loader");
 
     setTimeout(async () => {
@@ -63,16 +68,17 @@ export default function Newsletter() {
         );
         console.log(response);
 
-        setStatusEmail("success-beat");
-        setTimeout(() => {
-          setStatusEmail("success");
-        }, 2000);
+        // setStatusEmail("success-beat");
+        setStatusEmail("success");
+        // setTimeout(() => {
+        // }, 2000);
       } catch (error: any) {
         console.error("Error posting data:", error.message);
         setStatusEmail("error-beat");
         setTimeout(() => {
           setStatusEmail("error");
         }, 2000);
+      } finally {
       }
     }, 3000);
   };
@@ -97,10 +103,10 @@ export default function Newsletter() {
               required
               className="form-control form-control-lg"
               placeholder="Your Email"
+              disabled={loading}
             />
             <div className="input-group-append">
               {statusButtons[statusEmail]}
-              {/* <button className="btn btn-primary font-weight-bold px-3">Sign Up</button> */}
             </div>
           </div>
           <small>

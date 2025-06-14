@@ -1,3 +1,5 @@
+import { BlocksContent } from "@strapi/blocks-react-renderer";
+
 export type Event = {
   id: string;
   name: string;
@@ -84,7 +86,62 @@ export type EventType = {
   };
   distance_category: string;
   registration_prices: string;
+  transfer_payment: BlocksContent;
+  digital_payment: BlocksContent;
+  reels: [
+    {
+      id: string;
+      name: string;
+      url: string;
+    }
+  ];
+  participants: Participant[];
+  event_category_scs: [
+    {
+      id: number;
+      documentId: string;
+      name: string;
+      slug: string;
+    }
+  ];
 };
+
+export type Participant = {
+  id: number;
+  documentId: string;
+  name: string;
+  paternal_surname: string | null;
+  maternal_surname: string | null;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  birthdate: string | null;
+  gender: string | null;
+  statusP: "Pending" | "Success" | string;
+  payment: Payment[];
+};
+
+export type Payment = {
+  id: number;
+  documentId: string;
+  name: string;
+  alternativeText: string | null;
+  caption: string | null;
+  width: number;
+  height: number;
+  hash: string;
+  ext: string;
+  mime: string;
+  size: number;
+  url: string;
+  previewUrl: string | null;
+  provider: string;
+  provider_metadata: any | null;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+};
+
 export type ArticleType = {
   id: string;
   documentId: string;

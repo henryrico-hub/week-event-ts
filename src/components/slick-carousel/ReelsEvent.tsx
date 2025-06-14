@@ -1,7 +1,12 @@
 import Slider from "react-slick";
-import { reelsEvents } from "../../data";
+import { EventType } from "../../types";
+import HoverVideoPlayer from "./HoverVideoPlay";
 
-function ReelsEvent() {
+type dataEventProps = {
+  dataEvent: EventType;
+};
+
+function ReelsEvent({ dataEvent }: dataEventProps) {
   const settings = {
     nav: true,
     arrows: true,
@@ -12,20 +17,7 @@ function ReelsEvent() {
     // swipeToSlide: true,
     // initialSlide: 0,
     dots: true,
-    adaptiveHeight: true,
-
-    appendDots: (dots: any) => (
-      <div
-        style={{
-          display: "block",
-          // backgroundColor: "#ddd",
-          // borderRadius: "10px",
-          // padding: "10px",
-        }}
-      >
-        <ul style={{ margin: "0px" }}> {dots} </ul>
-      </div>
-    ),
+    // adaptiveHeight: true,
 
     responsive: [
       {
@@ -55,44 +47,85 @@ function ReelsEvent() {
   };
 
   return (
-    <div className="container-fluid bg-dark px-12 py-6 mt-5">
-      <div
-        id="slider"
-        className="slide-container col-lg-12 py-10 justify-content-center bg-dark"
-      >
+    dataEvent.reels && (
+      <div className="container-fluid bg-dark px-10 py-6">
         <div
-          className="calendar-section-title gap-3 pr-4 position-static bg-dark shadow-none mb-10"
-          style={{ justifyContent: "left" }}
+          id="slider"
+          className="reels col-lg-12 py-10 justify-content-center bg-dark"
         >
-          <a className="c-badge pl-6 p-3">REELS</a>
-          <a className="m-0 text-uppercase font-weight-bold">
-            Descubre más sobre este evento desde adentro
-          </a>
-        </div>
-
-        <Slider {...settings}>
-          {reelsEvents.map((reel, key) => (
-            <div className="px-4 py-3">
-              <iframe
-                key={key}
-                src={reel.url}
-                width="100%"
-                height="476"
-                style={{
-                  border: "none",
-                  overflow: "hidden",
-                  borderRadius: "10px",
-                }}
-                scrolling="no"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                allowFullScreen={true}
-                loading="lazy"
-              ></iframe>
+          <div className="container">
+            <div
+              className="calendar-section-title gap-3 pr-4 position-static bg-dark shadow-none mb-10"
+              style={{ justifyContent: "left" }}
+            >
+              <a className="c-badge pl-6 p-3">REELS</a>
+              <p className="font-bold text-xs sm:text-base uppercase ">
+                Descubre más sobre este evento desde adentro
+              </p>
             </div>
-          ))}
-        </Slider>
+
+            <Slider {...settings}>
+              {dataEvent.reels.map((reel, key) => (
+                <HoverVideoPlayer
+                  key={key}
+                  url={`${import.meta.env.VITE_API_URL_SHORT}${reel.url}`}
+                  name={reel.name}
+                />
+
+                //  <div
+                //   style={{
+                //     position: "relative",
+                //     height: "20px",
+                //     width: "100%",
+                //     backgroundColor: "#FFCC00",
+                //     color: "black",
+                //     textAlign: "center",
+
+                //     paddingBottom: 0.5,
+                //     paddingTop: 0.7,
+                //     fontSize: "0.875rem",
+                //     fontWeight: 500,
+                //     borderTopLeftRadius: "10px",
+                //     borderTopRightRadius: "10px",
+                //   }}
+                // ></div>
+
+                //  <ReactPlayer
+                //   key={key}
+                //   ref={playerRef}
+                //   url={`${import.meta.env.VITE_API_URL_SHORT}${reel.url}`}
+                //   width="100%"
+                //   height="100%"
+                //   playing={playing}
+                //   playIcon={<PlayCircleFilled />}
+                //   muted
+                //   loop
+                //   controls
+                //   style={{
+                //     borderRadius: "10px",
+                //   }}
+                // />
+              ))}
+            </Slider>
+            {/* //   <iframe
+            //   key={key}
+            //   src={reel.url}
+            //   width="100%"
+            //   height="476"
+            //   style={{
+            //     border: "none",
+            //     overflow: "hidden",
+            //     borderRadius: "10px",
+            //   }}
+            //   scrolling="no"
+            //    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            //   allowFullScreen={true}
+            //   loading="lazy"
+            // ></iframe> */}
+          </div>
+        </div>
       </div>
-    </div>
+    )
   );
 }
 
