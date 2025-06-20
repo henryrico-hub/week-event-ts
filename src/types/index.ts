@@ -105,6 +105,36 @@ export type EventType = {
     }
   ];
   services_scs: ServicesScs[];
+  packages: PackageType[];
+};
+
+export type PackageType = {
+  id: number;
+  name: string;
+  slug: string;
+  price: number;
+  description: string;
+  jersey: boolean;
+  image: [
+    {
+      id: string;
+      documentId: string;
+      name: string;
+      url: string;
+      formats: {
+        thumbnail: {
+          url: string;
+        };
+      };
+    }
+  ];
+  size_jerseys: SizeJerseyType[];
+};
+
+export type SizeJerseyType = {
+  id: number;
+  size: string;
+  slug: string;
 };
 
 export type ServicesScs = {

@@ -21,25 +21,29 @@ import { notification } from "antd";
 import { postParticipant } from "src/models/event.server";
 import { EventType } from "src/types";
 import ModalConfirm from "./Upload/ModalConfirm";
+import CountrySelect from "./FormElements/CountrySelect";
+import PackageForm from "./FormElements/PackageForm";
 
 const { Text } = Typography;
-type FieldType =
+export type FieldType =
   | "name"
-  | "category"
   | "lastname"
   | "lastnameS"
-  | "birthday"
   | "gender"
+  | "birthday"
+  | "bloodtype"
+  | "email"
+  | "category"
   | "country"
   | "state"
   | "city"
   | "address"
   | "allergies"
   | "medicine"
-  | "bloodtype"
   | "team"
+  | "package"
+  | "size"
   | "phone"
-  | "email"
   | "emergencyContactName"
   | "emergencyContactPhone"
   | "remember";
@@ -91,6 +95,7 @@ export default function Step1({
 
   const onFinish = (values: any) => {
     setLoading(true);
+    console.log("values", values);
 
     const createUser = async () => {
       // const datatoSend = {
@@ -146,7 +151,6 @@ export default function Step1({
         } = await postParticipant(datatoSend2);
         setRegisterId(response.data.documentId.slice(0, 6));
         setDataParticipant(response.data);
-        // console.log(response.data.documentId.slice(0, 6));
 
         setTimeout(() => {
           window.scrollTo(0, 0);
@@ -271,22 +275,9 @@ export default function Step1({
                   </Text>
                 </Space>
                 <Divider></Divider>
+
                 <Form.Item<FieldType>
-                  label="Correo electronico"
-                  name="email"
-                  hasFeedback
-                  rules={[
-                    {
-                      required: true,
-                      message: "El email es requerido",
-                      type: "email",
-                    },
-                  ]}
-                >
-                  <Input size="middle" />
-                </Form.Item>
-                <Form.Item<FieldType>
-                  label="Nombre"
+                  label="Nombres"
                   name="name"
                   hasFeedback
                   rules={[{ required: true, message: "Ingresa tu nombre" }]}
@@ -310,19 +301,14 @@ export default function Step1({
                   <Input size="middle" />
                 </Form.Item>
                 <Form.Item<FieldType>
-                  label="Categoría"
-                  name="category"
+                  label="Sexo"
+                  name="gender"
                   hasFeedback
-                  rules={[
-                    { required: true, message: "Selecciona una categoría" },
-                  ]}
+                  rules={[{ required: true, message: "El campo es requerido" }]}
                 >
-                  <Select placeholder="Selecciona una categoría" size="middle">
-                    {data?.event_category_scs.map((cate) => (
-                      <Select.Option key={cate.id} value={cate.slug}>
-                        {cate.name}
-                      </Select.Option>
-                    ))}
+                  <Select size="middle">
+                    <Select.Option value="male">Male</Select.Option>
+                    <Select.Option value="female">Female</Select.Option>
                   </Select>
                 </Form.Item>
                 <Form.Item<FieldType>
@@ -338,18 +324,59 @@ export default function Step1({
                 >
                   <Input type="date" size="middle" />
                 </Form.Item>
-
                 <Form.Item<FieldType>
-                  label="Sexo"
-                  name="gender"
+                  label="Tipo de Sangre"
+                  name="bloodtype"
                   hasFeedback
                   rules={[{ required: true, message: "El campo es requerido" }]}
                 >
                   <Select size="middle">
-                    <Select.Option value="male">Male</Select.Option>
-                    <Select.Option value="female">Female</Select.Option>
+                    <Select.Option value="A+">A+</Select.Option>
+                    <Select.Option value="A-">A-</Select.Option>
+                    <Select.Option value="B+">B+</Select.Option>
+                    <Select.Option value="B-">B-</Select.Option>
+                    <Select.Option value="AB+">AB+</Select.Option>
+                    <Select.Option value="AB-">AB-</Select.Option>
+                    <Select.Option value="O+">O+</Select.Option>
+                    <Select.Option value="O-">O-</Select.Option>
                   </Select>
                 </Form.Item>
+                <Form.Item<FieldType>
+                  label="Correo electronico"
+                  name="email"
+                  hasFeedback
+                  rules={[
+                    {
+                      required: true,
+                      message: "El email es requerido",
+                      type: "email",
+                    },
+                  ]}
+                >
+                  <Input size="middle" />
+                </Form.Item>
+                {data?.event_category_scs &&
+                data.event_category_scs.length > 0 ? (
+                  <Form.Item<FieldType>
+                    label="Categoría"
+                    name="category"
+                    hasFeedback
+                    rules={[
+                      { required: true, message: "Selecciona una categoría" },
+                    ]}
+                  >
+                    <Select
+                      placeholder="Selecciona una categoría"
+                      size="middle"
+                    >
+                      {data?.event_category_scs.map((cate) => (
+                        <Select.Option key={cate.id} value={cate.slug}>
+                          {cate.name}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+                ) : null}
 
                 {/* <Form.Item<FieldType>
                     label="País"
@@ -402,7 +429,7 @@ export default function Step1({
                       options={cities}
                     ></Select>
                   </Form.Item> */}
-
+                <Divider orientation="center">Dirección de contacto</Divider>
                 <Form.Item<FieldType>
                   label="Dirección"
                   name="address"
@@ -411,8 +438,9 @@ export default function Step1({
                 >
                   <Input size="middle" />
                 </Form.Item>
+                <CountrySelect />
 
-                <Form.Item<FieldType>
+                {/* <Form.Item<FieldType>
                   label="Alergias"
                   name="allergies"
                   hasFeedback
@@ -432,25 +460,7 @@ export default function Step1({
                     size="middle"
                     placeholder="En caso de no aplicar, dejar en blanco"
                   />
-                </Form.Item>
-
-                <Form.Item<FieldType>
-                  label="Tipo de Sangre"
-                  name="bloodtype"
-                  hasFeedback
-                  rules={[{ required: true, message: "El campo es requerido" }]}
-                >
-                  <Select size="middle">
-                    <Select.Option value="A+">A+</Select.Option>
-                    <Select.Option value="A-">A-</Select.Option>
-                    <Select.Option value="B+">B+</Select.Option>
-                    <Select.Option value="B-">B-</Select.Option>
-                    <Select.Option value="AB+">AB+</Select.Option>
-                    <Select.Option value="AB-">AB-</Select.Option>
-                    <Select.Option value="O+">O+</Select.Option>
-                    <Select.Option value="O-">O-</Select.Option>
-                  </Select>
-                </Form.Item>
+                </Form.Item> */}
 
                 <Form.Item<FieldType>
                   label="Equipo"
@@ -458,11 +468,7 @@ export default function Step1({
                   hasFeedback
                   rules={[{ required: true, message: "El campo es requerido" }]}
                 >
-                  <Select size="middle">
-                    <Select.Option value="team1">Team 1</Select.Option>
-                    <Select.Option value="team2">Team 2</Select.Option>
-                    <Select.Option value="team3">Team 3</Select.Option>
-                  </Select>
+                  <Input size="middle" placeholder="Agrega a tu equipo"></Input>
                 </Form.Item>
 
                 <Form.Item<FieldType>
@@ -502,64 +508,7 @@ export default function Step1({
                   <Input type="number" size="middle" />
                 </Form.Item>
 
-                <Divider orientation="center">Seleccion tu Jersey</Divider>
-                <Collapse
-                  items={[
-                    {
-                      key: "1",
-                      label: "Ver imagenes",
-                      children: (
-                        <>
-                          <Image.PreviewGroup
-                            items={[
-                              "https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp",
-                              "https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp",
-                              "https://gw.alipayobjects.com/zos/antfincdn/cV16ZqzMjW/photo-1473091540282-9b846e7965e3.webp",
-                            ]}
-                          >
-                            <Image
-                              width={"auto"}
-                              src="https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp"
-                            />
-                          </Image.PreviewGroup>
-                        </>
-                      ),
-                    },
-                  ]}
-                />
-
-                <Form.Item
-                  label="Agregar Jersey"
-                  name="getJersey"
-                  className="pt-2 mb-2"
-                >
-                  <Radio.Group
-                    defaultValue={"NO"}
-                    buttonStyle="solid"
-                    // onChange={onChange1}
-                  >
-                    <Radio.Button value="YES">Si quiero</Radio.Button>
-                    <Radio.Button value="NO">No quiero</Radio.Button>
-                  </Radio.Group>
-                </Form.Item>
-
-                <Form.Item
-                  label="Elegir talla"
-                  name="sizeJersey"
-                  className="pt-2 mb-2"
-                >
-                  <Radio.Group
-                    defaultValue={"S"}
-                    buttonStyle="solid"
-                    // disabled={jersey}
-                  >
-                    <Radio.Button value="S">S</Radio.Button>
-                    <Radio.Button value="M">M</Radio.Button>
-                    <Radio.Button value="L">L</Radio.Button>
-                  </Radio.Group>
-                </Form.Item>
-
-                <Divider orientation="center"></Divider>
+                <PackageForm data={data?.packages} />
 
                 {/*   */}
 
