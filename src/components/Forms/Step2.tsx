@@ -1,5 +1,8 @@
-import { useEffect, useState } from "react";
+// import { CloseCircleTwoTone } from "@ant-design/icons";
+import { useState } from "react";
 import {
+  // Form,
+  // Button,
   Typography,
   Row,
   Col,
@@ -8,22 +11,27 @@ import {
   Alert,
   Image,
   Divider,
-  notification,
+  // notification,
 } from "antd";
-import { getParticipant } from "../../models/event.server";
+// import { getParticipant } from "../../models/event.server";
 import { BlocksContent } from "@strapi/blocks-react-renderer";
 import BlockRendererClient from "src/components/BlockRendererClient";
 import type { CollapseProps } from "antd";
 import { EventType } from "src/types";
 import { Icon } from "@iconify-icon/react";
-import ImageUpload from "src/components/Forms/Upload/ImageUpload";
+// import ImageUpload from "src/components/Forms/Upload/ImageUpload";
 import { formatearFechalg } from "src/utils/helpers";
+import ImageUploadBack from "./Upload/ImageUploadBack";
+
+// interface SubmitButtonProps {
+//   form: FormInstance;
+// }
+// type NotificationPlacement = NotificationArgsProps["placement"];
 
 type Step2Props = {
-  next: () => void;
   id: string;
   data: EventType;
-  // media: any;
+  urlEvent: string;
   dataP: any;
   setUpdateData: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -31,44 +39,41 @@ type Step2Props = {
 const text = `
   A dog is a type of domesticated animal.
   Known for its loyalty and faithfulness,
-  Known for its loyalty and faithfulness,
-  Known for its loyalty and faithfulness,
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
 `;
 
 export default function Step2({
-  next,
   id,
   data,
   dataP,
+  urlEvent,
   setUpdateData,
 }: Step2Props) {
   const [tranferPaymentData] = useState<BlocksContent>(data?.transfer_payment);
   const [digitalPaymentData] = useState<BlocksContent>(data?.digital_payment);
-  const [contextHolder] = notification.useNotification();
-  const [, setLoading] = useState(false);
-  const [partId, setPartId] = useState<string>();
+  // const [loading, setLoading] = useState(false);
+  // const [partId, setPartId] = useState<string>();
 
-  useEffect(() => {
-    setLoading(true);
-    const fetchParticipant = async () => {
-      try {
-        if (!id) {
-          return;
-        }
-        const response = await getParticipant(id);
-        setPartId(response.data[0].documentId);
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      } finally {
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
-      }
-    };
-    fetchParticipant();
-  }, [id]);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   const fetchParticipant = async () => {
+  //     try {
+  //       if (!id) {
+  //         return;
+  //       }
+  //       const response = await getParticipant(id);
+  //       setPartId(response.data[0].documentId);
+
+  //     } catch (error) {
+  //       console.error("Error fetching events:", error);
+
+  //     } finally {
+  //       setTimeout(() => {
+  //         setLoading(false);
+  //       }, 1000);
+  //     }
+  //   };
+  //   fetchParticipant();
+  // }, [id]);
 
   const items: CollapseProps["items"] = [
     {
@@ -106,7 +111,7 @@ export default function Step2({
 
   return (
     <>
-      {contextHolder}
+      {/* {contextHolder} */}
 
       <div className="md:py-5 lg:py-10 lg:px-10 flex justify-center">
         <>
@@ -116,7 +121,7 @@ export default function Step2({
             style={{ backgroundColor: "white", width: "100%" }}
           >
             <Col id="check">
-              {dataP.payment && (
+              {dataP && dataP.payment && (
                 <Col
                   style={{
                     display: "flex",
@@ -172,6 +177,13 @@ export default function Step2({
                   />
                 </Tooltip>
               </Typography.Title>
+              <Typography.Title
+                level={3}
+                className="border-1 bg-orange-100 border-orange-200 rounded-lg m-0"
+                style={{ textAlign: "center" }}
+              >
+                {data.name}
+              </Typography.Title>
             </Col>
             <Row>
               <Col
@@ -222,10 +234,12 @@ export default function Step2({
                     copyable={{ text: id }}
                   ></Typography.Paragraph>
                 </Typography.Title>
+                <Typography>{data.url}</Typography>
 
-                <ImageUpload
-                  partId={partId}
-                  next={next}
+                <ImageUploadBack
+                  partId={id}
+                  data={data}
+                  urlEvent={urlEvent}
                   setUpdateData={setUpdateData}
                 />
               </Col>

@@ -5,11 +5,11 @@ import { EventType } from "../types";
 import { useParams } from "react-router-dom";
 import {
   formatearDayStyle,
-  formatearHora,
   formatearPrice,
   formatearDayNameStyle,
   formatearMonthNameStyle,
   formatearYearNameStyle,
+  formatearHoraAMPM,
 } from "../utils/helpers";
 
 // import OwlCarousel from "react-owl-carousel";
@@ -171,7 +171,7 @@ export default function SingleEvent() {
       {/* Breaking Events */}
       <OwlBreakingNews />
 
-      <CardServices />
+      <CardServices dataEvent={dataEvent} />
 
       {/* Card Section */}
       {dataEvent && (
@@ -180,7 +180,7 @@ export default function SingleEvent() {
             background: "linear-gradient(to bottom, #1E2024 10%, #FFCC00 100%)",
           }}
         >
-          <div className="container py-10">
+          <div className="container-md py-10">
             <div className="row">
               <div className="col-lg-4 col-md-12">
                 {loading ? (
@@ -198,7 +198,7 @@ export default function SingleEvent() {
                   </SkeletonCard>
                 ) : (
                   <div className="card-list" id="card-flag-m">
-                    <article className="card flex lg:flex-col border-8 border-[#3A3D42]">
+                    <article className="card flex lg:flex-col border-2 border-[#3A3D42]">
                       <figure className="card-image">
                         {dataEvent.img_main ? (
                           <Image
@@ -259,19 +259,21 @@ export default function SingleEvent() {
                       <div className="card-footer">
                         {/* Time / Price */}
                         <div className="flex flex-col hover:text-[#FFCC00] transition-all">
-                          <div className="p-2 text-xl font-semibold">
-                            <p className="font-bold mx-2 text-2xl">
-                              {`Salida: ${formatearHora(dataEvent.date_event)}`}
+                          <div className="p-1 text-xl font-semibold">
+                            <p className="font-bold mx-2 text-xl">
+                              {`Salida: ${formatearHoraAMPM(
+                                dataEvent.date_event
+                              )}`}
                             </p>
                           </div>
-                          <div className="p-2 text-xl font-semibold">
-                            <p className="font-bold mx-2 text-2xl">
+                          <div className="p-1 text-xl font-semibold">
+                            <p className="font-bold mx-2 text-xl">
                               {`Costo: ${formatearPrice(dataEvent.price)}`}
                             </p>
                           </div>
                         </div>
                         {/* Date */}
-                        <div className="flex flex-col items-center gap-1 p-2 bg-[#1E2024] border-8 border-[#3A3D42] rounded-xl">
+                        <div className="flex flex-col items-center gap-1 p-2 bg-[#1E2024] border-2 border-[#3A3D42] rounded-xl">
                           <div className=" text-2xl">
                             {formatearDayNameStyle(
                               dataEvent.date_event
@@ -291,7 +293,7 @@ export default function SingleEvent() {
                             {`${dataEvent.city_state}, ${dataEvent.state?.name}`}
                           </p>
                           {/* Map */}
-                          <div className="w-full border-8 border-[#3A3D42]">
+                          <div className="w-full border-4 border-[#3A3D42]">
                             <iframe
                               width="100%"
                               height="auto"

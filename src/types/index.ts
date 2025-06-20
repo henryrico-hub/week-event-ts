@@ -104,6 +104,13 @@ export type EventType = {
       slug: string;
     }
   ];
+  services_scs: ServicesScs[];
+};
+
+export type ServicesScs = {
+  id: number;
+  service: string;
+  slug: string;
 };
 
 export type Participant = {
@@ -179,23 +186,3 @@ export type ArticleType = {
   };
   claps: number;
 };
-/* 
-  export type AlbumType = {
-    id : string
-    attributes : {
-      album_name: string;
-      description: string
-      url: string;
-      photo: {
-      data: Array<{
-        id : string
-        attributes: {
-          name?: string;
-          width: number;
-          height: number;
-          url: string;
-        };
-      }>;
-    };
-    }
-  } */

@@ -48,6 +48,14 @@ export const formatearMesDiaHora = (fecha: Date | number | string): string => {
   horas = horas % 12 || 12;
   return `${fechaFormateada}, ${horas}:${minutos} ${ampm}`;
 };
+export const formatearHoraAMPM = (fecha: Date | number | string): string => {
+  const fechaNueva = new Date(fecha);
+  let horas = fechaNueva.getHours();
+  const minutos = fechaNueva.getMinutes().toString().padStart(2, "0");
+  const ampm = horas >= 12 ? "pm" : "am";
+  horas = horas % 12 || 12;
+  return `${horas}:${minutos} ${ampm}`;
+};
 
 export const formatearFechalg = (fecha: Date | number | string): string => {
   const fechaNueva = new Date(fecha);

@@ -1,6 +1,5 @@
 import { Modal } from "antd";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import VerificationInput from "react-verification-input";
 import { getParticipant } from "src/models/event.server";
 import { Icon } from "@iconify-icon/react";
@@ -13,7 +12,6 @@ type Props = {
 };
 
 export default function EnterCode({ setMobileMenuOpen }: Props) {
-  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
@@ -51,33 +49,38 @@ export default function EnterCode({ setMobileMenuOpen }: Props) {
           const url = response.data[0].event.url;
           const idPart = response.data[0].documentId.slice(0, 6);
 
-          const media = response.data[0];
+          // const media = response.data[0];
 
           if (statusP === "Pending") {
             setTimeout(() => {
               window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-              navigate(`/form/${url}/${idPart}`, {
-                state: { step: 1, media: media },
-              });
-              setOpen(false);
-              setLoading(false);
+              // navigate(`/form/${url}/${idPart}`, {
+              //   state: { step: 1, media: media },
+              // });
               setMobileMenuOpen && setMobileMenuOpen(false);
+              localStorage.setItem("formStep", "pending"); // o "2"
+              window.location.href = `/form/${url}/${idPart}`;
+              // setOpen(false);
+              // setLoading(false);
             }, 4000);
           }
           if (statusP === "Complete") {
             setTimeout(() => {
               window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-              navigate(`/form/${url}/${idPart}`, {
-                state: { step: 2 },
-              });
-              setOpen(false);
-              setLoading(false);
               setMobileMenuOpen && setMobileMenuOpen(false);
+              localStorage.setItem("formStep", "complete"); // o "2"
+              window.location.href = `/form/${url}/${idPart}`;
+              // navigate(`/form/${url}/${idPart}`, {
+              //   state: { step: 2 },
+              // });
+              // setOpen(false);
+              // setLoading(false);
             }, 4000);
           }
         }
 
-        //1 f8docw
+        //1 b5krr6
+        //2 l3e0o4
       } catch (error) {
         setLoading(false);
         console.error("Error fetching events:", error);

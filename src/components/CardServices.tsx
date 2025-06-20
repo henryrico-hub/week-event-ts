@@ -1,5 +1,7 @@
 import { Icon } from "@iconify-icon/react";
 import { useState } from "react";
+import { useEffect } from "react";
+import { EventType } from "src/types";
 
 const elements = [
   {
@@ -22,13 +24,13 @@ const elements = [
   },
   {
     title: "Medalla de Finisher",
-    slug: "medalla-finisher",
+    slug: "medalla-de-finisher",
     icon: "mdi:medal",
     complementText: "Medalla entregada al cruzar la meta.",
   },
   {
     title: "Premiación general y categorias",
-    slug: "premiacion",
+    slug: "premiacion-general-y-categorias",
     icon: "mdi:trophy",
     complementText: "Premios para ganadores.",
   },
@@ -40,13 +42,13 @@ const elements = [
   },
   {
     title: "Kit de corredor",
-    slug: "kit-corredor",
+    slug: "kit-de-corredor",
     icon: "mdi:package-variant",
     complementText: "Incluye número y otros artículos.",
   },
   {
     title: "Fotografo oficial en ruta",
-    slug: "fotografo-oficial",
+    slug: "fotografo-oficial-en-ruta",
     icon: "mdi:camera",
     complementText: "Fotógrafos capturando momentos del evento.",
   },
@@ -64,13 +66,13 @@ const elements = [
   },
   {
     title: "Animación y música",
-    slug: "animacion-musica",
+    slug: "animacion-y-musica",
     icon: "mdi:music",
     complementText: "Animadores y música durante el evento.",
   },
   {
     title: "Zona de recuperación",
-    slug: "zona-recuperacion",
+    slug: "zona-de-recuperacion",
     icon: "mdi:heart-pulse",
     complementText: "Área para recuperación post-carrera.",
   },
@@ -81,61 +83,86 @@ const elements = [
     complementText: "Estacionamiento disponible para participantes.",
   },
 ];
+type Props = {
+  dataEvent: EventType | undefined;
+};
 
-function CardServices() {
+function CardServices({ dataEvent }: Props) {
   const [showAll, setShowAll] = useState<boolean>(false);
+  const [elementsfromEvent, setElementsFromEvent] = useState<typeof elements>(
+    []
+  );
+
+  useEffect(() => {
+    console.log(dataEvent?.services_scs);
+
+    if (dataEvent && dataEvent.services_scs) {
+      const services = dataEvent.services_scs
+        .map((service) =>
+          elements.find((element) => element.slug === service.slug)
+        )
+        .filter((el): el is (typeof elements)[number] => !!el);
+      setElementsFromEvent(services);
+    }
+  }, [dataEvent]);
 
   return (
     <div className="bg-[#1E2024]">
       <div id="services-list" className="container">
         <div className="ag-courses_box">
-          {(showAll ? elements : elements.slice(0, 6)).map((serv, key) => (
-            <div key={key} className="ag-courses_item">
-              <a className="ag-courses-item_link">
-                <div className="ag-courses-item_bg style"></div>
+          {(showAll ? elementsfromEvent : elementsfromEvent.slice(0, 6)).map(
+            (serv, key) => (
+              <div key={key} className="ag-courses_item">
+                <a className="ag-courses-item_link">
+                  <div className="ag-courses-item_bg style"></div>
 
-                <div className="ag-courses-item_date-box">
-                  <span className="flex ag-courses-item_date">
-                    <Icon icon={serv.icon} width={48} height={48} />
-                    <span
-                      className="ag-courses-item_text pl-2"
-                      style={{ color: "#121212" }}
-                    >
-                      {serv.complementText}
+                  <div className="ag-courses-item_date-box">
+                    <span className="flex ag-courses-item_date">
+                      <Icon icon={serv.icon} width={48} height={48} />
+                      <span
+                        className="ag-courses-item_text pl-2"
+                        style={{ color: "#121212" }}
+                      >
+                        {serv.complementText}
+                      </span>
                     </span>
-                  </span>
-                </div>
-                <div className="ag-courses-item_title">{serv.title}</div>
-              </a>
-            </div>
-          ))}
+                  </div>
+                  <div className="ag-courses-item_title">{serv.title}</div>
+                </a>
+              </div>
+            )
+          )}
         </div>
-        <div className="flex flex-col items-center pb-4">
-          <button
-            className="flex w-fit bg-[#121212] hover:text-black text-slate-50 font-semibold hover:bg-[#f97316] px-6 py-3 rounded-full shadow-lg shadow-blue-500/40 hover:shadow-orange-500/40 transition-all duration-300"
-            onClick={() => {
-              setShowAll((prev) => {
-                const next = !prev;
-                if (prev) {
-                  const el = document.getElementById("services-list");
-                  if (el) {
-                    el.scrollIntoView({ behavior: "smooth" });
+        {elementsfromEvent.length <= 6 ? (
+          <></>
+        ) : (
+          <div className="flex flex-col items-center pb-4">
+            <button
+              className="flex w-fit bg-[#121212] hover:text-black text-slate-50 font-semibold hover:bg-[#f97316] px-6 py-3 rounded-full shadow-lg shadow-blue-500/40 hover:shadow-orange-500/40 transition-all duration-300"
+              onClick={() => {
+                setShowAll((prev) => {
+                  const next = !prev;
+                  if (prev) {
+                    const el = document.getElementById("services-list");
+                    if (el) {
+                      el.scrollIntoView({ behavior: "smooth" });
+                    }
                   }
-                }
-                return next;
-              });
-            }}
-          >
-            {showAll ? "Mostar menos" : "Mostrar todos"}
-            <Icon
-              className=""
-              icon={showAll ? "mdi:chevron-up" : "mdi:chevron-down"}
-              width={24}
-              height={24}
-              inline={true}
-            />
-          </button>
-        </div>
+                  return next;
+                });
+              }}
+            >
+              {showAll ? "Mostar menos" : "Mostrar todos"}
+              <Icon
+                className=""
+                icon={showAll ? "mdi:chevron-up" : "mdi:chevron-down"}
+                width={24}
+                height={24}
+                inline={true}
+              />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

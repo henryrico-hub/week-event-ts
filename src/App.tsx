@@ -26,6 +26,7 @@ import EventsCards from "./components/Admin/EventsCards";
 import ProtectedRoute from "./components/Login/ProtectedRoute";
 import PublicRoute from "./components/Login/PublicRoute";
 import ParticipantsPage from "./components/Admin/ParticipantsPage";
+import ToTopButton from "./components/Button/ToTopButton";
 
 const categories = [
   { name: "Carrera", url: "correr" },
@@ -117,6 +118,7 @@ function App() {
     <>
       {/* <Wrapper> */}
       <RouterProvider router={router} />
+      <ToTopButton />
       {/* </Wrapper> */}
     </>
   );

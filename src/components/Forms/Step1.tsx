@@ -9,6 +9,9 @@ import {
   Divider,
   Result,
   Select,
+  Collapse,
+  Radio,
+  Image,
 } from "antd";
 import { Icon } from "@iconify-icon/react";
 import Title from "antd/es/typography/Title";
@@ -50,9 +53,15 @@ type Step1Props = {
   next: () => void;
   setRegisterId: React.Dispatch<React.SetStateAction<string>>;
   data: EventType | null;
+  setDataParticipant: React.Dispatch<React.SetStateAction<any>>;
 };
 
-export default function Step1({ next, setRegisterId, data }: Step1Props) {
+export default function Step1({
+  next,
+  setRegisterId,
+  data,
+  setDataParticipant,
+}: Step1Props) {
   const [, contextHolder] = notification.useNotification();
 
   const [form] = Form.useForm();
@@ -132,9 +141,11 @@ export default function Step1({ next, setRegisterId, data }: Step1Props) {
             paternal_surname: string | null;
             publishedAt: string;
             updatedAt: string;
+            payment: string | File | null;
           };
         } = await postParticipant(datatoSend2);
         setRegisterId(response.data.documentId.slice(0, 6));
+        setDataParticipant(response.data);
         // console.log(response.data.documentId.slice(0, 6));
 
         setTimeout(() => {
@@ -261,10 +272,40 @@ export default function Step1({ next, setRegisterId, data }: Step1Props) {
                 </Space>
                 <Divider></Divider>
                 <Form.Item<FieldType>
+                  label="Correo electronico"
+                  name="email"
+                  hasFeedback
+                  rules={[
+                    {
+                      required: true,
+                      message: "El email es requerido",
+                      type: "email",
+                    },
+                  ]}
+                >
+                  <Input size="middle" />
+                </Form.Item>
+                <Form.Item<FieldType>
                   label="Nombre"
                   name="name"
                   hasFeedback
                   rules={[{ required: true, message: "Ingresa tu nombre" }]}
+                >
+                  <Input size="middle" />
+                </Form.Item>
+                <Form.Item<FieldType>
+                  label="Apellido paterno"
+                  name="lastname"
+                  hasFeedback
+                  rules={[{ required: true, message: "Ingresa apellido" }]}
+                >
+                  <Input size="middle" />
+                </Form.Item>
+                <Form.Item<FieldType>
+                  label="Apellido materno"
+                  name="lastnameS"
+                  hasFeedback
+                  rules={[{ required: true, message: "Ingresa apellido" }]}
                 >
                   <Input size="middle" />
                 </Form.Item>
@@ -284,52 +325,33 @@ export default function Step1({ next, setRegisterId, data }: Step1Props) {
                     ))}
                   </Select>
                 </Form.Item>
+                <Form.Item<FieldType>
+                  label="Fecha de Nacimiento"
+                  name="birthday"
+                  hasFeedback
+                  rules={[
+                    {
+                      required: true,
+                      message: "Ingresa tu fecha de nacimiento!",
+                    },
+                  ]}
+                >
+                  <Input type="date" size="middle" />
+                </Form.Item>
+
+                <Form.Item<FieldType>
+                  label="Sexo"
+                  name="gender"
+                  hasFeedback
+                  rules={[{ required: true, message: "El campo es requerido" }]}
+                >
+                  <Select size="middle">
+                    <Select.Option value="male">Male</Select.Option>
+                    <Select.Option value="female">Female</Select.Option>
+                  </Select>
+                </Form.Item>
+
                 {/* <Form.Item<FieldType>
-                    label="Apellido paterno"
-                    name="lastname"
-                    hasFeedback
-                    rules={[{ required: true, message: "Ingresa apellido" }]}
-                  >
-                    <Input size="middle" />
-                  </Form.Item>
-                  <Form.Item<FieldType>
-                    label="Apellidos materno"
-                    name="lastnameS"
-                    hasFeedback
-                    rules={[{ required: true, message: "Ingresa apellido" }]}
-                  >
-                    <Input size="middle" />
-                  </Form.Item>
-
-                  <Form.Item<FieldType>
-                    label="Fecha de Nacimiento"
-                    name="birthday"
-                    hasFeedback
-                    rules={[
-                      {
-                        required: true,
-                        message: "Ingresa tu fecha de nacimiento!",
-                      },
-                    ]}
-                  >
-                    <Input type="date" size="middle" />
-                  </Form.Item>
-
-                  <Form.Item<FieldType>
-                    label="Sexo"
-                    name="gender"
-                    hasFeedback
-                    rules={[
-                      { required: true, message: "El campo es requerido" },
-                    ]}
-                  >
-                    <Select size="middle">
-                      <Select.Option value="male">Male</Select.Option>
-                      <Select.Option value="female">Female</Select.Option>
-                    </Select>
-                  </Form.Item>
-
-                  <Form.Item<FieldType>
                     label="País"
                     name="country"
                     hasFeedback
@@ -379,189 +401,167 @@ export default function Step1({ next, setRegisterId, data }: Step1Props) {
                       placeholder="Selecciona Ciudad"
                       options={cities}
                     ></Select>
-                  </Form.Item>
+                  </Form.Item> */}
 
-                  <Form.Item<FieldType>
-                    label="Dirección"
-                    name="address"
-                    hasFeedback
-                    rules={[
-                      { required: true, message: "El campo es requerido" },
-                    ]}
-                  >
-                    <Input size="middle" />
-                  </Form.Item>
+                <Form.Item<FieldType>
+                  label="Dirección"
+                  name="address"
+                  hasFeedback
+                  rules={[{ required: true, message: "El campo es requerido" }]}
+                >
+                  <Input size="middle" />
+                </Form.Item>
 
-                  <Form.Item<FieldType>
-                    label="Alergias"
-                    name="allergies"
-                    hasFeedback
-                  >
-                    <Input.TextArea
-                      size="middle"
-                      placeholder="En caso de no aplicar, dejar en blanco"
-                    />
-                  </Form.Item>
-
-                  <Form.Item<FieldType>
-                    label="Medicina"
-                    name="medicine"
-                    hasFeedback
-                  >
-                    <Input.TextArea
-                      size="middle"
-                      placeholder="En caso de no aplicar, dejar en blanco"
-                    />
-                  </Form.Item>
-
-                  <Form.Item<FieldType>
-                    label="Tipo de Sangre"
-                    name="bloodtype"
-                    hasFeedback
-                    rules={[
-                      { required: true, message: "El campo es requerido" },
-                    ]}
-                  >
-                    <Select size="middle">
-                      <Select.Option value="A+">A+</Select.Option>
-                      <Select.Option value="A-">A-</Select.Option>
-                      <Select.Option value="B+">B+</Select.Option>
-                      <Select.Option value="B-">B-</Select.Option>
-                      <Select.Option value="AB+">AB+</Select.Option>
-                      <Select.Option value="AB-">AB-</Select.Option>
-                      <Select.Option value="O+">O+</Select.Option>
-                      <Select.Option value="O-">O-</Select.Option>
-                    </Select>
-                  </Form.Item>
-
-                  <Form.Item<FieldType>
-                    label="Equipo"
-                    name="team"
-                    hasFeedback
-                    rules={[
-                      { required: true, message: "El campo es requerido" },
-                    ]}
-                  >
-                    <Select size="middle">
-                      <Select.Option value="team1">Team 1</Select.Option>
-                      <Select.Option value="team2">Team 2</Select.Option>
-                      <Select.Option value="team3">Team 3</Select.Option>
-                    </Select>
-                  </Form.Item>
-
-                  <Form.Item<FieldType>
-                    label="Numero de teléfono"
-                    name="phone"
-                    hasFeedback
-                    rules={[
-                      { required: true, message: "El campo es requerido" },
-                    ]}
-                  >
-                    <Input type="number" size="middle" />
-                  </Form.Item>
-
-                  <Form.Item<FieldType>
-                    label="Correo electronico"
-                    name="email"
-                    hasFeedback
-                    rules={[
-                      {
-                        required: true,
-                        message: "El email es requerido",
-                        type: "email",
-                      },
-                    ]}
-                  >
-                    <Input size="middle" />
-                  </Form.Item>
-
-                  <Form.Item<FieldType>
-                    label="Nombre de contacto de emergencia"
-                    name="emergencyContactName"
-                    hasFeedback
-                    rules={[
-                      {
-                        required: true,
-                        message: "El campo es requerido",
-                      },
-                    ]}
-                    required
-                  >
-                    <Input size="middle" />
-                  </Form.Item>
-
-                  <Form.Item<FieldType>
-                    label="Teléfono de contacto de emergencia"
-                    name="emergencyContactPhone"
-                    hasFeedback
-                    rules={[
-                      {
-                        required: true,
-                        message: "El campo es requerido",
-                      },
-                    ]}
-                  >
-                    <Input type="number" size="middle" />
-                  </Form.Item>
-
-                  <Divider orientation="center">Seleccion tu Jersey</Divider>
-                  <Collapse
-                    items={[
-                      {
-                        key: "1",
-                        label: "Ver imagenes",
-                        children: (
-                          <>
-                            <Image.PreviewGroup
-                              items={[
-                                "https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp",
-                                "https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp",
-                                "https://gw.alipayobjects.com/zos/antfincdn/cV16ZqzMjW/photo-1473091540282-9b846e7965e3.webp",
-                              ]}
-                            >
-                              <Image
-                                width={"auto"}
-                                src="https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp"
-                              />
-                            </Image.PreviewGroup>
-                          </>
-                        ),
-                      },
-                    ]}
+                <Form.Item<FieldType>
+                  label="Alergias"
+                  name="allergies"
+                  hasFeedback
+                >
+                  <Input.TextArea
+                    size="middle"
+                    placeholder="En caso de no aplicar, dejar en blanco"
                   />
+                </Form.Item>
 
-                  <Form.Item
-                    label="Agregar Jersey"
-                    name="getJersey"
-                    className="pt-2 mb-2"
+                <Form.Item<FieldType>
+                  label="Medicina"
+                  name="medicine"
+                  hasFeedback
+                >
+                  <Input.TextArea
+                    size="middle"
+                    placeholder="En caso de no aplicar, dejar en blanco"
+                  />
+                </Form.Item>
+
+                <Form.Item<FieldType>
+                  label="Tipo de Sangre"
+                  name="bloodtype"
+                  hasFeedback
+                  rules={[{ required: true, message: "El campo es requerido" }]}
+                >
+                  <Select size="middle">
+                    <Select.Option value="A+">A+</Select.Option>
+                    <Select.Option value="A-">A-</Select.Option>
+                    <Select.Option value="B+">B+</Select.Option>
+                    <Select.Option value="B-">B-</Select.Option>
+                    <Select.Option value="AB+">AB+</Select.Option>
+                    <Select.Option value="AB-">AB-</Select.Option>
+                    <Select.Option value="O+">O+</Select.Option>
+                    <Select.Option value="O-">O-</Select.Option>
+                  </Select>
+                </Form.Item>
+
+                <Form.Item<FieldType>
+                  label="Equipo"
+                  name="team"
+                  hasFeedback
+                  rules={[{ required: true, message: "El campo es requerido" }]}
+                >
+                  <Select size="middle">
+                    <Select.Option value="team1">Team 1</Select.Option>
+                    <Select.Option value="team2">Team 2</Select.Option>
+                    <Select.Option value="team3">Team 3</Select.Option>
+                  </Select>
+                </Form.Item>
+
+                <Form.Item<FieldType>
+                  label="Numero de teléfono"
+                  name="phone"
+                  hasFeedback
+                  rules={[{ required: true, message: "El campo es requerido" }]}
+                >
+                  <Input type="number" size="middle" />
+                </Form.Item>
+                <Form.Item<FieldType>
+                  label="Nombre de contacto de emergencia"
+                  name="emergencyContactName"
+                  hasFeedback
+                  rules={[
+                    {
+                      required: true,
+                      message: "El campo es requerido",
+                    },
+                  ]}
+                  required
+                >
+                  <Input size="middle" />
+                </Form.Item>
+
+                <Form.Item<FieldType>
+                  label="Teléfono de contacto de emergencia"
+                  name="emergencyContactPhone"
+                  hasFeedback
+                  rules={[
+                    {
+                      required: true,
+                      message: "El campo es requerido",
+                    },
+                  ]}
+                >
+                  <Input type="number" size="middle" />
+                </Form.Item>
+
+                <Divider orientation="center">Seleccion tu Jersey</Divider>
+                <Collapse
+                  items={[
+                    {
+                      key: "1",
+                      label: "Ver imagenes",
+                      children: (
+                        <>
+                          <Image.PreviewGroup
+                            items={[
+                              "https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp",
+                              "https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp",
+                              "https://gw.alipayobjects.com/zos/antfincdn/cV16ZqzMjW/photo-1473091540282-9b846e7965e3.webp",
+                            ]}
+                          >
+                            <Image
+                              width={"auto"}
+                              src="https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp"
+                            />
+                          </Image.PreviewGroup>
+                        </>
+                      ),
+                    },
+                  ]}
+                />
+
+                <Form.Item
+                  label="Agregar Jersey"
+                  name="getJersey"
+                  className="pt-2 mb-2"
+                >
+                  <Radio.Group
+                    defaultValue={"NO"}
+                    buttonStyle="solid"
+                    // onChange={onChange1}
                   >
-                    <Radio.Group
-                      defaultValue={"NO"}
-                      buttonStyle="solid"
-                      onChange={onChange1}
-                    >
-                      <Radio.Button value="YES">Si quiero</Radio.Button>
-                      <Radio.Button value="NO">No quiero</Radio.Button>
-                    </Radio.Group>
-                  </Form.Item>
+                    <Radio.Button value="YES">Si quiero</Radio.Button>
+                    <Radio.Button value="NO">No quiero</Radio.Button>
+                  </Radio.Group>
+                </Form.Item>
 
-                  <Form.Item
-                    label="Elegir talla"
-                    name="sizeJersey"
-                    className="pt-2 mb-2"
+                <Form.Item
+                  label="Elegir talla"
+                  name="sizeJersey"
+                  className="pt-2 mb-2"
+                >
+                  <Radio.Group
+                    defaultValue={"S"}
+                    buttonStyle="solid"
+                    // disabled={jersey}
                   >
-                    <Radio.Group
-                      defaultValue={"S"}
-                      buttonStyle="solid"
-                      disabled={jersey}
-                    >
-                      <Radio.Button value="S">S</Radio.Button>
-                      <Radio.Button value="M">M</Radio.Button>
-                      <Radio.Button value="L">L</Radio.Button>
-                    </Radio.Group>
-                  </Form.Item>
+                    <Radio.Button value="S">S</Radio.Button>
+                    <Radio.Button value="M">M</Radio.Button>
+                    <Radio.Button value="L">L</Radio.Button>
+                  </Radio.Group>
+                </Form.Item>
 
-                  <Divider orientation="center"></Divider> */}
+                <Divider orientation="center"></Divider>
+
+                {/*   */}
 
                 <Form.Item<FieldType>
                   name="remember"

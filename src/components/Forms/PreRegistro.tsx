@@ -4,9 +4,13 @@ import { Steps, Watermark, theme } from "antd";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { EventType } from "src/types";
-import { getParticipant, getSingleEvent } from "src/models/event.server";
+import {
+  getParticipant,
+  getSingleEvent,
+  getSingleEventForm,
+} from "src/models/event.server";
 import { Icon } from "@iconify-icon/react";
 
 // type paramsEventProps = {
@@ -16,32 +20,33 @@ import { Icon } from "@iconify-icon/react";
 // };
 
 export default function PreRegistro() {
-  const location = useLocation();
-  const step = location.state?.step;
-  const media = location.state?.media;
+  // const location = useLocation();
+  // const step = location.state?.step;
+  // const media = location.state?.media;
 
   const { id, idPart } = useParams();
   const { token } = theme.useToken();
 
-  const [current, setCurrent] = useState(step ? step : 0);
+  const [current, setCurrent] = useState(0);
+  // const [current, setCurrent] = useState(step ? step : 0);
   const [items, setItems] = useState<
     { id: number; title: string; description: string }[]
   >([]);
   const [, setLoading] = useState<boolean>(false);
   const [dataEvent, setDataEvent] = useState<EventType>();
-  const [dataParticipant, setDataParticipant] = useState(media ? media : {});
+  const [dataParticipant, setDataParticipant] = useState();
   const [registerId, setRegisterId] = useState<string>(idPart ? idPart : "");
   const [updateData, setUpdateData] = useState<boolean>(false);
+  const [urlEvent] = useState<string>(id ? id : "");
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDataE = async () => {
       setLoading(true);
       try {
         if (!id) {
-          throw new Error("category_id is required");
+          throw new Error("idEvent is required");
         }
-
-        const events = await getSingleEvent(id);
+        const events = await getSingleEventForm(id);
         setDataEvent(events.data[0]);
       } catch (error) {
         console.error("Error fetching events:", error);
@@ -51,9 +56,27 @@ export default function PreRegistro() {
         }, 1000);
       }
     };
+    fetchDataE();
+    const savedStep = localStorage.getItem("formStep");
+    if (savedStep) {
+      if (savedStep === "pending") {
+        setCurrent(1);
+        console.log("aqui");
+      } else {
+        console.log("aqu2");
+        setCurrent(2);
+      }
+      // setCurrent(Number(savedStep));
+    } else {
+      console.log("aqu3");
+      setCurrent(0); // o lo que consideres el paso por defecto
+    }
+    setTimeout(() => {
+      localStorage.removeItem("formStep"); // Limpia después de usar
 
-    fetchData();
-  }, [id]);
+      console.log("aqu4");
+    }, 2000);
+  }, []);
 
   useEffect(() => {
     const fetchDataParticipant = async () => {
@@ -92,7 +115,12 @@ export default function PreRegistro() {
       description: "Completa el formulario para iniciar el proceso.",
       subTitle: "subtitle",
       content: dataEvent && (
-        <Step1 next={next} setRegisterId={setRegisterId} data={dataEvent} />
+        <Step1
+          next={next}
+          setRegisterId={setRegisterId}
+          data={dataEvent}
+          setDataParticipant={setDataParticipant}
+        />
       ),
     },
     {
@@ -102,8 +130,8 @@ export default function PreRegistro() {
       description: "Realiza el pago y manda tu comprobante.",
       content: dataEvent && (
         <Step2
-          next={next}
           id={registerId}
+          urlEvent={urlEvent}
           data={dataEvent}
           dataP={dataParticipant}
           setUpdateData={setUpdateData}
@@ -201,7 +229,7 @@ export default function PreRegistro() {
               {current === steps.length - 1 && (
                 <Button
                   type="primary"
-                  onClick={() => message.success("Processing complete!")}
+                  // onClick={() => message.success("Processing complete!")}
                 >
                   Done
                 </Button>
