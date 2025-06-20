@@ -115,6 +115,8 @@ export default function Step1({
       //   team: values.team,
       //   phone: values.phone,
       //   email: values.email,
+      //   package : values.package,
+      //   size: values.size
       //   emergencyContactName: values.emergencyContactName,
       //   emergencyContactPhone: values.emergencyContactPhone,
       //   // remember: values.remember,
@@ -127,10 +129,14 @@ export default function Step1({
         name: string;
         event: string | undefined;
         categoryP: string;
+        size: string;
+        package: string;
       } = {
         name: values.name,
         event: data?.documentId,
         categoryP: values.category,
+        size: values.size,
+        package: values.package,
       };
 
       try {
@@ -147,6 +153,8 @@ export default function Step1({
             publishedAt: string;
             updatedAt: string;
             payment: string | File | null;
+            size: string;
+            package: string;
           };
         } = await postParticipant(datatoSend2);
         setRegisterId(response.data.documentId.slice(0, 6));

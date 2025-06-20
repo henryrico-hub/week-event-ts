@@ -9,7 +9,7 @@ import {
 } from "antd";
 import { FieldType } from "../Step1";
 import { PackageType, SizeJerseyType } from "src/types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import packageEmpty from "src/assets/images/packageEmpty.webp";
 import { formatearPrice } from "src/utils/helpers";
 
@@ -23,7 +23,10 @@ export default function PackageForm({ data }: Props) {
   const [packageSizes, setPackageSizes] = useState<SizeJerseyType[]>([]);
 
   const onChangePkg = (value: string) => {
-    const selectedPackage = data?.find((pkg) => pkg.slug === value);
+    console.log(value);
+    const selectedPackage = data?.find(
+      (pkg) => pkg.name === value.split("->")[0]
+    );
     if (selectedPackage) {
       setDescription(selectedPackage.description);
       setPackageMedia(
@@ -64,7 +67,7 @@ export default function PackageForm({ data }: Props) {
               onChange={onChangePkg}
               options={data?.map((pkg) => ({
                 label: `${pkg.name} - $${formatearPrice(pkg.price)}`,
-                value: pkg.slug,
+                value: `${pkg.name}->${formatearPrice(pkg.price)}`,
               }))}
               placeholder="Elige un paquete"
               allowClear
@@ -106,7 +109,7 @@ export default function PackageForm({ data }: Props) {
               // disabled={jersey}
             >
               {packageSizes.map((size, key) => (
-                <Radio.Button key={key} value={size.slug}>
+                <Radio.Button key={key} value={size.size}>
                   {size.size}
                 </Radio.Button>
               ))}
