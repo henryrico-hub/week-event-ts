@@ -110,6 +110,7 @@ export type EventType = {
 
 export type PackageType = {
   id: number;
+  documentId: string;
   name: string;
   slug: string;
   price: number;

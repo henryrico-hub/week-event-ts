@@ -25,7 +25,7 @@ export default function PackageForm({ data }: Props) {
   const onChangePkg = (value: string) => {
     console.log(value);
     const selectedPackage = data?.find(
-      (pkg) => pkg.name === value.split("->")[0]
+      (pkg) => pkg.name === value.split(" -> ")[0]
     );
     if (selectedPackage) {
       setDescription(selectedPackage.description);
@@ -67,7 +67,7 @@ export default function PackageForm({ data }: Props) {
               onChange={onChangePkg}
               options={data?.map((pkg) => ({
                 label: `${pkg.name} - $${formatearPrice(pkg.price)}`,
-                value: `${pkg.name}->${formatearPrice(pkg.price)}`,
+                value: `${pkg.name} -> ${formatearPrice(pkg.price)}`,
               }))}
               placeholder="Elige un paquete"
               allowClear

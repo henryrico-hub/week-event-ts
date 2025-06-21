@@ -6,11 +6,7 @@ import Step2 from "./Step2";
 import Step3 from "./Step3";
 import { useParams } from "react-router-dom";
 import { EventType } from "src/types";
-import {
-  getParticipant,
-  getSingleEvent,
-  getSingleEventForm,
-} from "src/models/event.server";
+import { getParticipant, getSingleEventForm } from "src/models/event.server";
 import { Icon } from "@iconify-icon/react";
 
 // type paramsEventProps = {
@@ -61,20 +57,15 @@ export default function PreRegistro() {
     if (savedStep) {
       if (savedStep === "pending") {
         setCurrent(1);
-        console.log("aqui");
       } else {
-        console.log("aqu2");
         setCurrent(2);
       }
       // setCurrent(Number(savedStep));
     } else {
-      console.log("aqu3");
       setCurrent(0); // o lo que consideres el paso por defecto
     }
     setTimeout(() => {
       localStorage.removeItem("formStep"); // Limpia después de usar
-
-      console.log("aqu4");
     }, 2000);
   }, []);
 
