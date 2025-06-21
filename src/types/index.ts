@@ -155,8 +155,12 @@ export type Participant = {
   publishedAt: string;
   birthdate: string | null;
   gender: string | null;
-  statusP: "Pending" | "Success" | string;
+  statusP: "Pending" | "Complete" | string;
   payment: Payment[];
+  categoryP: string;
+  package: string;
+  participant_number: string;
+  size: string;
 };
 
 export type Payment = {

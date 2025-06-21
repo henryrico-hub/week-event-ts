@@ -1,7 +1,7 @@
 // BoardingPass.tsx
 import { toPng } from "html-to-image";
 import { useRef, useState } from "react";
-import { EventType } from "src/types";
+import { EventType, Participant } from "src/types";
 import { formatearMesDiaHora, formatearPrice } from "src/utils/helpers";
 import Barcode from "./BarCode";
 import { Button } from "antd";
@@ -10,7 +10,7 @@ import { Icon } from "@iconify-icon/react";
 interface BoardingPassProps {
   data: EventType;
   id: string;
-  dataParticipant: any;
+  dataParticipant: Participant;
 }
 
 export const TicketPass = ({ data, dataParticipant }: BoardingPassProps) => {
@@ -129,19 +129,19 @@ export const TicketPass = ({ data, dataParticipant }: BoardingPassProps) => {
 
         {/* Elemento 3 */}
         <div className="w-full lg:w-1/3 h-auto border-t-4 lg:border-t-0 lg:border-l-4 border-dashed border-gray-100 space-y-2 p-4">
-          <div className="flex flex-col justify-between items-center bg-white p-2 h-full rounded-lg gap-3 lg:gap-0">
-            <p className="name-resume p-2 text-black lg:text-justify text-uppercase text-md font-bold mr-4 lg:underline">
+          <div className="flex flex-col justify-between items-center bg-white p-2 h-full rounded-lg gap-1 lg:gap-0">
+            <p className="name-resume p-2 text-black lg:text-justify text-uppercase text-md font-bold lg:underline">
               {dataParticipant.name + " " + dataParticipant.paternal_surname}
               {/* {participante?.name} */}
             </p>
-            <div className="flex flex-row justify-around items-center w-full ">
-              <p className="name-resume flex flex-col text-center text-black text-uppercase text-lg font-bold rounded-lg bg-gray-200 p-2">
+            <div className="flex flex-col justify-around items-center w-full gap-2 ">
+              <p className="name-resume flex flex-col text-center text-black text-lg font-bold rounded-lg bg-gray-200 p-2 w-full">
+                <span className="underline">Categoria</span>
+                {dataParticipant.categoryP}
+              </p>
+              <p className="name-resume flex flex-row justify-between text-black text-uppercase text-lg font-bold rounded-lg bg-gray-200 p-2 w-full">
                 <span className="underline">#</span>
                 {"234"}
-              </p>
-              <p className="name-resume flex flex-col text-center text-black text-uppercase text-lg font-bold rounded-lg bg-gray-200 p-2">
-                <span className="underline">CATE</span>
-                {"Libre"}
               </p>
             </div>
             <Barcode value={dataParticipant?.documentId?.slice(0, 8)} />
