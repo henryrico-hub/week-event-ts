@@ -25,6 +25,7 @@ import type { MenuProps } from "antd";
 import axios from "axios";
 import type { FilterDropdownProps } from "antd/es/table/interface";
 import ParticipantsTableHeader from "./ParticipantsTableHeader";
+import SizeTagColor from "./utils/SizeTagColor";
 // import Highlighter from "react-highlight-words";
 
 const useStyle = createStyles(({ css }) => {
@@ -51,6 +52,8 @@ export type DataPType = {
   // lastname: string;
   // lastname2: string;
   birthday: string;
+  package: string;
+  size: string;
   gender: string;
   payment: Payment;
   statusP: "Pending" | "Success" | string;
@@ -198,6 +201,7 @@ const EventsTable = ({
       title: "Id",
       className: "bg-blue-200",
       dataIndex: "key2",
+      fixed: "left",
       width: 90,
       // render(value) {
       //   return (
@@ -222,13 +226,55 @@ const EventsTable = ({
       ...getColumnSearchProps("name"),
     },
     {
-      title: "Fecha de nacimiento",
-      dataIndex: "birthday",
-      onFilter: (value, record) => record.name.indexOf(value as string) === 0,
-      sorter: (a, b) => a.name.localeCompare(b.name),
+      title: "Paquete",
+      dataIndex: "package",
+      onFilter: (value, record) =>
+        record.package.indexOf(value as string) === 0,
+      sorter: (a, b) => a.package.localeCompare(b.package),
       sortDirections: ["ascend", "descend"],
       width: 150,
+      render(value) {
+        // Extract the package name before the arrow, or fallback to the whole value
+        if (value) {
+          const packageName = value.replace(" -> ", " ");
+          return (
+            <>
+              <div className="flex justify-center font-bold">{packageName}</div>
+            </>
+          );
+        }
+      },
     },
+    {
+      title: "Talla",
+      dataIndex: "size",
+      onFilter: (value, record) => record.size.indexOf(value as string) === 0,
+      sorter: (a, b) => a.size.localeCompare(b.size),
+      sortDirections: ["ascend", "descend"],
+      width: 150,
+      render(value) {
+        return (
+          <>
+            <div className="flex justify-center">
+              {/* <Tag
+                color={`#${Math.floor(Math.random() * 16777215).toString(16)}`}
+              >
+                {value}
+              </Tag> */}
+              <SizeTagColor value={value} />
+            </div>
+          </>
+        );
+      },
+    },
+    // {
+    //   title: "Fecha de nacimiento",
+    //   dataIndex: "birthday",
+    //   onFilter: (value, record) => record.name.indexOf(value as string) === 0,
+    //   sorter: (a, b) => a.name.localeCompare(b.name),
+    //   sortDirections: ["ascend", "descend"],
+    //   width: 150,
+    // },
     {
       title: "Genero",
       dataIndex: "gender",

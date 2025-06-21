@@ -209,7 +209,7 @@ export async function getSingleEventForm(url: string) {
   const respuesta = await fetch(
     `${
       import.meta.env.VITE_API_URL
-    }/events?filters[url][$eq]=${url}&populate[packages][populate][0]=size_jerseys&populate[packages][populate][1]=image&populate[img_main][fields]*&populate[event_category_scs][fields][]=*`
+    }/events?filters[url][$eq]=${url}&populate[packages][populate][0]=size_jerseys&populate[packages][populate][1]=image&populate[img_main][fields]*&populate[category][fields]*&populate[state][fields]*&populate[event_category_scs][fields][]=*`
   );
   const resultado = await respuesta.json();
 
