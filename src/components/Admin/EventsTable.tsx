@@ -44,6 +44,7 @@ const EventsTable = ({ data }: Props) => {
     {
       title: "Nombre",
       dataIndex: "name",
+      fixed: "left",
       // showSorterTooltip: { target: "full-header" },
       onFilter: (value, record) => record.name.indexOf(value as string) === 0,
       sorter: (a, b) => a.name.localeCompare(b.name),

@@ -11,12 +11,14 @@ import {
   Input,
   Button,
   ConfigProvider,
+  Checkbox,
 } from "antd";
 import type {
   InputRef,
   TableColumnsType,
   TableColumnType,
   TableProps,
+  CheckboxOptionType,
 } from "antd";
 import { Icon } from "@iconify-icon/react";
 import { createStyles } from "antd-style";
@@ -70,6 +72,19 @@ type Props = {
 
 type DataIndex = keyof DataPType;
 
+const defaultCheckedList = [
+  "key2",
+  "name",
+  // "birthday",
+  "package",
+  "size",
+  "gender",
+  "categoryP",
+  "statusP",
+  "payment",
+  "action",
+];
+
 const EventsTable = ({
   data,
   loading,
@@ -78,12 +93,10 @@ const EventsTable = ({
   statsData,
 }: Props) => {
   const { styles } = useStyle();
-
-  console.log(data);
-
   const [, setSearchText] = useState("");
   const [, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
+  const [checkedList, setCheckedList] = useState(defaultCheckedList);
 
   const handleSearch = (
     selectedKeys: string[],
@@ -201,6 +214,7 @@ const EventsTable = ({
       title: "Id",
       className: "bg-blue-200",
       dataIndex: "key2",
+      key: "key2",
       fixed: "left",
       width: 90,
       // render(value) {
@@ -218,6 +232,7 @@ const EventsTable = ({
     {
       title: "Nombre",
       dataIndex: "name",
+      key: "name",
       fixed: "left",
       onFilter: (value, record) => record.name.indexOf(value as string) === 0,
       sorter: (a, b) => a.name.localeCompare(b.name),
@@ -226,8 +241,18 @@ const EventsTable = ({
       ...getColumnSearchProps("name"),
     },
     {
+      title: "Fecha de nacimiento",
+      dataIndex: "birthday",
+      key: "birthday",
+      onFilter: (value, record) => record.name.indexOf(value as string) === 0,
+      sorter: (a, b) => a.name.localeCompare(b.name),
+      sortDirections: ["ascend", "descend"],
+      width: 150,
+    },
+    {
       title: "Paquete",
       dataIndex: "package",
+      key: "package",
       onFilter: (value, record) =>
         record.package.indexOf(value as string) === 0,
       sorter: (a, b) => a.package.localeCompare(b.package),
@@ -248,6 +273,7 @@ const EventsTable = ({
     {
       title: "Talla",
       dataIndex: "size",
+      key: "size",
       onFilter: (value, record) => record.size.indexOf(value as string) === 0,
       sorter: (a, b) => a.size.localeCompare(b.size),
       sortDirections: ["ascend", "descend"],
@@ -267,17 +293,10 @@ const EventsTable = ({
         );
       },
     },
-    // {
-    //   title: "Fecha de nacimiento",
-    //   dataIndex: "birthday",
-    //   onFilter: (value, record) => record.name.indexOf(value as string) === 0,
-    //   sorter: (a, b) => a.name.localeCompare(b.name),
-    //   sortDirections: ["ascend", "descend"],
-    //   width: 150,
-    // },
     {
       title: "Genero",
       dataIndex: "gender",
+      key: "gender",
       // onFilter: (value, record) => record.gender.indexOf(value as string) === 0,
       // sorter: (a, b) => a.gender.localeCompare(b.gender),
       // sortDirections: ["ascend", "descend"],
@@ -315,6 +334,7 @@ const EventsTable = ({
     {
       title: "Categoria",
       dataIndex: "categoryP",
+      key: "categoryP",
       onFilter: (value, record) =>
         record.categoryP.indexOf(value as string) === 0,
       sorter: (a, b) => a.categoryP.localeCompare(b.categoryP),
@@ -331,6 +351,7 @@ const EventsTable = ({
     {
       title: "Estado",
       dataIndex: "statusP",
+      key: "statusP",
       showSorterTooltip: { target: "full-header" },
       filters: [
         {
@@ -367,6 +388,7 @@ const EventsTable = ({
     {
       title: "Comp. de Pago",
       dataIndex: "payment",
+      key: "payment",
       fixed: "right",
       onFilter: (value, record) =>
         record.payment && typeof record.payment.url === "string"
@@ -535,7 +557,7 @@ const EventsTable = ({
           },
         }
       );
-      console.log(response);
+      // console.log(response);
       setUpdateData((prev) => !prev);
       message.success("Estado actualizado con éxito", 5);
     } catch (error) {
@@ -617,6 +639,22 @@ const EventsTable = ({
     console.log("params", pagination, filters, sorter, extra);
   };
 
+  const alwaysVisibleKeys = ["payment", "action"];
+  const options = columns
+    .filter(({ key }) => !alwaysVisibleKeys.includes(key as string))
+    .map(({ key, title }) => ({
+      label: title,
+      value: key,
+    }));
+
+  const newColumns = columns.map((item) => ({
+    ...item,
+    hidden: !(
+      checkedList.includes(item.key as string) ||
+      alwaysVisibleKeys.includes(item.key as string)
+    ),
+  }));
+
   return (
     <>
       <ParticipantsTableHeader data={statsData} loading={loading} />
@@ -629,10 +667,17 @@ const EventsTable = ({
           },
         }}
       >
+        <Checkbox.Group
+          value={checkedList}
+          options={options as CheckboxOptionType[]}
+          onChange={(value) => {
+            setCheckedList(value as string[]);
+          }}
+        />
         <Table<DataPType>
           className={styles.customTable}
           style={{ paddingTop: "16px", paddingBottom: "16px" }}
-          columns={columns}
+          columns={newColumns}
           loading={loading}
           dataSource={data}
           onChange={onChange}
