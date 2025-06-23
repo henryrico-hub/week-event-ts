@@ -117,7 +117,7 @@ export default function Header() {
               <span className="sr-only">Your Company</span>
               <img alt="" src={sm} className="h-8 w-auto" />
             </a> */}
-            <a href="" className="-m-1.5 p-1.5 brand-link">
+            <a href="/" className="-m-1.5 p-1.5 brand-link">
               <span className="sr-only">Your Company</span>
               <h1 className="m-0 display-4 text-uppercase text-primary">
                 Challenge

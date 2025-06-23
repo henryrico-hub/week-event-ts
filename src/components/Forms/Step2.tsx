@@ -11,13 +11,14 @@ import {
   Alert,
   Image,
   Divider,
+  Tag,
   // notification,
 } from "antd";
 // import { getParticipant } from "../../models/event.server";
 import { BlocksContent } from "@strapi/blocks-react-renderer";
 import BlockRendererClient from "src/components/BlockRendererClient";
 import type { CollapseProps } from "antd";
-import { EventType } from "src/types";
+import { EventType, Participant } from "src/types";
 import { Icon } from "@iconify-icon/react";
 // import ImageUpload from "src/components/Forms/Upload/ImageUpload";
 import { formatearFechalg } from "src/utils/helpers";
@@ -32,7 +33,7 @@ type Step2Props = {
   id: string;
   data: EventType;
   urlEvent: string;
-  dataP: any;
+  dataP: Participant;
   setUpdateData: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -179,10 +180,10 @@ export default function Step2({
               </Typography.Title>
               <Typography.Title
                 level={3}
-                className="border-1 bg-orange-100 border-orange-200 rounded-lg m-0"
+                className="border-1 bg-orange-100 border-orange-200 rounded-lg m-0 p-2"
                 style={{ textAlign: "center" }}
               >
-                {data.name}
+                {`${data.category.name} - ${data.name}`}
               </Typography.Title>
             </Col>
             <Row>
@@ -234,7 +235,10 @@ export default function Step2({
                     copyable={{ text: id }}
                   ></Typography.Paragraph>
                 </Typography.Title>
-                <Typography>{data.url}</Typography>
+
+                <Tag color="blue" className="text-center p-2 text-lg">
+                  {dataP.package.replace(" -> ", ": $")}
+                </Tag>
 
                 <ImageUploadBack
                   partId={id}

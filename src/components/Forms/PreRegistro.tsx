@@ -5,7 +5,7 @@ import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
 import { useParams } from "react-router-dom";
-import { EventType } from "src/types";
+import { EventType, Participant } from "src/types";
 import { getParticipant, getSingleEventForm } from "src/models/event.server";
 import { Icon } from "@iconify-icon/react";
 
@@ -30,7 +30,7 @@ export default function PreRegistro() {
   >([]);
   const [, setLoading] = useState<boolean>(false);
   const [dataEvent, setDataEvent] = useState<EventType>();
-  const [dataParticipant, setDataParticipant] = useState();
+  const [dataParticipant, setDataParticipant] = useState<Participant>();
   const [registerId, setRegisterId] = useState<string>(idPart ? idPart : "");
   const [updateData, setUpdateData] = useState<boolean>(false);
   const [urlEvent] = useState<string>(id ? id : "");
@@ -119,7 +119,7 @@ export default function PreRegistro() {
       title: "Confirmación",
       subTitle: "subtitle",
       description: "Realiza el pago y manda tu comprobante.",
-      content: dataEvent && (
+      content: dataEvent && dataParticipant && (
         <Step2
           id={registerId}
           urlEvent={urlEvent}
