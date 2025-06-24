@@ -10,7 +10,7 @@ import {
   Popconfirm,
   Input,
   Button,
-  ConfigProvider,
+  // ConfigProvider,
   Checkbox,
 } from "antd";
 import type {
@@ -34,6 +34,11 @@ const useStyle = createStyles(({ css }) => {
   return {
     customTable: css`
       .ant-table {
+        .ant-table-title {
+          background-color: #ffcc00;
+          font-size: 20px;
+          padding: 8px;
+        }
         .ant-table-container {
           .ant-table-body,
           .ant-table-content {
@@ -79,7 +84,7 @@ const defaultCheckedList = [
   "package",
   "size",
   "gender",
-  "categoryP",
+  // "categoryP",
   "statusP",
   "payment",
   "action",
@@ -212,10 +217,10 @@ const EventsTable = ({
   const columns: TableColumnsType<DataPType> = [
     {
       title: "Id",
-      className: "bg-blue-200",
+      className: "bg-blue-100",
       dataIndex: "key2",
       key: "key2",
-      fixed: "left",
+      // fixed: "left",
       width: 90,
       // render(value) {
       //   return (
@@ -253,6 +258,7 @@ const EventsTable = ({
       title: "Paquete",
       dataIndex: "package",
       key: "package",
+      className: "bg-blue-100",
       onFilter: (value, record) =>
         record.package.indexOf(value as string) === 0,
       sorter: (a, b) => a.package.localeCompare(b.package),
@@ -261,7 +267,7 @@ const EventsTable = ({
       render(value) {
         // Extract the package name before the arrow, or fallback to the whole value
         if (value) {
-          const packageName = value.replace(" -> ", " ");
+          const packageName = value.replace(" -> ", " $");
           return (
             <>
               <div className="flex justify-center font-bold">{packageName}</div>
@@ -274,10 +280,11 @@ const EventsTable = ({
       title: "Talla",
       dataIndex: "size",
       key: "size",
+      className: "bg-blue-100",
       onFilter: (value, record) => record.size.indexOf(value as string) === 0,
       sorter: (a, b) => a.size.localeCompare(b.size),
       sortDirections: ["ascend", "descend"],
-      width: 150,
+      width: 100,
       render(value) {
         return (
           <>
@@ -297,10 +304,11 @@ const EventsTable = ({
       title: "Genero",
       dataIndex: "gender",
       key: "gender",
+      className: "bg-blue-100",
       // onFilter: (value, record) => record.gender.indexOf(value as string) === 0,
       // sorter: (a, b) => a.gender.localeCompare(b.gender),
       // sortDirections: ["ascend", "descend"],
-      width: 100,
+      width: 70,
       render(value) {
         return (
           <>
@@ -335,6 +343,7 @@ const EventsTable = ({
       title: "Categoria",
       dataIndex: "categoryP",
       key: "categoryP",
+      className: "bg-blue-100",
       onFilter: (value, record) =>
         record.categoryP.indexOf(value as string) === 0,
       sorter: (a, b) => a.categoryP.localeCompare(b.categoryP),
@@ -352,6 +361,7 @@ const EventsTable = ({
       title: "Estado",
       dataIndex: "statusP",
       key: "statusP",
+      className: "bg-blue-100",
       showSorterTooltip: { target: "full-header" },
       filters: [
         {
@@ -363,12 +373,11 @@ const EventsTable = ({
           value: "Pending",
         },
       ],
-
       onFilter: (value, record) =>
         record.statusP.indexOf(value as string) === 0,
       sorter: (a, b) => a.statusP.localeCompare(b.statusP),
       sortDirections: ["ascend", "descend"],
-      width: 120,
+      width: 110,
       render(value) {
         return (
           <>
@@ -658,34 +667,45 @@ const EventsTable = ({
   return (
     <>
       <ParticipantsTableHeader data={statsData} loading={loading} />
-      <ConfigProvider
+      {/* <ConfigProvider
         theme={{
-          components: {
-            Table: {
-              rowHoverBg: "#f7f7f7",
+          token: {
+            Checkbox: {
+              colorPrimary: "#1677ff",
+              colorPrimaryHover: "#4096ff",
+              colorBgContainer: "#fffbe6",
+              colorText: "#333",
+              checkboxColor: "#1677ff",
+              checkboxSize: 20,
             },
           },
         }}
-      >
-        <Checkbox.Group
-          value={checkedList}
-          options={options as CheckboxOptionType[]}
-          onChange={(value) => {
-            setCheckedList(value as string[]);
-          }}
-        />
-        <Table<DataPType>
-          className={styles.customTable}
-          style={{ paddingTop: "16px", paddingBottom: "16px" }}
-          columns={newColumns}
-          loading={loading}
-          dataSource={data}
-          onChange={onChange}
-          showSorterTooltip={{ target: "sorter-icon" }}
-          scroll={{ x: "max-content", y: 55 * 10 }}
-          // size="small"
-        />
-      </ConfigProvider>
+      > */}
+      <Checkbox.Group
+        value={checkedList}
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(180px, 2fr))",
+        }}
+        options={options as CheckboxOptionType[]}
+        onChange={(value) => {
+          setCheckedList(value as string[]);
+        }}
+      />
+
+      {/* </ConfigProvider> */}
+      <Table<DataPType>
+        bordered={true}
+        className={styles.customTable}
+        style={{ paddingTop: "16px", paddingBottom: "16px" }}
+        columns={newColumns}
+        loading={loading}
+        dataSource={data}
+        onChange={onChange}
+        showSorterTooltip={{ target: "sorter-icon" }}
+        scroll={{ x: "max-content", y: 60 * 10 }}
+        title={() => <h2 className="text-center ">Inscritos</h2>}
+      />
     </>
   );
 };

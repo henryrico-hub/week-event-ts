@@ -79,8 +79,6 @@ const EventsTable = ({ data }: Props) => {
       title: "Fecha",
       dataIndex: "date",
     },
-    // onFilter: (value, record) => record.address.indexOf(value as string) === 0,
-
     {
       title: "Acción",
       dataIndex: "url",

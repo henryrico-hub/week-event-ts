@@ -1,6 +1,7 @@
 import { Table, ConfigProvider } from "antd";
 import type { TableColumnsType } from "antd";
 import { createStyles } from "antd-style";
+import { useEffect, useState } from "react";
 
 // import Highlighter from "react-highlight-words";
 
@@ -8,6 +9,10 @@ const useStyle = createStyles(({ css }) => {
   return {
     customTable: css`
       .ant-table {
+        .ant-table-title {
+          background-color: #ffcc00;
+          font-size: 14px;
+        }
         .ant-table-container {
           .ant-table-body,
           .ant-table-content {
@@ -51,6 +56,7 @@ const EventsTable = ({ loading, data }: Props) => {
     {
       title: "Género",
       align: "center",
+      key: "gender",
       children: [
         {
           title: "Masculino",
@@ -70,6 +76,7 @@ const EventsTable = ({ loading, data }: Props) => {
     },
     {
       title: "Estatus",
+      key: "status",
       children: [
         {
           title: "Completados",
@@ -91,61 +98,59 @@ const EventsTable = ({ loading, data }: Props) => {
         },
       ],
     },
-
-    // {
-    //   title: "genero",
-    //   dataIndex: "gender",
-    //   width: 200,
-    // },
-    // {
-    //   title: "Categoria",
-    //   dataIndex: "category",
-    //   width: 100,
-    // },
-    // {
-    //   title: "Estado",
-    //   dataIndex: "statusP",
-    //   width: 200,
-    //   render(value) {
-    //     return (
-    //       <div className="flex justify-center items-center">
-    //         <Typography.Text>{value.toUpperCase()}</Typography.Text>
-    //       </div>
-    //     );
-    //   },
-    // },
-    // {
-    //   title: "Comp. de Pago",
-    //   dataIndex: "payment",
-    //   width: 150,
-    //   render(value) {
-    //     return <></>;
-    //   },
-    // },
   ];
+
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" && window.innerWidth < 750
+  );
+  const [filteredColumns, setFilteredColumns] = useState(
+    isMobile ? columns.filter((col) => col.key !== "gender") : columns
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 750;
+      setIsMobile(mobile);
+      setFilteredColumns(
+        mobile ? columns.filter((col) => col.key !== "gender") : columns
+      );
+    };
+
+    window.addEventListener("resize", handleResize);
+    // Call once to set initial state
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div className="py-4">
       {data && (
-        <ConfigProvider
-          theme={{
-            components: {
-              Table: {
-                rowHoverBg: "#f7f7f7",
-              },
-            },
-          }}
-        >
-          <Table<StatsPType>
-            className={styles.customTable}
-            columns={columns}
-            loading={loading}
-            dataSource={[data]}
-            bordered
-            size="small"
-            pagination={false}
-          />
-        </ConfigProvider>
+        // <ConfigProvider
+        //   theme={{
+        //     components: {
+        //       Table: {
+        //         // rowHoverBg: "#f7f7f7",
+        //         // borderColor: "#000",
+        //         // headerBg: "#FFCC00",
+        //       },
+        //     },
+        //   }}
+        // >
+        <Table<StatsPType>
+          className={styles.customTable}
+          columns={filteredColumns}
+          loading={loading}
+          dataSource={[data]}
+          bordered
+          size="small"
+          pagination={false}
+          title={() => (
+            <h2 className="p-1 text-center">Estadisticas de Participantes</h2>
+          )}
+        />
+        // </ConfigProvider>
       )}
     </div>
   );

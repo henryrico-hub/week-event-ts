@@ -24,8 +24,6 @@ function ParticipantsPage() {
         throw new Error("url is required");
       }
       const response = await getParticipantListByEvent(url);
-      // console.log(response[0].author_scs[0].events);
-      // setArticles(response[0].author_scs[0].article_scs);
       const formattedData: DataPType[] = response.data[0].participants.map(
         (part: Participant) => ({
           ...part,
@@ -107,7 +105,7 @@ function ParticipantsPage() {
   }, [updateData]);
 
   return (
-    <div className="container-md py-10">
+    <div className="container py-10">
       <ParticipantsTable
         statsData={statsData}
         data={partData}

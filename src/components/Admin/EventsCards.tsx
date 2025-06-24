@@ -73,7 +73,7 @@ const SocialCards = () => {
   }
 
   return (
-    <div className="container-md py-10">
+    <div className="container-md py-10 h-screen">
       <EventsTable data={events} />
     </div>
   );
