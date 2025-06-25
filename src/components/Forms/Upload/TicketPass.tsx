@@ -135,11 +135,11 @@ export const TicketPass = ({ data, dataParticipant }: BoardingPassProps) => {
               {/* {participante?.name} */}
             </p>
             <div className="flex flex-col justify-around items-center w-full gap-2 ">
-              <p className="name-resume flex flex-col text-center text-black text-lg font-bold rounded-lg bg-gray-200 p-2 w-full">
+              <p className="name-resume flex flex-col text-center text-black text-lg font-bold rounded-lg bg-gray-200 w-full">
                 <span className="underline">Categoria</span>
                 {dataParticipant.categoryP}
               </p>
-              <p className="name-resume flex flex-row justify-between text-black text-uppercase text-lg font-bold rounded-lg bg-gray-200 p-2 w-full">
+              <p className="name-resume flex flex-row justify-evenly text-black text-uppercase text-lg font-bold rounded-lg bg-gray-200 w-full">
                 <span className="underline">#</span>
                 {"234"}
               </p>

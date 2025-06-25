@@ -1,9 +1,10 @@
 import React from "react";
-import { Button, Table, Typography } from "antd";
+import { Button, Table, Tooltip, Typography } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
 import { Icon } from "@iconify-icon/react";
 import { createStyles } from "antd-style";
 import { useNavigate } from "react-router-dom";
+import DownloadMultipleFiles from "./utils/DownloadPayments";
 
 const useStyle = createStyles(({ css }) => {
   return {
@@ -87,16 +88,23 @@ const EventsTable = ({ data }: Props) => {
       render(value) {
         return (
           <div className="flex justify-center">
-            <Button
-              type="link"
-              // href={`myEvents/${value}`}
-              onClick={() => {
-                navigate(`/admin/myEvents/${value}`, { replace: true });
-              }}
-              icon={
-                <Icon icon={"icons8:right-round"} inline={true} width={22} />
-              }
-            />
+            <Tooltip
+              title={<p className="text-center">Gestionar participantes</p>}
+              placement="top"
+              arrow={false}
+            >
+              <Button
+                type="link"
+                // href={`myEvents/${value}`}
+                onClick={() => {
+                  navigate(`/admin/myEvents/${value}`, { replace: true });
+                }}
+                icon={
+                  <Icon icon={"icons8:right-round"} inline={true} width={22} />
+                }
+              />
+            </Tooltip>
+            <DownloadMultipleFiles docCode={value} />
           </div>
         );
       },

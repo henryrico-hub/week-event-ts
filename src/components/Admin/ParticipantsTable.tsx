@@ -28,6 +28,7 @@ import axios from "axios";
 import type { FilterDropdownProps } from "antd/es/table/interface";
 import ParticipantsTableHeader from "./ParticipantsTableHeader";
 import SizeTagColor from "./utils/SizeTagColor";
+import logo2 from "src/assets/images/logo2.jpeg";
 // import Highlighter from "react-highlight-words";
 
 const useStyle = createStyles(({ css }) => {
@@ -416,7 +417,8 @@ const EventsTable = ({
             <Image
               src={`${import.meta.env.VITE_API_URL_SHORT}${value?.url}`}
               style={{
-                maxWidth: "100px",
+                maxWidth: "50px",
+                maxHeight: "50px",
                 border: " npx dashed #28a745",
                 boxShadow: "5px 5px 10px rgba(0,0,0,0.4)",
               }}
@@ -558,7 +560,7 @@ const EventsTable = ({
         throw new Error("key is required");
       }
       const Newstatus = "Complete";
-      const response = await axios.put(
+      await axios.put(
         `${import.meta.env.VITE_API_URL}/participants/${record.key}`,
         {
           data: {
@@ -705,6 +707,7 @@ const EventsTable = ({
         showSorterTooltip={{ target: "sorter-icon" }}
         scroll={{ x: "max-content", y: 60 * 10 }}
         title={() => <h2 className="text-center ">Inscritos</h2>}
+        size="small"
       />
     </>
   );

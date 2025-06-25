@@ -1,4 +1,4 @@
-import { Table, ConfigProvider } from "antd";
+import { Table } from "antd";
 import type { TableColumnsType } from "antd";
 import { createStyles } from "antd-style";
 import { useEffect, useState } from "react";
