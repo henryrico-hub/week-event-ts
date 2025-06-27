@@ -1,10 +1,11 @@
 import React from "react";
-import { Button, Table, Tooltip, Typography } from "antd";
-import type { TableColumnsType, TableProps } from "antd";
+import { Dropdown, Space, Table, Typography } from "antd";
+import type { MenuProps, TableColumnsType, TableProps } from "antd";
 import { Icon } from "@iconify-icon/react";
 import { createStyles } from "antd-style";
 import { useNavigate } from "react-router-dom";
 import DownloadMultipleFiles from "./utils/DownloadPayments";
+import ExportModalTrigger from "./utils/ExportModalTrigger";
 
 const useStyle = createStyles(({ css }) => {
   return {
@@ -40,6 +41,7 @@ type Props = {
 const EventsTable = ({ data }: Props) => {
   const navigate = useNavigate();
   const { styles } = useStyle();
+  console.log(data);
 
   const columns: TableColumnsType<DataEType> = [
     {
@@ -97,26 +99,38 @@ const EventsTable = ({ data }: Props) => {
       fixed: "right",
       width: 100,
       render(value) {
-        return (
-          <div className="flex justify-center">
-            <Tooltip
-              title={<p className="text-center">Gestionar participantes</p>}
-              placement="top"
-              // arrow={false}
-            >
-              <Button
-                type="link"
-                // href={`myEvents/${value}`}
-                onClick={() => {
-                  navigate(`/admin/myEvents/${value}`, { replace: true });
-                }}
-                icon={
-                  <Icon icon={"icons8:right-round"} inline={true} width={22} />
+        const items: MenuProps["items"] = [
+          {
+            key: "details",
+            label: (
+              <div
+                className="flex gap-1.5 items-center"
+                onClick={() =>
+                  navigate(`/admin/myEvents/${value}`, { replace: true })
                 }
-              />
-            </Tooltip>
-            <DownloadMultipleFiles docCode={value} />
-          </div>
+              >
+                <Icon icon={"icons8:right-round"} inline={true} width={22} />
+                <span className="custom-dropdown-item">Ver Inscritos</span>
+              </div>
+            ),
+          },
+          {
+            key: "exportMedia",
+            label: <DownloadMultipleFiles docCode={value} />,
+          },
+          {
+            key: "exportData",
+            label: <ExportModalTrigger url={value} />,
+          },
+        ];
+        return (
+          <Dropdown menu={{ items }}>
+            <a className="flex justify-center">
+              <Space>
+                <Icon icon={"uis:ellipsis-v"} width={24} height={24}></Icon>
+              </Space>
+            </a>
+          </Dropdown>
         );
       },
     },
@@ -139,7 +153,7 @@ const EventsTable = ({ data }: Props) => {
       onChange={onChange}
       showSorterTooltip={{ target: "sorter-icon" }}
       scroll={{ x: "max-content", y: 55 * 5 }}
-      onRow={(record) => {
+      onRow={() => {
         return {
           onMouseEnter: (event) => {
             event.currentTarget.style.fontWeight = "600";
@@ -147,11 +161,11 @@ const EventsTable = ({ data }: Props) => {
           onMouseLeave: (event) => {
             event.currentTarget.style.fontWeight = "";
           },
-          onClick: (e) => {
-            const target = e.target as HTMLElement;
-            if (target.closest("button") || target.closest("a")) return;
-            navigate(`/admin/myEvents/${record.url}`);
-          },
+          // onClick: (e) => {
+          //   const target = e.target as HTMLElement;
+          //   if (target.closest("button") || target.closest("a")) return;
+          //   navigate(`/admin/myEvents/${record.url}`);
+          // },
           style: {
             cursor: "pointer",
             // fontWeight: 600,

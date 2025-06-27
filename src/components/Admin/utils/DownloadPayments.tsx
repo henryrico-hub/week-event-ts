@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, message, Tooltip } from "antd";
+import { Button, message, Popconfirm, Tooltip } from "antd";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import { Icon } from "@iconify-icon/react";
@@ -54,22 +54,20 @@ const DownloadZipClient = ({ docCode }: { docCode: string }) => {
   };
 
   return (
-    <Tooltip
-      title={
-        <p className="text-center">Descargar comprobantes en formato .zip</p>
-      }
-      placement="top"
-      // arrow={false}
+    <Popconfirm
+      title="Deseas descargar los comprobantes de pago?"
+      onConfirm={handleDownload}
+      okText="Aceptar"
+      cancelText="Cancelar"
     >
-      <Button
-        type="link"
-        loading={loading}
-        onClick={handleDownload}
-        icon={
-          <Icon icon={"streamline:download-box-1"} inline={true} width={18} />
-        }
-      ></Button>
-    </Tooltip>
+      <div className="flex gap-1.5 items-center">
+        <Icon icon={"streamline:download-box-1"} width={18} inline={true} />
+        <span className="custom-dropdown-item">
+          Descargar comprobantes (.zip)
+        </span>
+      </div>
+      {/* <Button type="link" loading={loading} onClick={handleDownload}></Button> */}
+    </Popconfirm>
   );
 };
 

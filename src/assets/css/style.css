@@ -10321,10 +10321,10 @@ Icon Wait
   transition: background 0.3s;
 }
 
-:where(.css-dev-only-do-not-override-1a3rktk).ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item:hover {
+/* :where(.css-dev-only-do-not-override-1a3rktk).ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item:hover {
   background-color: green;
   color: white;
-}
+} */
 
 
 /* CARD SERVICES */

@@ -115,6 +115,7 @@ export default function EnterCode({ setMobileMenuOpen }: Props) {
         onCancel={handleCancel}
         footer={null}
         loading={loading}
+        destroyOnClose
       >
         <p
           className="text-center p-4"
