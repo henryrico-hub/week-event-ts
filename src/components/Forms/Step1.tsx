@@ -9,9 +9,6 @@ import {
   Divider,
   Result,
   Select,
-  Collapse,
-  Radio,
-  Image,
 } from "antd";
 import { Icon } from "@iconify-icon/react";
 import Title from "antd/es/typography/Title";

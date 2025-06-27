@@ -23,7 +23,7 @@ export default function PackageForm({ data }: Props) {
   const [packageSizes, setPackageSizes] = useState<SizeJerseyType[]>([]);
 
   const onChangePkg = (value: string) => {
-    console.log(value);
+    // console.log(value);
     const selectedPackage = data?.find(
       (pkg) => pkg.name === value.split(" -> ")[0]
     );

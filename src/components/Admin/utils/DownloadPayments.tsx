@@ -59,7 +59,7 @@ const DownloadZipClient = ({ docCode }: { docCode: string }) => {
         <p className="text-center">Descargar comprobantes en formato .zip</p>
       }
       placement="top"
-      arrow={false}
+      // arrow={false}
     >
       <Button
         type="link"

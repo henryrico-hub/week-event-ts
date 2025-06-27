@@ -53,7 +53,6 @@ const SocialCards = () => {
         price: eve.price,
         countP: eve.participants.length,
       }));
-      console.log(formattedData);
 
       setEvents(formattedData);
     } catch (error) {

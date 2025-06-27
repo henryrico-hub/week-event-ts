@@ -126,7 +126,7 @@ const uploadComp = ({ partId, setUpdateData, urlEvent, data }: Props) => {
       }
     } catch (error) {
       console.error("Error al subir el archivo:", error);
-      message.error("Error al subir el archivo");
+      message.error("Error al subir el archivo front");
     } finally {
       setOpen(false);
       setFileList([]);

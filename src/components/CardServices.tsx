@@ -94,7 +94,7 @@ function CardServices({ dataEvent }: Props) {
   );
 
   useEffect(() => {
-    console.log(dataEvent?.services_scs);
+    // console.log(dataEvent?.services_scs);
 
     if (dataEvent && dataEvent.services_scs) {
       const services = dataEvent.services_scs

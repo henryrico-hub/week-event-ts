@@ -50,6 +50,17 @@ const EventsTable = ({ data }: Props) => {
       onFilter: (value, record) => record.name.indexOf(value as string) === 0,
       sorter: (a, b) => a.name.localeCompare(b.name),
       sortDirections: ["ascend", "descend"],
+      width: 300,
+      // render(value, record) {
+      //   return (
+      //     <p
+      //       onClick={() => navigate(`/admin/myEvents/${record.url}`)}
+      //       // className="hover:font-bold hover:cursor-pointer"
+      //     >
+      //       {value}
+      //     </p>
+      //   );
+      // },
     },
     {
       title: "Categoria",
@@ -91,7 +102,7 @@ const EventsTable = ({ data }: Props) => {
             <Tooltip
               title={<p className="text-center">Gestionar participantes</p>}
               placement="top"
-              arrow={false}
+              // arrow={false}
             >
               <Button
                 type="link"
@@ -128,6 +139,26 @@ const EventsTable = ({ data }: Props) => {
       onChange={onChange}
       showSorterTooltip={{ target: "sorter-icon" }}
       scroll={{ x: "max-content", y: 55 * 5 }}
+      onRow={(record) => {
+        return {
+          onMouseEnter: (event) => {
+            event.currentTarget.style.fontWeight = "600";
+          },
+          onMouseLeave: (event) => {
+            event.currentTarget.style.fontWeight = "";
+          },
+          onClick: (e) => {
+            const target = e.target as HTMLElement;
+            if (target.closest("button") || target.closest("a")) return;
+            navigate(`/admin/myEvents/${record.url}`);
+          },
+          style: {
+            cursor: "pointer",
+            // fontWeight: 600,
+            // transition: "font-weight 0.2s",
+          },
+        };
+      }}
     />
   );
 };

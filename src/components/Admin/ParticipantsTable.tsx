@@ -17,7 +17,7 @@ import type {
   InputRef,
   TableColumnsType,
   TableColumnType,
-  TableProps,
+  // TableProps,
   CheckboxOptionType,
 } from "antd";
 import { Icon } from "@iconify-icon/react";
@@ -28,8 +28,6 @@ import axios from "axios";
 import type { FilterDropdownProps } from "antd/es/table/interface";
 import ParticipantsTableHeader from "./ParticipantsTableHeader";
 import SizeTagColor from "./utils/SizeTagColor";
-import logo2 from "src/assets/images/logo2.jpeg";
-// import Highlighter from "react-highlight-words";
 
 const useStyle = createStyles(({ css }) => {
   return {
@@ -57,6 +55,7 @@ export type DataPType = {
   key2: React.Key;
   key: React.Key;
   name: string;
+  number: number;
   // lastname: string;
   // lastname2: string;
   birthday: string;
@@ -74,6 +73,8 @@ type Props = {
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setUpdateData: React.Dispatch<React.SetStateAction<boolean>>;
+  numParti: number;
+  idEvent?: string;
 };
 
 type DataIndex = keyof DataPType;
@@ -81,6 +82,7 @@ type DataIndex = keyof DataPType;
 const defaultCheckedList = [
   "key2",
   "name",
+  "number",
   // "birthday",
   "package",
   "size",
@@ -97,6 +99,8 @@ const EventsTable = ({
   setLoading,
   setUpdateData,
   statsData,
+  numParti,
+  idEvent,
 }: Props) => {
   const { styles } = useStyle();
   const [, setSearchText] = useState("");
@@ -234,6 +238,13 @@ const EventsTable = ({
       //   );
       // },
       ...getColumnSearchProps("key2"),
+    },
+    {
+      title: "#",
+      dataIndex: "number",
+      key: "number",
+      // fixed: "left",
+      width: 70,
     },
     {
       title: "Nombre",
@@ -559,18 +570,46 @@ const EventsTable = ({
       if (!record.key) {
         throw new Error("key is required");
       }
-      const Newstatus = "Complete";
-      await axios.put(
-        `${import.meta.env.VITE_API_URL}/participants/${record.key}`,
-        {
+      let numPartiSet;
+      if (!record.number) {
+        numPartiSet = (numParti ?? 0) + 1;
+        // if (numParti === null) {
+        //   numPartiSet = 1;
+        // } else {
+        //   numPartiSet = numParti + 1;
+        // }
+
+        const Newstatus = "Complete";
+        await axios.put(
+          `${import.meta.env.VITE_API_URL}/participants/${record.key}`,
+          {
+            data: {
+              statusP: Newstatus,
+              participant_number: numPartiSet,
+            },
+          }
+        );
+        await axios.put(`${import.meta.env.VITE_API_URL}/events/${idEvent}`, {
           data: {
-            statusP: Newstatus,
+            consecNumberPart: numPartiSet,
           },
-        }
-      );
-      // console.log(response);
-      setUpdateData((prev) => !prev);
-      message.success("Estado actualizado con éxito", 5);
+        });
+        setUpdateData((prev) => !prev);
+        message.success("Estado actualizado con éxito", 5);
+      } else {
+        const Newstatus = "Complete";
+        await axios.put(
+          `${import.meta.env.VITE_API_URL}/participants/${record.key}`,
+          {
+            data: {
+              statusP: Newstatus,
+              // participant_number: numPartiSet,
+            },
+          }
+        );
+        setUpdateData((prev) => !prev);
+        message.success("Estado actualizado con éxito", 5);
+      }
     } catch (error) {
       console.error(error);
       message.error("Error al realizar la acción Success");
@@ -593,9 +632,10 @@ const EventsTable = ({
           },
         }
       );
-      console.log(response);
-      setUpdateData((prev) => !prev);
-      message.success("Estado actualizado con éxito", 5);
+      if (response.status === 200) {
+        setUpdateData((prev) => !prev);
+        message.success("Estado actualizado con éxito", 5);
+      }
     } catch (error) {
       console.error(error);
       message.error("Erro al intentar la acción Pen");
@@ -610,10 +650,10 @@ const EventsTable = ({
         throw new Error("key is required");
       }
 
-      const response = await axios.delete(
+      await axios.delete(
         `${import.meta.env.VITE_API_URL}/participants/${record.key}`
       );
-      console.log(response);
+      // console.log(response);
       setUpdateData((prev) => !prev);
       message.success(`El participante ${record.name} a sido eliminado`, 10);
     } catch (error) {
@@ -623,7 +663,6 @@ const EventsTable = ({
       setLoading(false);
     }
   };
-
   const handleMenuClick = (action: string, record: DataPType) => {
     switch (action) {
       case "accept":
@@ -641,14 +680,14 @@ const EventsTable = ({
     }
   };
 
-  const onChange: TableProps<DataPType>["onChange"] = (
-    pagination,
-    filters,
-    sorter,
-    extra
-  ) => {
-    console.log("params", pagination, filters, sorter, extra);
-  };
+  // const onChange: TableProps<DataPType>["onChange"] = (
+  //   pagination,
+  //   filters,
+  //   sorter,
+  //   extra
+  // ) => {
+  //   console.log("params", pagination, filters, sorter, extra);
+  // };
 
   const alwaysVisibleKeys = ["payment", "action"];
   const options = columns
@@ -703,7 +742,7 @@ const EventsTable = ({
         columns={newColumns}
         loading={loading}
         dataSource={data}
-        onChange={onChange}
+        // onChange={onChange}
         showSorterTooltip={{ target: "sorter-icon" }}
         scroll={{ x: "max-content", y: 60 * 10 }}
         title={() => <h2 className="text-center ">Inscritos</h2>}

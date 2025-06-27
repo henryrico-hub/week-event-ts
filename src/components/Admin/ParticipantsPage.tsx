@@ -16,6 +16,8 @@ function ParticipantsPage() {
   const [statsData, setStatsData] = useState<any>();
   const [loading, setLoading] = useState(false);
   const [updateData, setUpdateData] = useState(false);
+  const [consecNP, setConsecNP] = useState<number>(0);
+  const [idEvent, setIdEvent] = useState<string>();
 
   const fetchData = async () => {
     setLoading(true);
@@ -24,11 +26,14 @@ function ParticipantsPage() {
         throw new Error("url is required");
       }
       const response = await getParticipantListByEvent(url);
+      setConsecNP(response.data[0].consecNumberPart);
+      setIdEvent(response.data[0].documentId);
       const formattedData: DataPType[] = response.data[0].participants.map(
         (part: Participant) => ({
           ...part,
           key: part.documentId,
           key2: part.documentId.slice(0, 6),
+          number: part.participant_number,
           name:
             part.name +
             " " +
@@ -107,11 +112,13 @@ function ParticipantsPage() {
   return (
     <div className="container py-10">
       <ParticipantsTable
+        numParti={consecNP}
         statsData={statsData}
         data={partData}
         loading={loading}
         setLoading={setLoading}
         setUpdateData={setUpdateData}
+        idEvent={idEvent}
       />
     </div>
   );

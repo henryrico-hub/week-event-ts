@@ -141,7 +141,7 @@ export const TicketPass = ({ data, dataParticipant }: BoardingPassProps) => {
               </p>
               <p className="name-resume flex flex-row justify-evenly text-black text-uppercase text-lg font-bold rounded-lg bg-gray-200 w-full">
                 <span className="underline">#</span>
-                {"234"}
+                {dataParticipant.participant_number}
               </p>
             </div>
             <Barcode value={dataParticipant?.documentId?.slice(0, 8)} />

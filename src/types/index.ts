@@ -106,6 +106,7 @@ export type EventType = {
   ];
   services_scs: ServicesScs[];
   packages: PackageType[];
+  consecNumberPart: number;
 };
 
 export type PackageType = {
@@ -159,7 +160,7 @@ export type Participant = {
   payment: Payment[];
   categoryP: string;
   package: string;
-  participant_number: string;
+  participant_number: number;
   size: string;
 };
 
