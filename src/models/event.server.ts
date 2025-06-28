@@ -158,7 +158,7 @@ export async function getlatestEvent() {
   const respuesta = await fetch(
     `${
       import.meta.env.VITE_API_URL
-    }/events?sort[0]=createdAt&filters[createdAt][$gt]=2024-09-13&fields[0]=name&fields[1]=description1&fields[2]=date_event&fields[4]=url&fields[5]=claps&populate[category][fields][0]=name&populate[img_main][fields][0]=url&populate[img_desc1][fields][0]=url&populate[author_sc][populate][0]=avatar&populate[state][fields]*`
+    }/events?sort[0]=createdAt&filters[createdAt][$gt]=2024-09-13&fields[0]=name&fields[1]=description1&fields[2]=date_event&fields[4]=url&fields[5]=claps&fields[6]=city_state&populate[category][fields][0]=name&populate[img_main][fields][0]=url&populate[img_desc1][fields][0]=url&populate[author_sc][populate][0]=avatar&populate[state][fields]*`
   );
   /* const respuesta = await fetch(`${import.meta.env.VITE_API_URL}/events?sort[0]=createdAt&filters[createdAt][$gt]=2024-09-13&fields[0]=name&fields[1]=description1&fields[2]=date_event&populate[category][fields][0]=name&populate[img_main][fields][0]=url`{
       headers : {
