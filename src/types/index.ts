@@ -107,6 +107,7 @@ export type EventType = {
   services_scs: ServicesScs[];
   packages: PackageType[];
   consecNumberPart: number;
+  main_color: string;
 };
 
 export type PackageType = {

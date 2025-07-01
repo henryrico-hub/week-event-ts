@@ -23,15 +23,17 @@ const CardEvent: React.FC<CardEventProps> = ({ eve, colSpan }) => {
           type="inner"
           style={{ width: "100%", padding: 0 }}
           cover={
-            <img
-              alt="event image"
-              src={`${import.meta.env.VITE_API_URL_SHORT}${eve.img_main.url}`}
-              style={{
-                width: "100%",
-                objectFit: "cover",
-                height: "250px",
-              }}
-            />
+            eve.img_main && (
+              <img
+                alt="event image"
+                src={`${import.meta.env.VITE_API_URL_SHORT}${eve.img_main.url}`}
+                style={{
+                  width: "100%",
+                  objectFit: "cover",
+                  height: "250px",
+                }}
+              />
+            )
           }
         >
           <Meta
@@ -85,19 +87,26 @@ const CardEvent: React.FC<CardEventProps> = ({ eve, colSpan }) => {
                 {/* <Divider style={{ borderColor: "#E4E7ED" }} /> */}
                 <div className="d-flex justify-content-between border-top pt-2 mt-4">
                   <div className="d-flex align-items-center">
-                    <img
-                      className="rounded-circle mr-2"
-                      src={`${import.meta.env.VITE_API_URL_SHORT}${
-                        eve.author_sc.avatar.url
-                      }`}
-                      width="35"
-                      height="35"
-                      alt=""
-                    />
-                    {/* <img className="rounded-circle mr-2" src={`${import.meta.env.VITE_API_URL_SHORT}${eve.img_desc1.url}`} width="25" height="25" alt=""/> */}
-                    <Text type="secondary" style={{ textDecoration: "none" }}>
-                      {eve.author_sc.name}
-                    </Text>
+                    {eve.author_sc && (
+                      <>
+                        <img
+                          className="rounded-circle mr-2"
+                          src={`${import.meta.env.VITE_API_URL_SHORT}${
+                            eve.author_sc.avatar.url
+                          }`}
+                          width="35"
+                          height="35"
+                          alt=""
+                        />
+                        {/* <img className="rounded-circle mr-2" src={`${import.meta.env.VITE_API_URL_SHORT}${eve.img_desc1.url}`} width="25" height="25" alt=""/> */}
+                        <Text
+                          type="secondary"
+                          style={{ textDecoration: "none" }}
+                        >
+                          {eve.author_sc.name}
+                        </Text>
+                      </>
+                    )}
                   </div>
                   <div className="d-flex align-items-center">
                     <div className="d-flex align-items-center ml-3">

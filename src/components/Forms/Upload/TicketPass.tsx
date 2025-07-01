@@ -87,11 +87,21 @@ export const TicketPass = ({ data, dataParticipant }: BoardingPassProps) => {
         ref={ref}
         className="flex flex-col lg:flex-row lg:w-full w-72 border-2 border-gray-300 rounded-xl shadow-2xl overflow-hidden"
         style={{
-          backgroundImage: data.img_main?.url
-            ? `linear-gradient(rgba(107, 200, 40, 0.56), rgba(21, 164, 174, 0.62)), url(${
-                import.meta.env.VITE_API_URL_SHORT
-              }${data.img_main?.url})`
-            : `linear-gradient(rgba(107, 200, 40, 0.56), rgba(21, 164, 174, 0.62)), url(${
+          backgroundImage: data.img_desc1?.url
+            ? data.main_color
+              ? `linear-gradient(${data.main_color}8f, #15a4ae8e), url(${
+                  import.meta.env.VITE_API_URL_SHORT
+                }${data.img_main?.url})`
+              : `linear-gradient(#6bc8288f, #15a4ae9e), url(${
+                  import.meta.env.VITE_API_URL_SHORT
+                }${data.img_main?.url})`
+            : data.main_color
+            ? `linear-gradient(${data.main_color}3e, ${
+                data.main_color
+              }9f), url(${import.meta.env.VITE_API_URL_SHORT}${
+                data.img_desc1?.url
+              })`
+            : `linear-gradient(#6bc8288f, #15a4ae9e), url(${
                 import.meta.env.VITE_API_URL_SHORT
               }${data.img_desc1?.url})`,
           backgroundSize: "cover",

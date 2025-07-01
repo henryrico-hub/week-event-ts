@@ -168,7 +168,7 @@ export default function SingleEvent() {
       {/* Breaking Events */}
       <OwlBreakingNews />
 
-      <CardServices />
+      <CardServices dataEvent={dataEvent} />
 
       {/* Card Section */}
       {dataEvent && (
