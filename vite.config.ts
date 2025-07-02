@@ -20,6 +20,6 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ["jsbarcode"],
+    include: ["jquery", "jsbarcode"],
   },
 });
