@@ -3,7 +3,7 @@ import OwlMain from "./OwlMainCopy";
 /* import ads_img from '../assets/images/ads-728x90.png' */
 // import OwlFeaturedNews from "./OwlFeaturedNews";
 // import ContentSideBar from "./ContentSideBar";
-// import StatesSlide from "./slick-carousel/StatesSlide";
+import StatesSlide from "./slick-carousel/StatesSlide";
 // import FeaturesCards from "./FeaturesCards";
 // import GenericSlide from "./slick-carousel/GenericSlide";
 
@@ -16,7 +16,7 @@ export default function Home() {
 
       {/* <!-- States Start--> */}
 
-      {/* <StatesSlide /> */}
+      <StatesSlide />
 
       {/* <!-- States End--> */}
 
