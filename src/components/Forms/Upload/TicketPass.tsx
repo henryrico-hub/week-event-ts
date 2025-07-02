@@ -3,7 +3,7 @@ import { toPng } from "html-to-image";
 import { useRef, useState } from "react";
 import { EventType, Participant } from "src/types";
 import { formatearMesDiaHora, formatearPrice } from "src/utils/helpers";
-import Barcode from "./BarCode";
+// import Barcode from "./BarCode";
 import { Button } from "antd";
 import { Icon } from "@iconify-icon/react";
 
@@ -154,7 +154,7 @@ export const TicketPass = ({ data, dataParticipant }: BoardingPassProps) => {
                 {dataParticipant.participant_number}
               </p>
             </div>
-            <Barcode value={dataParticipant?.documentId?.slice(0, 8)} />
+            {/* <Barcode value={dataParticipant?.documentId?.slice(0, 8)} /> */}
           </div>
         </div>
       </div>
