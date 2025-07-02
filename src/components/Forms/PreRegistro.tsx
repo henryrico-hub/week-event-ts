@@ -165,7 +165,7 @@ export default function PreRegistro() {
       icon: item.icon,
     }));
     setItems(itemsV);
-  }, [, current]);
+  }, [current]);
 
   const contentStyle: React.CSSProperties = {
     lineHeight: "",

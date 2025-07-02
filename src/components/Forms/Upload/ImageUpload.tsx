@@ -21,7 +21,7 @@ type Props = {
   next: () => void;
   setUpdateData: React.Dispatch<React.SetStateAction<boolean>>;
 };
-const uploadComp = ({ partId, setUpdateData }: Props) => {
+const UploadComp = ({ partId, setUpdateData }: Props) => {
   const [loading, setLoading] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
@@ -263,4 +263,4 @@ const uploadComp = ({ partId, setUpdateData }: Props) => {
   );
 };
 
-export default uploadComp;
+export default UploadComp;

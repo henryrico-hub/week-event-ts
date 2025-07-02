@@ -78,7 +78,6 @@ export default function Newsletter() {
         setTimeout(() => {
           setStatusEmail("error");
         }, 2000);
-      } finally {
       }
     }, 3000);
   };

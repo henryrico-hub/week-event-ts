@@ -84,7 +84,6 @@ export default function EnterCode({ setMobileMenuOpen }: Props) {
       } catch (error) {
         setLoading(false);
         console.error("Error fetching events:", error);
-      } finally {
       }
     };
     fetchParticipant();

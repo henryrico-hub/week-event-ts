@@ -21,7 +21,7 @@ type Props = {
   setUpdateData: React.Dispatch<React.SetStateAction<boolean>>;
   data: any;
 };
-const uploadComp = ({ partId, setUpdateData, urlEvent, data }: Props) => {
+const UploadComp = ({ partId, setUpdateData, urlEvent, data }: Props) => {
   const [loading, setLoading] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
@@ -238,4 +238,4 @@ const uploadComp = ({ partId, setUpdateData, urlEvent, data }: Props) => {
   );
 };
 
-export default uploadComp;
+export default UploadComp;

@@ -28,7 +28,7 @@ const Profile = () => {
       setUser(responseData);
       message.success("Data saved successfully!");
     } catch (error) {
-      console.error(Error);
+      console.error(error);
       message.error("Error While Updating the Profile!");
     } finally {
       setLoading(false);

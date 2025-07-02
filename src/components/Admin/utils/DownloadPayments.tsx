@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Button, message, Popconfirm, Tooltip } from "antd";
+import { message, Popconfirm } from "antd";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import { Icon } from "@iconify-icon/react";
 
 const DownloadZipClient = ({ docCode }: { docCode: string }) => {
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
 
   const handleDownload = async () => {
     setLoading(true);
