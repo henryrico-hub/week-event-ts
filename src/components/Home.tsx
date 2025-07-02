@@ -16,7 +16,7 @@ export default function Home() {
 
       {/* <!-- States Start--> */}
 
-      <StatesSlide />
+      {/* <StatesSlide /> */}
 
       {/* <!-- States End--> */}
 
