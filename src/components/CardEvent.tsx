@@ -13,8 +13,6 @@ const { Meta } = Card;
 const { Text, Title } = Typography;
 
 const CardEvent: React.FC<CardEventProps> = ({ eve, colSpan }) => {
-  console.log(eve);
-
   return (
     <div className={`col-md-${colSpan} py-2`}>
       <Link to={`/evento/${eve.url}`} style={{ textDecoration: "none" }}>

@@ -24,15 +24,6 @@ const Barcode = ({ value, width = 1, height = 30 }: BarcodeProps) => {
 
   return (
     <div className="flex flex-col items-center text-black font-bold underline px-1">
-      {/* <div
-        className="mt-2 text-black"
-        style={{
-          writingMode: "vertical-rl",
-          transform: "rotate(90deg)",
-        }}
-      >
-      </div>
-      */}
       <svg ref={svgRef} />
       {value}
     </div>
