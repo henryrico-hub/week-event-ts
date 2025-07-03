@@ -1,11 +1,11 @@
 import OwlMain from "./OwlMainCopy";
-// import OwlBreakingNews from "./OwlBreakingNewsCopy";
+import OwlBreakingNews from "./OwlBreakingNewsCopy";
 /* import ads_img from '../assets/images/ads-728x90.png' */
-// import OwlFeaturedNews from "./OwlFeaturedNews";
-// import ContentSideBar from "./ContentSideBar";
+import OwlFeaturedNews from "./OwlFeaturedNews";
+import ContentSideBar from "./ContentSideBar";
 import StatesSlide from "./slick-carousel/StatesSlide";
-// import FeaturesCards from "./FeaturesCards";
-// import GenericSlide from "./slick-carousel/GenericSlide";
+import FeaturesCards from "./FeaturesCards";
+import GenericSlide from "./slick-carousel/GenericSlide";
 
 export default function Home() {
   return (
@@ -22,21 +22,21 @@ export default function Home() {
 
       {/* <!-- Breaking News Start --> */}
 
-      {/* <OwlBreakingNews /> */}
+      <OwlBreakingNews />
 
       {/* <!-- Breaking News End --> */}
 
       {/* <!-- Featured News Slider Start --> */}
 
-      {/* <OwlFeaturedNews /> */}
+      <OwlFeaturedNews />
 
       {/* <!-- Featured News Slider End --> */}
 
-      {/* <ContentSideBar /> */}
+      <ContentSideBar />
 
       {/* <ClientsSection /> */}
 
-      {/* <GenericSlide
+      <GenericSlide
         slug={"trail-run"}
         title={"Carreras de montaña"}
         icon={"mdi:mountain"}
@@ -47,7 +47,7 @@ export default function Home() {
         title={"Ciclismo"}
         icon={"mdi:bike"}
       />
-      <FeaturesCards /> */}
+      <FeaturesCards />
     </div>
   );
 }
