@@ -219,7 +219,7 @@ export async function getCalendar() {
   const respuesta = await fetch(
     `${
       import.meta.env.VITE_API_URL
-    }/events?fields[0]=name&fields[1]=description1&fields[2]=date_event&fields[3]=author_desc&fields[4]=distance_category&fields[5]=city_state&fields[6]=price&fields[7]=url&populate[category][fields][0]=name&populate[category][fields][1]=slug&populate[img_main][fields]*&populate[author_sc][populate][0]=avatar&populate[state][fields]*&populate[img_main][fields]*`
+    }/events?fields[0]=name&fields[1]=description1&fields[2]=date_event&fields[3]=author_desc&fields[4]=distance_category&fields[5]=city_state&fields[6]=price&fields[7]=url&populate[category][fields][0]=name&populate[category][fields][1]=slug&populate[img_main][fields]=*&populate[author_sc][populate][0]=avatar&populate[state][fields]*`
   );
   const resultado = await respuesta.json();
 
