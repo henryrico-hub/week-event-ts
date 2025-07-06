@@ -152,17 +152,27 @@ export type Participant = {
   name: string;
   paternal_surname: string | null;
   maternal_surname: string | null;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
   birthdate: string | null;
   gender: string | null;
   statusP: "Pending" | "Complete" | string;
-  payment: Payment[];
   categoryP: string;
   package: string;
   participant_number: number;
   size: string;
+  payment: Payment[];
+  country: string;
+  state: string;
+  city: string;
+  address: string;
+  team: string;
+  phone: number;
+  bloodType: string;
+  email: string;
+  emergencyContactName: string;
+  emergencyContactPhone: number;
+  publishedAt: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type Payment = {

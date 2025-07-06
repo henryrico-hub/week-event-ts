@@ -101,7 +101,7 @@ export default function PackageForm({ data }: Props) {
             name="size"
             className="pt-2 mb-2"
             rules={[
-              { required: true, message: "Selecciona el talla que deseas" },
+              { required: true, message: "Selecciona la talla que deseas" },
             ]}
           >
             <Radio.Group

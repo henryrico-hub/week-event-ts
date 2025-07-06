@@ -8,11 +8,11 @@ export default function CountrySelect() {
 
   const countryFormated = countrys.map((country) => ({
     label: country.name,
-    value: country.code3,
+    value: country.name,
   }));
 
   const onChangeC = (value: string) => {
-    const selectedCountry = countrys.find((country) => country.code3 === value);
+    const selectedCountry = countrys.find((country) => country.name === value);
     if (selectedCountry) {
       setStates(
         selectedCountry.states.map((state) => ({
@@ -61,7 +61,10 @@ export default function CountrySelect() {
         label="Ciudad"
         name="city"
         hasFeedback
-        rules={[{ required: true, message: "El campo es requerido" }]}
+        rules={[
+          { required: true, message: "El campo es requerido" },
+          { min: 2, message: "Por lo menos dos caracteres" },
+        ]}
       >
         <Input placeholder="Ciudad ó Localidad"></Input>
       </Form.Item>

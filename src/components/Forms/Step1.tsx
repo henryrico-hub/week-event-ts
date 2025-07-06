@@ -9,17 +9,18 @@ import {
   Divider,
   Result,
   Select,
+  Tooltip,
+  message,
 } from "antd";
 import { Icon } from "@iconify-icon/react";
 import Title from "antd/es/typography/Title";
-// import { City, Country, ICountry, State } from "country-state-city";
 import type { FormInstance } from "antd";
-import { notification } from "antd";
 import { postParticipant } from "src/models/event.server";
 import { EventType } from "src/types";
 import ModalConfirm from "./Upload/ModalConfirm";
 import CountrySelect from "./FormElements/CountrySelect";
 import PackageForm from "./FormElements/PackageForm";
+import PhoneInput from "./FormElements/PhoneInput";
 
 const { Text } = Typography;
 export type FieldType =
@@ -43,12 +44,14 @@ export type FieldType =
   | "phone"
   | "emergencyContactName"
   | "emergencyContactPhone"
-  | "remember";
+  | "team"
+  | "remember"
+  | "prefix1"
+  | "prefix2";
 
 interface SubmitButtonProps {
   form: FormInstance;
 }
-// type NotificationPlacement = NotificationArgsProps["placement"];
 
 type Step1Props = {
   next: () => void;
@@ -63,77 +66,62 @@ export default function Step1({
   data,
   setDataParticipant,
 }: Step1Props) {
-  const [, contextHolder] = notification.useNotification();
+  const [messageApi, contextHolder] = message.useMessage();
 
   const [form] = Form.useForm();
   const variant = Form.useWatch("variant", form);
 
   const [loading, setLoading] = useState(false);
   const [validForm] = useState(false);
-  // const [jersey, setjersey] = useState<boolean>(true);
-
   const [open, setOpen] = useState(false);
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Errores ->", errorInfo);
   };
 
-  // const openNotificationError = (placement: NotificationPlacement) => {
-  //   api.info({
-  //     message: `Ocurrio un error mientras se hacia el registro`,
-  //     description: "Intentelo de nuevo",
-  //     placement,
-  //     icon: <CloseCircleTwoTone twoToneColor="rgb(255, 77, 79)" />,
-  //   });
-  // };
-
-  // const bottomEle = document.querySelector("#flag-success");
-  // console.log("--->", data);
-
   const onFinish = (values: any) => {
     setLoading(true);
     console.log("values", values);
 
     const createUser = async () => {
-      // const datatoSend = {
-      //   name: values.name,
-      //   lastname: values.lastname,
-      //   birthday: values.birthday,
-      //   gender: values.gender,
-
-      //   country: countrySelected?.name,
-      //   state: stateSelected?.label,
-      //   city: values.city,
-
-      //   address: values.address,
-      //   allergies: values.allergies,
-      //   medicine: values.medicine,
-      //   bloodtype: values.bloodtype,
-      //   team: values.team,
-      //   phone: values.phone,
-      //   email: values.email,
-      //   package : values.package,
-      //   size: values.size
-      //   emergencyContactName: values.emergencyContactName,
-      //   emergencyContactPhone: values.emergencyContactPhone,
-      //   // remember: values.remember,
-      //   // ...values,
-      //   // country: countrySelected?.name,
-      //   // state: stateSelected?.label,
-      // };
-
-      const datatoSend2: {
+      const dataToSend: {
         name: string;
+        paternal_surname: string;
+        maternal_surname: string;
+        birthday: Date;
+        gender: "Masculino" | "Femenino";
         event: string | undefined;
         categoryP: string;
-        size: string;
         package: string;
+        size: string;
+        country: string;
+        state: string;
+        city: string;
+        address: string;
+        emergency_contact_name: string;
+        emergency_contact_phone: number;
+        email: string;
+        phone: number;
+        team: string;
       } = {
-        name: values.name,
-        event: data?.documentId,
+        address: values.address,
+        birthday: values.birthday,
         categoryP: values.category,
-        size: values.size,
+        city: values.city,
+        country: values.country,
+        email: values.email,
+        emergency_contact_name: values.emergencyContactName,
+        emergency_contact_phone: values.emergencyContactPhone,
+        gender: values.gender,
+        paternal_surname: values.lastname,
+        maternal_surname: values.lastnameS,
+        name: values.name,
         package: values.package,
+        phone: values.phone,
+        size: values.size,
+        state: values.state,
+        team: values.team,
+        event: data?.documentId,
       };
 
       try {
@@ -153,11 +141,11 @@ export default function Step1({
             size: string;
             package: string;
           };
-        } = await postParticipant(datatoSend2);
+        } = await postParticipant(dataToSend);
         setRegisterId(response.data.documentId.slice(0, 6));
         setDataParticipant(response.data);
-
         setTimeout(() => {
+          successM();
           window.scrollTo(0, 0);
           setLoading(false);
           setOpen(true);
@@ -165,19 +153,31 @@ export default function Step1({
         }, 3000);
       } catch (error) {
         console.error("Error fetching post User:", error);
-        // openNotificationError("top");
+        setTimeout(() => {
+          errorM();
+          setLoading(false);
+        }, 2000);
         // window.scrollTo(0, 0);
       } finally {
         // setLoading(false);
       }
     };
-
     createUser();
   };
 
-  // const onChange1 = () => {
-  //   setjersey(!jersey);
-  // };
+  const successM = () => {
+    messageApi.open({
+      type: "success",
+      content: "Registro correcto!",
+    });
+  };
+
+  const errorM = () => {
+    messageApi.open({
+      type: "error",
+      content: "Error mientras se intentaba registrar el participante",
+    });
+  };
 
   const contentText = () => {
     return (
@@ -285,15 +285,25 @@ export default function Step1({
                   label="Nombres"
                   name="name"
                   hasFeedback
-                  rules={[{ required: true, message: "Ingresa tu nombre" }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Ingresa tu nombre",
+                    },
+                    { min: 2, message: "Por lo menos dos caracteres" },
+                  ]}
                 >
                   <Input size="middle" />
                 </Form.Item>
+
                 <Form.Item<FieldType>
                   label="Apellido paterno"
                   name="lastname"
                   hasFeedback
-                  rules={[{ required: true, message: "Ingresa apellido" }]}
+                  rules={[
+                    { required: true, message: "Ingresa apellido" },
+                    { min: 2, message: "Por lo menos dos caracteres" },
+                  ]}
                 >
                   <Input size="middle" />
                 </Form.Item>
@@ -301,7 +311,10 @@ export default function Step1({
                   label="Apellido materno"
                   name="lastnameS"
                   hasFeedback
-                  rules={[{ required: true, message: "Ingresa apellido" }]}
+                  rules={[
+                    { required: true, message: "Ingresa apellido" },
+                    { min: 2, message: "Por lo menos dos caracteres" },
+                  ]}
                 >
                   <Input size="middle" />
                 </Form.Item>
@@ -312,8 +325,8 @@ export default function Step1({
                   rules={[{ required: true, message: "El campo es requerido" }]}
                 >
                   <Select size="middle">
-                    <Select.Option value="male">Male</Select.Option>
-                    <Select.Option value="female">Female</Select.Option>
+                    <Select.Option value="Masculino">Masculino</Select.Option>
+                    <Select.Option value="Femenino">Femenino</Select.Option>
                   </Select>
                 </Form.Item>
                 <Form.Item<FieldType>
@@ -352,9 +365,12 @@ export default function Step1({
                   hasFeedback
                   rules={[
                     {
-                      required: true,
-                      message: "El email es requerido",
                       type: "email",
+                      message: "Ingresa un email valido",
+                    },
+                    {
+                      required: true,
+                      message: "Ingresa tu email",
                     },
                   ]}
                 >
@@ -383,66 +399,23 @@ export default function Step1({
                   </Form.Item>
                 ) : null}
 
-                {/* <Form.Item<FieldType>
-                    label="País"
-                    name="country"
-                    hasFeedback
-                    rules={[
-                      { required: true, message: "El campo es requerido" },
-                    ]}
-                  >
-                    <Select
-                      onChange={onChangeC}
-                      showSearch
-                      optionFilterProp="label"
-                      style={{ width: "100%" }}
-                      placeholder="Selecciona País"
-                      options={countrys}
-                    ></Select>
-                  </Form.Item>
-
-                  <Form.Item<FieldType>
-                    label="Estado"
-                    name="state"
-                    hasFeedback
-                    rules={[
-                      { required: true, message: "El campo es requerido" },
-                    ]}
-                  >
-                    <Select
-                      onChange={onChangeS}
-                      showSearch
-                      optionFilterProp="label"
-                      style={{ width: "100%" }}
-                      placeholder="Selecciona Estado"
-                      options={states}
-                    ></Select>
-                  </Form.Item>
-
-                  <Form.Item<FieldType>
-                    label="Ciudad"
-                    name="city"
-                    hasFeedback
-                    rules={[
-                      { required: true, message: "El campo es requerido" },
-                    ]}
-                  >
-                    <Select
-                      showSearch
-                      optionFilterProp="label"
-                      placeholder="Selecciona Ciudad"
-                      options={cities}
-                    ></Select>
-                  </Form.Item> */}
                 <Divider orientation="center">Dirección de contacto</Divider>
                 <Form.Item<FieldType>
                   label="Dirección"
                   name="address"
                   hasFeedback
-                  rules={[{ required: true, message: "El campo es requerido" }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: "El campo es requerido",
+                    },
+                    { min: 2, message: "Por lo menos dos caracteres" },
+                  ]}
                 >
                   <Input size="middle" />
                 </Form.Item>
+
+                {/* Country-State-City */}
                 <CountrySelect />
 
                 {/* <Form.Item<FieldType>
@@ -468,22 +441,39 @@ export default function Step1({
                 </Form.Item> */}
 
                 <Form.Item<FieldType>
-                  label="Equipo"
+                  label={
+                    <Tooltip
+                      className="flex justify-center items-center py-2"
+                      title="Ingresa el nombre de tu equipo si participas con amigos o compañeros. Esto nos ayuda a agrupar a los participantes y facilitar la organización en futuros eventos."
+                    >
+                      <span className="text-black font-bold">Equipo</span>
+                      <Icon
+                        icon={"akar-icons:question"}
+                        className="text-black pl-1"
+                        inline={true}
+                      />
+                    </Tooltip>
+                  }
                   name="team"
                   hasFeedback
-                  rules={[{ required: true, message: "El campo es requerido" }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: "El campo es requerido",
+                    },
+                    { min: 2, message: "Por lo menos dos caracteres" },
+                  ]}
                 >
                   <Input size="middle" placeholder="Agrega a tu equipo"></Input>
                 </Form.Item>
 
-                <Form.Item<FieldType>
-                  label="Numero de teléfono"
-                  name="phone"
-                  hasFeedback
-                  rules={[{ required: true, message: "El campo es requerido" }]}
-                >
-                  <Input type="number" size="middle" />
-                </Form.Item>
+                {/* Phone */}
+                <PhoneInput
+                  label={"Num. de Teléfono"}
+                  name={"phone"}
+                  prefix="prefix1"
+                />
+
                 <Form.Item<FieldType>
                   label="Nombre de contacto de emergencia"
                   name="emergencyContactName"
@@ -496,22 +486,15 @@ export default function Step1({
                   ]}
                   required
                 >
-                  <Input size="middle" />
+                  <Input size="middle" placeholder="Contacto de emergencia" />
                 </Form.Item>
 
-                <Form.Item<FieldType>
-                  label="Teléfono de contacto de emergencia"
-                  name="emergencyContactPhone"
-                  hasFeedback
-                  rules={[
-                    {
-                      required: true,
-                      message: "El campo es requerido",
-                    },
-                  ]}
-                >
-                  <Input type="number" size="middle" />
-                </Form.Item>
+                {/* Emergency Phone */}
+                <PhoneInput
+                  label={"Num. contacto de emergencia"}
+                  name={"emergencyContactPhone"}
+                  prefix={"prefix2"}
+                />
 
                 <PackageForm data={data?.packages} />
 
