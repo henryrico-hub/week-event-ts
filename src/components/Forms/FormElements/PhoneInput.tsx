@@ -20,16 +20,21 @@ type Props = {
   label: string;
   name: string;
   prefix: string;
+  init?: any;
 };
 
-function PhoneInput({ label, name, prefix }: Props) {
+function PhoneInput({ label, name, prefix, init }: Props) {
   const [prefixV, setPrefixV] = useState("+52");
 
   const prefixSelector = (
-    <Form.Item<FieldType> name={prefix} initialValue={prefixV} noStyle>
+    <Form.Item<FieldType>
+      name={prefix}
+      initialValue={init ? null : prefixV}
+      noStyle
+    >
       <Select
         showSearch
-        value={prefixV}
+        value={init ? null : prefixV}
         onChange={setPrefixV}
         style={{ width: 100 }}
         size="small"
@@ -54,6 +59,10 @@ function PhoneInput({ label, name, prefix }: Props) {
           message: "El campo es requerido",
         },
         {
+          pattern: /^\d+$/,
+          message: "Solo se permiten números",
+        },
+        {
           validator: (_, value) => {
             const digits = (value || "").replace(/\D/g, "");
             if (digits.length >= 7 && digits.length <= 15) {
@@ -71,6 +80,8 @@ function PhoneInput({ label, name, prefix }: Props) {
         type="tel"
         addonBefore={prefixSelector}
         placeholder="1234567890"
+        inputMode="numeric"
+        pattern="[0-9]*"
       />
     </Form.Item>
   );

@@ -28,6 +28,7 @@ import axios from "axios";
 import type { FilterDropdownProps } from "antd/es/table/interface";
 import ParticipantsTableHeader from "./ParticipantsTableHeader";
 import SizeTagColor from "./utils/SizeTagColor";
+import { useNavigate } from "react-router-dom";
 
 const useStyle = createStyles(({ css }) => {
   return {
@@ -55,16 +56,26 @@ export type DataPType = {
   key2: React.Key;
   key: React.Key;
   name: string;
-  number: number;
-  // lastname: string;
-  // lastname2: string;
+  participantNumber: number;
+  bloodTpye: string;
+  lastname: string;
+  lastname2: string;
   birthday: string;
   package: string;
   size: string;
   gender: string;
   payment: Payment;
+  email: string;
   statusP: "Pending" | "Success" | string;
   categoryP: string;
+  country: string;
+  state: string;
+  city: string;
+  address: string;
+  team: string;
+  phone: number;
+  emergencyContactName: string;
+  emergencyContactPhone: number;
 };
 
 type Props = {
@@ -75,6 +86,7 @@ type Props = {
   setUpdateData: React.Dispatch<React.SetStateAction<boolean>>;
   numParti: number;
   idEvent?: string;
+  urlE: string;
 };
 
 type DataIndex = keyof DataPType;
@@ -82,7 +94,7 @@ type DataIndex = keyof DataPType;
 const defaultCheckedList = [
   "key2",
   "name",
-  "number",
+  "participantNumber",
   // "birthday",
   "package",
   "size",
@@ -101,7 +113,11 @@ const EventsTable = ({
   statsData,
   numParti,
   idEvent,
+  urlE,
 }: Props) => {
+  // console.log(data && data);
+
+  const navigate = useNavigate();
   const { styles } = useStyle();
   const [, setSearchText] = useState("");
   const [, setSearchedColumn] = useState("");
@@ -241,8 +257,8 @@ const EventsTable = ({
     },
     {
       title: "#",
-      dataIndex: "number",
-      key: "number",
+      dataIndex: "participantNumber",
+      key: "participantNumber",
       // fixed: "left",
       width: 70,
     },
@@ -530,6 +546,18 @@ const EventsTable = ({
             type: "divider",
           },
           {
+            key: "details",
+            label: (
+              <div
+                className="flex gap-1.5 items-center"
+                onClick={() => handleMenuClick("edit", record)}
+              >
+                <Icon icon={"mdi:pencil-outline"} width={18} />
+                <span className="custom-dropdown-item">Detalles</span>
+              </div>
+            ),
+          },
+          {
             key: "delete",
             danger: true,
             label: (
@@ -570,16 +598,18 @@ const EventsTable = ({
       if (!record.key) {
         throw new Error("key is required");
       }
+      const token = localStorage.getItem("authToken");
       let numPartiSet;
-      if (!record.number) {
+      if (!record.participantNumber) {
         numPartiSet = (numParti ?? 0) + 1;
-        // if (numParti === null) {
+        //z if (numParti === null) {
         //   numPartiSet = 1;
         // } else {
         //   numPartiSet = numParti + 1;
         // }
 
         const Newstatus = "Complete";
+
         await axios.put(
           `${import.meta.env.VITE_API_URL}/participants/${record.key}`,
           {
@@ -587,13 +617,26 @@ const EventsTable = ({
               statusP: Newstatus,
               participant_number: numPartiSet,
             },
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
-        await axios.put(`${import.meta.env.VITE_API_URL}/events/${idEvent}`, {
-          data: {
-            consecNumberPart: numPartiSet,
+        await axios.put(
+          `${import.meta.env.VITE_API_URL}/events/${idEvent}`,
+          {
+            data: {
+              consecNumberPart: numPartiSet,
+            },
           },
-        });
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setUpdateData((prev) => !prev);
         message.success("Estado actualizado con éxito", 5);
       } else {
@@ -604,6 +647,11 @@ const EventsTable = ({
             data: {
               statusP: Newstatus,
               // participant_number: numPartiSet,
+            },
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -663,6 +711,12 @@ const EventsTable = ({
       setLoading(false);
     }
   };
+
+  const detailsP = (record: DataPType) => {
+    // Navegar a la ruta de detalles del participante usando useNavigate
+    navigate(`/admin/details/${urlE}/${record.key}`);
+  };
+
   const handleMenuClick = (action: string, record: DataPType) => {
     switch (action) {
       case "accept":
@@ -673,6 +727,9 @@ const EventsTable = ({
         break;
       case "pending":
         PendingPayment(record);
+        break;
+      case "edit":
+        detailsP(record);
         break;
       case "send":
         // ...

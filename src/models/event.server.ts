@@ -58,10 +58,13 @@ export async function postParticipant(participantData: any) {
 
   return respuesta.data;
 }
-export async function updateParticipant(formData: any) {
-  const respuesta = await axios.post(
-    `${import.meta.env.VITE_API_URL}/upload`,
-    formData,
+export async function updateParticipant(
+  id: string | undefined,
+  data: Record<string, any>
+) {
+  const respuesta = await axios.put(
+    `${import.meta.env.VITE_API_URL}/participants/${id}`,
+    { data },
     {
       headers: {
         "Content-Type": "multipart/form-data",

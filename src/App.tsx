@@ -27,6 +27,7 @@ import ProtectedRoute from "./components/Login/ProtectedRoute";
 import PublicRoute from "./components/Login/PublicRoute";
 import ParticipantsPage from "./components/Admin/ParticipantsPage";
 import ToTopButton from "./components/Button/ToTopButton";
+import DetailsParticipants from "./components/Admin/DetailsParticipants";
 
 const categories = [
   { name: "Carrera", url: "correr" },
@@ -98,6 +99,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <ParticipantsPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "details/:urlE/:participant",
+        element: (
+          <ProtectedRoute>
+            <DetailsParticipants />
           </ProtectedRoute>
         ),
       },

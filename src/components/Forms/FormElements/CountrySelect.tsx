@@ -3,7 +3,13 @@ import { FieldType } from "../Step1";
 import { countrys } from "src/data";
 import { useState } from "react";
 
-export default function CountrySelect() {
+type Props = {
+  nameC: string;
+  nameS: string;
+  nameCt: string;
+};
+
+export default function CountrySelect({ nameC, nameCt, nameS }: Props) {
   const [states, setStates] = useState<{ label: string; value: string }[]>([]);
 
   const countryFormated = countrys.map((country) => ({
@@ -27,7 +33,7 @@ export default function CountrySelect() {
     <>
       <Form.Item<FieldType>
         label="País"
-        name="country"
+        name={nameC}
         hasFeedback
         rules={[{ required: true, message: "El campo es requerido" }]}
       >
@@ -43,7 +49,7 @@ export default function CountrySelect() {
 
       <Form.Item<FieldType>
         label="Estado"
-        name="state"
+        name={nameS}
         hasFeedback
         rules={[{ required: true, message: "El campo es requerido" }]}
       >
@@ -59,7 +65,7 @@ export default function CountrySelect() {
 
       <Form.Item<FieldType>
         label="Ciudad"
-        name="city"
+        name={nameCt}
         hasFeedback
         rules={[
           { required: true, message: "El campo es requerido" },

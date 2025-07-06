@@ -6,6 +6,7 @@ import { formatearMesDiaHora, formatearPrice } from "src/utils/helpers";
 // import Barcode from "./BarCode";
 import { Button } from "antd";
 import { Icon } from "@iconify-icon/react";
+import QRCodeSvgDownload from "./QrCode";
 
 interface BoardingPassProps {
   data: EventType;
@@ -15,31 +16,6 @@ interface BoardingPassProps {
 
 export const TicketPass = ({ data, dataParticipant }: BoardingPassProps) => {
   const [loading, setLoading] = useState<boolean>(false);
-  // const [participante, setParticipante] = useState<EventType>();
-
-  // useEffect(() => {
-  //   setLoading(true);
-  //   const fetchParticipant = async () => {
-  //     try {
-  //       if (!id) {
-  //         return;
-  //         // setErrorUrl(true);
-  //       }
-  //       const response = await getParticipant(id);
-  //       setParticipante(response.data[0]);
-  //       // console.log(response.data[0]);
-  //     } catch (error) {
-  //       console.error("Error fetching events:", error);
-  //       // console.log("error -" + errorUrl);
-  //     } finally {
-  //       setTimeout(() => {
-  //         setLoading(false);
-  //       }, 1000);
-  //     }
-  //   };
-  //   fetchParticipant();
-  // }, [id]);
-
   const ref = useRef<HTMLDivElement>(null);
 
   const handleDownload = async () => {
@@ -52,7 +28,7 @@ export const TicketPass = ({ data, dataParticipant }: BoardingPassProps) => {
       link.download = `${
         data.name.slice(0, 6).toLocaleUpperCase() +
         "-" +
-        dataParticipant?.paternal_surname?.toLocaleUpperCase()
+        dataParticipant?.paternalSurname?.toLocaleUpperCase()
       }.png`;
       link.href = dataUrl;
       link.click();
@@ -134,26 +110,52 @@ export const TicketPass = ({ data, dataParticipant }: BoardingPassProps) => {
 
         {/* Elemento 2 */}
         <div className="w-full lg:w-2/3 space-y-2 p-10 flex-1">
-          {/* Puedes agregar contenido aquí si lo necesitas */}
+          <QRCodeSvgDownload
+            value="https://spiritc.netlify.app/"
+            // icon={imgLogo}
+            size={100}
+            color={"#FFFFFF"}
+            bgColor={`${data?.main_color}6e`}
+          />
         </div>
 
         {/* Elemento 3 */}
         <div className="w-full lg:w-1/3 h-auto border-t-4 lg:border-t-0 lg:border-l-4 border-dashed border-gray-100 space-y-2 p-4">
-          <div className="flex flex-col justify-between items-center bg-white p-2 h-full rounded-lg gap-1 lg:gap-0">
+          <div className="flex flex-col justify-evenly items-center bg-white p-2 h-full rounded-lg gap-1 lg:gap-0">
             <p className="name-resume p-2 text-black lg:text-justify text-uppercase text-md font-bold lg:underline">
-              {dataParticipant.name + " " + dataParticipant.paternal_surname}
-              {/* {participante?.name} */}
+              {dataParticipant.name + " " + dataParticipant.paternalSurname}
             </p>
             <div className="flex flex-col justify-around items-center w-full gap-2 ">
               <p className="name-resume flex flex-col text-center text-black text-lg font-bold rounded-lg bg-gray-200 w-full">
                 <span className="underline">Categoria</span>
                 {dataParticipant.categoryP}
               </p>
-              <p className="name-resume flex flex-row justify-evenly text-black text-uppercase text-lg font-bold rounded-lg bg-gray-200 w-full">
-                <span className="underline">#</span>
-                {dataParticipant.participant_number}
+            </div>
+            <div className="flex flex-row justify-around items-center w-full gap-2 ">
+              <p className="name-resume flex flex-row justify-evenly text-black text-uppercase text-lg font-bold rounded-lg bg-gray-200 w-full p-2">
+                <span
+                  className="underline font-extrabold"
+                  style={{ color: `${data?.main_color}` }}
+                >
+                  #
+                </span>
+                {dataParticipant.participantNumber
+                  ? dataParticipant.participantNumber
+                      .toString()
+                      .padStart(4, "0")
+                  : ""}
+              </p>
+              <p className="name-resume flex flex-row justify-evenly text-black text-uppercase text-lg font-bold rounded-lg bg-gray-200 w-full p-2">
+                <Icon
+                  icon={"flowbite:t-shirt-solid"}
+                  width={28}
+                  inline={true}
+                  style={{ color: `${data?.main_color}` }}
+                />
+                {dataParticipant?.size}
               </p>
             </div>
+
             {/* <Barcode value={dataParticipant?.documentId?.slice(0, 8)} /> */}
           </div>
         </div>

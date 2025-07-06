@@ -147,17 +147,19 @@ export type ServicesScs = {
 };
 
 export type Participant = {
+  prefix1?: any;
+  prefix2?: any;
   id: number;
   documentId: string;
   name: string;
-  paternal_surname: string | null;
-  maternal_surname: string | null;
-  birthdate: string | null;
+  paternalSurname: string | null;
+  maternalSurname: string | null;
+  birthday: string | null;
   gender: string | null;
   statusP: "Pending" | "Complete" | string;
   categoryP: string;
   package: string;
-  participant_number: number;
+  participantNumber: number;
   size: string;
   payment: Payment[];
   country: string;
@@ -166,7 +168,7 @@ export type Participant = {
   address: string;
   team: string;
   phone: number;
-  bloodType: string;
+  bloodType: string | undefined;
   email: string;
   emergencyContactName: string;
   emergencyContactPhone: number;

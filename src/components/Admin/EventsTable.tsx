@@ -1,6 +1,6 @@
 import React from "react";
 import { Dropdown, Space, Table, Typography } from "antd";
-import type { MenuProps, TableColumnsType, TableProps } from "antd";
+import type { MenuProps, TableColumnsType } from "antd";
 import { Icon } from "@iconify-icon/react";
 import { createStyles } from "antd-style";
 import { useNavigate } from "react-router-dom";
@@ -41,7 +41,6 @@ type Props = {
 const EventsTable = ({ data }: Props) => {
   const navigate = useNavigate();
   const { styles } = useStyle();
-  console.log(data);
 
   const columns: TableColumnsType<DataEType> = [
     {
@@ -105,9 +104,7 @@ const EventsTable = ({ data }: Props) => {
             label: (
               <div
                 className="flex gap-1.5 items-center"
-                onClick={() =>
-                  navigate(`/admin/myEvents/${value}`, { replace: true })
-                }
+                onClick={() => navigate(`/admin/myEvents/${value}`)}
               >
                 <Icon icon={"icons8:right-round"} inline={true} width={22} />
                 <span className="custom-dropdown-item">Ver Inscritos</span>
@@ -136,21 +133,21 @@ const EventsTable = ({ data }: Props) => {
     },
   ];
 
-  const onChange: TableProps<DataEType>["onChange"] = (
-    pagination,
-    filters,
-    sorter,
-    extra
-  ) => {
-    console.log("params", pagination, filters, sorter, extra);
-  };
+  // const onChange: TableProps<DataEType>["onChange"] = (
+  //   pagination,
+  //   filters,
+  //   sorter,
+  //   extra
+  // ) => {
+  //   console.log("params", pagination, filters, sorter, extra);
+  // };
 
   return (
     <Table<DataEType>
       className={styles.customTable}
       columns={columns}
       dataSource={data}
-      onChange={onChange}
+      // onChange={onChange}
       showSorterTooltip={{ target: "sorter-icon" }}
       scroll={{ x: "max-content", y: 55 * 5 }}
       onRow={() => {

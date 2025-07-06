@@ -18,6 +18,7 @@ function ParticipantsPage() {
   const [updateData, setUpdateData] = useState(false);
   const [consecNP, setConsecNP] = useState<number>(0);
   const [idEvent, setIdEvent] = useState<string>();
+  const [urlE] = useState<string>(url ? url : "");
 
   const fetchData = async () => {
     setLoading(true);
@@ -28,25 +29,24 @@ function ParticipantsPage() {
       const response = await getParticipantListByEvent(url);
       setConsecNP(response.data[0].consecNumberPart);
       setIdEvent(response.data[0].documentId);
+      console.log(response.data[0] && response.data[0].participants);
       const formattedData: DataPType[] = response.data[0].participants.map(
-        (part: Participant) => ({
+        (part: any) => ({
           ...part,
           key: part.documentId,
           key2: part.documentId.slice(0, 6),
-          number: part.participant_number,
+          participantNumber: part.participant_number,
           name:
             part.name +
             " " +
             part.paternal_surname +
             " " +
             part.maternal_surname,
-          // lastname: part.paternal_surname,
-          // lastname2: part.maternal_surname,
-
           gender: part.gender,
           payment: part.payment?.[0],
         })
       );
+
       const genderCounts = response.data[0].participants.reduce(
         (acc: any, curr: any) => {
           acc[curr.gender] = (acc[curr.gender] || 0) + 1;
@@ -119,6 +119,7 @@ function ParticipantsPage() {
         setLoading={setLoading}
         setUpdateData={setUpdateData}
         idEvent={idEvent}
+        urlE={urlE}
       />
     </div>
   );

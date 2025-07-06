@@ -99,9 +99,9 @@ export default function Step1({
         city: string;
         address: string;
         emergency_contact_name: string;
-        emergency_contact_phone: number;
+        emergency_contact_phone: string;
         email: string;
-        phone: number;
+        phone: string;
         team: string;
       } = {
         address: values.address,
@@ -111,18 +111,20 @@ export default function Step1({
         country: values.country,
         email: values.email,
         emergency_contact_name: values.emergencyContactName,
-        emergency_contact_phone: values.emergencyContactPhone,
+        emergency_contact_phone:
+          values.prefix2 + "-" + values.emergencyContactPhone,
         gender: values.gender,
         paternal_surname: values.lastname,
         maternal_surname: values.lastnameS,
         name: values.name,
         package: values.package,
-        phone: values.phone,
+        phone: values.prefix1 + "-" + values.phone,
         size: values.size,
         state: values.state,
         team: values.team,
         event: data?.documentId,
       };
+      console.log(dataToSend);
 
       try {
         const response: {
@@ -416,7 +418,7 @@ export default function Step1({
                 </Form.Item>
 
                 {/* Country-State-City */}
-                <CountrySelect />
+                <CountrySelect nameC="country" nameCt="city" nameS="state" />
 
                 {/* <Form.Item<FieldType>
                   label="Alergias"

@@ -40,11 +40,11 @@ export default function DownloadData({ url }: Props) {
       }
 
       const formattedData = participants.map((item: Participant) => ({
-        numero_participante: item.participant_number,
+        numero_participante: item.participantNumber,
         nombre: item.name,
-        apellido_paterno: item.paternal_surname,
-        apellido_materno: item.maternal_surname,
-        fecha_nacimiento: item.birthdate,
+        apellido_paterno: item.paternalSurname,
+        apellido_materno: item.maternalSurname,
+        fecha_nacimiento: item.birthday,
         categoria: item.categoryP,
         sexo: item.gender,
         paquete: item.package,
