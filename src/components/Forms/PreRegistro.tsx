@@ -78,7 +78,17 @@ export default function PreRegistro() {
         }
 
         const participant = await getParticipant(registerId);
-        setDataParticipant(participant.data[0]);
+        // console.log(participant.data[0]);
+
+        const formattedData: Participant = {
+          ...participant.data[0],
+          paternalSurname: participant.data[0].paternal_surname,
+          maternalSurname: participant.data[0].maternal_surname,
+          participantNumber: participant.data[0].participant_number,
+        };
+        // console.log("formattedData", formattedData);
+
+        setDataParticipant(formattedData);
       } catch (error) {
         console.error("Error fetching events:", error);
       } finally {
@@ -135,7 +145,7 @@ export default function PreRegistro() {
       title: "Finalizado",
       subTitle: "subtitle",
       description: "¡Has completado el registro!",
-      content: dataEvent && (
+      content: dataEvent && dataParticipant && (
         <Step3
           id={registerId}
           data={dataEvent}

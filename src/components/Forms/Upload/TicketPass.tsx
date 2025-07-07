@@ -122,8 +122,12 @@ export const TicketPass = ({ data, dataParticipant }: BoardingPassProps) => {
         {/* Elemento 3 */}
         <div className="w-full lg:w-1/3 h-auto border-t-4 lg:border-t-0 lg:border-l-4 border-dashed border-gray-100 space-y-2 p-4">
           <div className="flex flex-col justify-evenly items-center bg-white p-2 h-full rounded-lg gap-1 lg:gap-0">
-            <p className="name-resume p-2 text-black lg:text-justify text-uppercase text-md font-bold lg:underline">
-              {dataParticipant.name + " " + dataParticipant.paternalSurname}
+            <p className="name-resume p-2 text-black lg:text-center text-uppercase text-md font-bold lg:underline">
+              {dataParticipant.name +
+                " " +
+                dataParticipant.paternalSurname +
+                " " +
+                dataParticipant.maternalSurname}
             </p>
             <div className="flex flex-col justify-around items-center w-full gap-2 ">
               <p className="name-resume flex flex-col text-center text-black text-lg font-bold rounded-lg bg-gray-200 w-full">

@@ -438,17 +438,18 @@ const EventsTable = ({
       },
       sortDirections: ["ascend", "descend"],
       width: 150,
-      render(value) {
+      render(value, record) {
         return value?.url ? (
           <div className="flex justify-center">
             <Image
               src={`${import.meta.env.VITE_API_URL_SHORT}${value?.url}`}
               style={{
-                maxWidth: "50px",
-                maxHeight: "50px",
+                maxWidth: "80px",
+                maxHeight: "80px",
                 border: " npx dashed #28a745",
                 boxShadow: "5px 5px 10px rgba(0,0,0,0.4)",
               }}
+              alt={`payment by ${record.name}`}
               placeholder={
                 <Image
                   preview={true}
@@ -577,7 +578,7 @@ const EventsTable = ({
         ];
 
         return (
-          <Dropdown menu={{ items }} trigger={["click"]}>
+          <Dropdown menu={{ items }}>
             <a
               onClick={(e) => e.preventDefault()}
               className="flex justify-center"

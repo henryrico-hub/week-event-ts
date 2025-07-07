@@ -1,7 +1,6 @@
 import {
   Input,
   Select,
-  DatePicker,
   Image,
   Button,
   message,
@@ -14,7 +13,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   getParticipantListByEvent,
-  postParticipant,
   updateParticipant,
 } from "src/models/event.server";
 import { EventType, Participant } from "src/types";
@@ -58,7 +56,7 @@ function DetailsParticipants() {
 
       // Si se encuentra, estructura el objeto con los campos que necesitas
       if (foundParticipant) {
-        console.log("fetch", foundParticipant);
+        // console.log("fetch", foundParticipant);
 
         const formattedParticipant: any = {
           id: foundParticipant.id,
@@ -133,7 +131,7 @@ function DetailsParticipants() {
 
   const onFinish = (values: any) => {
     setLoading(true);
-    console.log("values", values);
+    // console.log("values", values);
 
     const updatedUser = async () => {
       const dataToSend: {
@@ -176,7 +174,7 @@ function DetailsParticipants() {
         team: values.team,
         // event: data?.documentId,
       };
-      console.log(dataToSend, "aqui" + participantSelected?.documentId);
+      // console.log(dataToSend, "aqui" + participantSelected?.documentId);
 
       try {
         const response: {
@@ -204,11 +202,9 @@ function DetailsParticipants() {
         setTimeout(() => {
           successM();
           window.scrollTo(0, 0);
+          form.setFieldsValue(initialFormValues);
+          form.resetFields();
           setLoading(false);
-          console.log(response);
-
-          // setOpen(true);
-          // setValidForm(true);
         }, 3000);
       } catch (error) {
         console.error("Error fetching path User:", error);
@@ -218,7 +214,7 @@ function DetailsParticipants() {
         }, 2000);
         // window.scrollTo(0, 0);
       } finally {
-        // setLoading(false);
+        setUpdateData((prev) => !prev);
       }
     };
     updatedUser();
@@ -259,7 +255,7 @@ function DetailsParticipants() {
 
     return (
       <Button
-        className="w-100 mt-2 p-3"
+        className="w-100"
         type="primary"
         htmlType="submit"
         disabled={!submittable}
@@ -271,242 +267,287 @@ function DetailsParticipants() {
   };
 
   return (
-    <div className="container py-10">
+    <div className="container p-4 md:p-10">
       {contextHolder}
+      {participantSelected && (
+        <Form
+          form={form}
+          name="basic"
+          // style={{ maxWidth: "486px", backgroundColor: "white" }}
+          // wrapperCol={{ span: 16 }}
+          // labelCol={{ span: 10 }}
+          variant={variant || "filled"}
+          initialValues={{
+            name: participantSelected.name,
+            lastname: participantSelected.paternalSurname,
+            lastnameS: participantSelected.maternalSurname,
+            birthday: participantSelected.birthday,
+            gender: participantSelected.gender,
+            email: participantSelected.email,
+            address: participantSelected.address,
+            country: participantSelected.country,
+            state: participantSelected.state,
+            city: participantSelected.city,
+            team: participantSelected.team,
+            phone: participantSelected.phone,
+            emergencyContactName: participantSelected.emergencyContactName,
+            emergencyContactPhone: participantSelected.emergencyContactPhone,
+            prefix1: participantSelected.prefix1,
+            prefix2: participantSelected.prefix2,
+          }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+          disabled={loading}
+        >
+          <div className="flex md:flex-row flex-col justify-between bg-white rounded-xl shadow gap-2 p-6 my-4">
+            <div>
+              <h2>Numero de Participante</h2>
+              <span className="text-6xl">#</span>
+              <span className="text-6xl">
+                {participantSelected.participantNumber
+                  ? participantSelected.participantNumber
+                  : "Sin asignar"}
+              </span>
+            </div>
+            <div className="flex items-center">
+              <Form.Item label={null} noStyle>
+                <SubmitButton form={form} initialValues={initialFormValues}>
+                  Actualizar Participante
+                </SubmitButton>
+              </Form.Item>
+            </div>
+          </div>
 
-      <div className="bg-white rounded-xl shadow p-6">
-        {participantSelected && (
-          <Form
-            form={form}
-            className="grid grid-cols-1 md:grid-cols-2 gap-2"
-            name="basic"
-            // style={{ maxWidth: "486px", backgroundColor: "white" }}
-            // wrapperCol={{ span: 16 }}
-            // labelCol={{ span: 10 }}
-            variant={variant || "filled"}
-            initialValues={{
-              name: participantSelected.name,
-              lastname: participantSelected.paternalSurname,
-              lastnameS: participantSelected.maternalSurname,
-              birthday: participantSelected.birthday,
-              gender: participantSelected.gender,
-              email: participantSelected.email,
-              address: participantSelected.address,
-              country: participantSelected.country,
-              state: participantSelected.state,
-              city: participantSelected.city,
-              team: participantSelected.team,
-              phone: participantSelected.phone,
-              emergencyContactName: participantSelected.emergencyContactName,
-              emergencyContactPhone: participantSelected.emergencyContactPhone,
-              prefix1: participantSelected.prefix1,
-              prefix2: participantSelected.prefix2,
-            }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-            disabled={loading}
-          >
-            <Form.Item<FieldType>
-              label="Nombres"
-              name="name"
-              hasFeedback
-              rules={[
-                {
-                  required: true,
-                  message: "Ingresa tu nombre",
-                },
-                { min: 2, message: "Por lo menos dos caracteres" },
-              ]}
-            >
-              <Input size="middle" />
-            </Form.Item>
-
-            <Form.Item<FieldType>
-              label="Apellido paterno"
-              name="lastname"
-              hasFeedback
-              rules={[
-                { required: true, message: "Ingresa apellido" },
-                { min: 2, message: "Por lo menos dos caracteres" },
-              ]}
-            >
-              <Input size="middle" />
-            </Form.Item>
-            <Form.Item<FieldType>
-              label="Apellido materno"
-              name="lastnameS"
-              hasFeedback
-              rules={[
-                { required: true, message: "Ingresa apellido" },
-                { min: 2, message: "Por lo menos dos caracteres" },
-              ]}
-            >
-              <Input size="middle" />
-            </Form.Item>
-            <Form.Item<FieldType>
-              label="Sexo"
-              name="gender"
-              hasFeedback
-              rules={[{ required: true, message: "El campo es requerido" }]}
-            >
-              <Select size="middle">
-                <Select.Option value="Masculino">Masculino</Select.Option>
-                <Select.Option value="Femenino">Femenino</Select.Option>
-              </Select>
-            </Form.Item>
-            <Form.Item<FieldType>
-              label="Fecha de Nacimiento"
-              name="birthday"
-              hasFeedback
-              rules={[
-                {
-                  required: true,
-                  message: "Ingresa tu fecha de nacimiento!",
-                },
-              ]}
-            >
-              <Input type="date" size="middle" />
-            </Form.Item>
-            {/* <Form.Item<FieldType>
-              label="Tipo de Sangre"
-              name="bloodtype"
-              hasFeedback
-              rules={[{ required: true, message: "El campo es requerido" }]}
-            >
-              <Select size="middle" disabled>
-                <Select.Option value="A+">A+</Select.Option>
-                <Select.Option value="A-">A-</Select.Option>
-                <Select.Option value="B+">B+</Select.Option>
-                <Select.Option value="B-">B-</Select.Option>
-                <Select.Option value="AB+">AB+</Select.Option>
-                <Select.Option value="AB-">AB-</Select.Option>
-                <Select.Option value="O+">O+</Select.Option>
-                <Select.Option value="O-">O-</Select.Option>
-              </Select>
-            </Form.Item> */}
-            <Form.Item<FieldType>
-              label="Correo electronico"
-              name="email"
-              hasFeedback
-              rules={[
-                {
-                  type: "email",
-                  message: "Ingresa un email valido",
-                },
-                {
-                  required: true,
-                  message: "Ingresa tu email",
-                },
-              ]}
-            >
-              <Input size="middle" />
-            </Form.Item>
-            {/* {data?.event_category_scs && data.event_category_scs.length > 0 ? (
-            <Form.Item<FieldType>
-              label="Categoría"
-              name="category"
-              hasFeedback
-              rules={[
-                { required: true, message: "Selecciona una categoría" },
-              ]}
-            >
-              <Select placeholder="Selecciona una categoría" size="middle">
-                {data?.event_category_scs.map((cate) => (
-                  <Select.Option key={cate.id} value={cate.slug}>
-                    {cate.name}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Form.Item>
-          ) : null} */}
-
-            <Divider orientation="center">Dirección de contacto</Divider>
-            <Form.Item<FieldType>
-              label="Dirección"
-              name="address"
-              hasFeedback
-              rules={[
-                {
-                  required: true,
-                  message: "El campo es requerido",
-                },
-                { min: 2, message: "Por lo menos dos caracteres" },
-              ]}
-            >
-              <Input size="middle" />
-            </Form.Item>
-
-            {/* Country-State-City */}
-            <CountrySelect nameC="country" nameCt="city" nameS="state" />
-
-            <Form.Item<FieldType>
-              label={
-                <Tooltip
-                  className="flex justify-center items-center py-2"
-                  title="Ingresa el nombre de tu equipo si participas con amigos o compañeros. Esto nos ayuda a agrupar a los participantes y facilitar la organización en futuros eventos."
+          <div className="bg-white rounded-xl shadow p-10">
+            <>
+              <div className="grid grid-cols-2 gap-x-5">
+                <Form.Item<FieldType>
+                  label="Nombres"
+                  name="name"
+                  className="col-span-2 md:col-span-1"
+                  hasFeedback
+                  rules={[
+                    {
+                      required: true,
+                      message: "Ingresa tu nombre",
+                    },
+                    { min: 2, message: "Por lo menos dos caracteres" },
+                  ]}
                 >
-                  <span className="text-black font-bold">Equipo</span>
-                  <Icon
-                    icon={"akar-icons:question"}
-                    className="text-black pl-1"
-                    inline={true}
+                  <Input size="middle" />
+                </Form.Item>
+
+                <Form.Item<FieldType>
+                  label="Apellido paterno"
+                  name="lastname"
+                  className="col-span-2 md:col-span-1"
+                  hasFeedback
+                  rules={[
+                    { required: true, message: "Ingresa apellido" },
+                    { min: 2, message: "Por lo menos dos caracteres" },
+                  ]}
+                >
+                  <Input size="middle" />
+                </Form.Item>
+
+                <Form.Item<FieldType>
+                  label="Apellido materno"
+                  name="lastnameS"
+                  className="col-span-2 md:col-span-1"
+                  hasFeedback
+                  rules={[
+                    { required: true, message: "Ingresa apellido" },
+                    { min: 2, message: "Por lo menos dos caracteres" },
+                  ]}
+                >
+                  <Input size="middle" />
+                </Form.Item>
+
+                <Form.Item<FieldType>
+                  label="Sexo"
+                  name="gender"
+                  className="col-span-2 md:col-span-1"
+                  hasFeedback
+                  rules={[{ required: true, message: "El campo es requerido" }]}
+                >
+                  <Select size="middle">
+                    <Select.Option value="Masculino">Masculino</Select.Option>
+                    <Select.Option value="Femenino">Femenino</Select.Option>
+                  </Select>
+                </Form.Item>
+
+                <Form.Item<FieldType>
+                  label="Fecha de Nacimiento"
+                  name="birthday"
+                  className="col-span-2 md:col-span-1"
+                  hasFeedback
+                  rules={[
+                    {
+                      required: true,
+                      message: "Ingresa tu fecha de nacimiento!",
+                    },
+                  ]}
+                >
+                  <Input type="date" size="middle" />
+                </Form.Item>
+
+                {/* <Form.Item<FieldType>
+                    label="Tipo de Sangre"
+                    name="bloodtype"
+                    hasFeedback
+                    rules={[{ required: true, message: "El campo es requerido" }]}
+                  >
+                    <Select size="middle" disabled>
+                      <Select.Option value="A+">A+</Select.Option>
+                      <Select.Option value="A-">A-</Select.Option>
+                      <Select.Option value="B+">B+</Select.Option>
+                      <Select.Option value="B-">B-</Select.Option>
+                      <Select.Option value="AB+">AB+</Select.Option>
+                      <Select.Option value="AB-">AB-</Select.Option>
+                      <Select.Option value="O+">O+</Select.Option>
+                      <Select.Option value="O-">O-</Select.Option>
+                    </Select>
+                  </Form.Item> */}
+                <Form.Item<FieldType>
+                  label="Correo electronico"
+                  name="email"
+                  className="col-span-2 md:col-span-1"
+                  hasFeedback
+                  rules={[
+                    {
+                      type: "email",
+                      message: "Ingresa un email valido",
+                    },
+                    {
+                      required: true,
+                      message: "Ingresa tu email",
+                    },
+                  ]}
+                >
+                  <Input size="middle" />
+                </Form.Item>
+                {/* {data?.event_category_scs && data.event_category_scs.length > 0 ? (
+                    <Form.Item<FieldType>
+                      label="Categoría"
+                      name="category"
+                      hasFeedback
+                      rules={[
+                        { required: true, message: "Selecciona una categoría" },
+                      ]}
+                    >
+                      <Select placeholder="Selecciona una categoría" size="middle">
+                        {data?.event_category_scs.map((cate) => (
+                          <Select.Option key={cate.id} value={cate.slug}>
+                            {cate.name}
+                          </Select.Option>
+                        ))}
+                      </Select>
+                    </Form.Item>
+                  ) : null} */}
+
+                <Divider className="col-span-2" orientation="center">
+                  Dirección de contacto
+                </Divider>
+
+                {/* Country-State-City */}
+                <CountrySelect nameC="country" nameCt="city" nameS="state" />
+
+                <Form.Item<FieldType>
+                  label="Dirección"
+                  name="address"
+                  className="col-span-2 md:col-span-1"
+                  hasFeedback
+                  rules={[
+                    {
+                      required: true,
+                      message: "El campo es requerido",
+                    },
+                    { min: 2, message: "Por lo menos dos caracteres" },
+                  ]}
+                >
+                  <Input size="middle" />
+                </Form.Item>
+
+                <Form.Item<FieldType>
+                  label={"Equipo"}
+                  name="team"
+                  className="col-span-2 md:col-span-1"
+                  hasFeedback
+                  rules={[
+                    {
+                      required: true,
+                      message: "El campo es requerido",
+                    },
+                    { min: 2, message: "Por lo menos dos caracteres" },
+                  ]}
+                >
+                  <Input size="middle" placeholder="Agrega a tu equipo"></Input>
+                </Form.Item>
+
+                {/* Phone */}
+                <PhoneInput
+                  label={"Num. de Teléfono"}
+                  name={"phone"}
+                  prefix="prefix1"
+                />
+
+                <Form.Item<FieldType>
+                  label="Contacto de emergencia"
+                  className="col-span-2 md:col-span-1"
+                  name="emergencyContactName"
+                  hasFeedback
+                  rules={[
+                    {
+                      required: true,
+                      message: "El campo es requerido",
+                    },
+                  ]}
+                  required
+                >
+                  <Input size="middle" placeholder="Contacto de emergencia" />
+                </Form.Item>
+
+                {/* Emergency Phone */}
+                <PhoneInput
+                  label={"Num. contacto de emergencia"}
+                  name={"emergencyContactPhone"}
+                  prefix={"prefix2"}
+                  init={true}
+                />
+              </div>
+
+              <div className="flex flex-col text-center justify-center px-4 md:px-16">
+                <Divider>
+                  <Tooltip title={"Edición no disponible"} arrow={false}>
+                    <span className="text-lg font-bold">
+                      Comprobante de pago
+                    </span>
+                  </Tooltip>
+                </Divider>
+
+                {participantSelected.payment ? (
+                  <Image
+                    style={{ maxWidth: 350, margin: "0 auto" }}
+                    src={`${import.meta.env.VITE_API_URL_SHORT}${
+                      participantSelected.payment[0].url
+                    }`}
+                    alt={`comprobante de pago${participantSelected.name}`}
                   />
-                </Tooltip>
-              }
-              name="team"
-              hasFeedback
-              rules={[
-                {
-                  required: true,
-                  message: "El campo es requerido",
-                },
-                { min: 2, message: "Por lo menos dos caracteres" },
-              ]}
-            >
-              <Input size="middle" placeholder="Agrega a tu equipo"></Input>
-            </Form.Item>
+                ) : (
+                  <Icon
+                    icon={"carbon:no-image"}
+                    width={42}
+                    className="flex content-center p-4"
+                  ></Icon>
+                )}
+              </div>
 
-            {/* Phone */}
-            <PhoneInput
-              label={"Num. de Teléfono"}
-              name={"phone"}
-              prefix="prefix1"
-            />
-
-            <Form.Item<FieldType>
-              label="Contacto de emergencia"
-              name="emergencyContactName"
-              hasFeedback
-              rules={[
-                {
-                  required: true,
-                  message: "El campo es requerido",
-                },
-              ]}
-              required
-            >
-              <Input size="middle" placeholder="Contacto de emergencia" />
-            </Form.Item>
-
-            {/* Emergency Phone */}
-            <PhoneInput
-              label={"Num. contacto de emergencia"}
-              name={"emergencyContactPhone"}
-              prefix={"prefix2"}
-              init={true}
-            />
-
-            {/* <PackageForm data={data?.packages} /> */}
-
-            <Form.Item label={null}>
-              <SubmitButton form={form} initialValues={initialFormValues}>
-                Registrar
-              </SubmitButton>
-            </Form.Item>
-          </Form>
-        )}
-      </div>
+              {/* <PackageForm data={data?.packages} /> */}
+            </>
+          </div>
+        </Form>
+      )}
     </div>
   );
 }

@@ -1,11 +1,11 @@
-import { EventType } from "src/types";
+import { EventType, Participant } from "src/types";
 import { TicketPass } from "./Upload/TicketPass";
 
 type Step2Props = {
   id: string;
   data: EventType;
   setUpdateData: React.Dispatch<React.SetStateAction<boolean>>;
-  dataParticipant: any;
+  dataParticipant: Participant;
 };
 
 export default function Step3({ id, data, dataParticipant }: Step2Props) {

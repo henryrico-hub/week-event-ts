@@ -35,6 +35,7 @@ export default function CountrySelect({ nameC, nameCt, nameS }: Props) {
         label="País"
         name={nameC}
         hasFeedback
+        className="col-span-2 md:col-span-1"
         rules={[{ required: true, message: "El campo es requerido" }]}
       >
         <Select
@@ -44,12 +45,14 @@ export default function CountrySelect({ nameC, nameCt, nameS }: Props) {
           style={{ width: "100%" }}
           placeholder="Selecciona País"
           options={countryFormated}
+          // className="w-full"
         ></Select>
       </Form.Item>
 
       <Form.Item<FieldType>
         label="Estado"
         name={nameS}
+        className="col-span-2 md:col-span-1"
         hasFeedback
         rules={[{ required: true, message: "El campo es requerido" }]}
       >
@@ -60,19 +63,24 @@ export default function CountrySelect({ nameC, nameCt, nameS }: Props) {
           style={{ width: "100%" }}
           placeholder="Selecciona Estado"
           options={states}
+          // className="w-full"
         ></Select>
       </Form.Item>
 
       <Form.Item<FieldType>
         label="Ciudad"
         name={nameCt}
+        className="col-span-2 md:col-span-1"
         hasFeedback
         rules={[
           { required: true, message: "El campo es requerido" },
           { min: 2, message: "Por lo menos dos caracteres" },
         ]}
       >
-        <Input placeholder="Ciudad ó Localidad"></Input>
+        <Input
+          // className="w-full"
+          placeholder="Ciudad ó Localidad"
+        ></Input>
       </Form.Item>
     </>
   );

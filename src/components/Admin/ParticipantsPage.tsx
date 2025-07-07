@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import ParticipantsTable, { DataPType } from "./ParticipantsTable";
 import { useParams } from "react-router-dom";
-import { Participant } from "src/types";
 import { getParticipantListByEvent } from "src/models/event.server";
 import { message } from "antd";
 
@@ -29,7 +28,6 @@ function ParticipantsPage() {
       const response = await getParticipantListByEvent(url);
       setConsecNP(response.data[0].consecNumberPart);
       setIdEvent(response.data[0].documentId);
-      console.log(response.data[0] && response.data[0].participants);
       const formattedData: DataPType[] = response.data[0].participants.map(
         (part: any) => ({
           ...part,

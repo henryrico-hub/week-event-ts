@@ -52,6 +52,7 @@ function PhoneInput({ label, name, prefix, init }: Props) {
     <Form.Item<FieldType>
       label={label}
       name={name}
+      className="col-span-2 md:col-span-1"
       hasFeedback
       rules={[
         {
