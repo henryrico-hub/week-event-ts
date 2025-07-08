@@ -79,12 +79,10 @@ export default function OwlMain() {
       const formattedDate = `${currentDate.getFullYear()}-${String(
         currentDate.getMonth() + 1
       ).padStart(2, "0")}-${String(currentDate.getDate()).padStart(2, "0")}`;
-      // console.log(formattedDate);
 
       try {
         const events = await getEventsCurrents(formattedDate);
         setcurrentEvent(events.data);
-        // console.log(events.data);
       } catch (error) {
         console.error("Error fetching events:", error);
       } finally {
@@ -140,6 +138,7 @@ export default function OwlMain() {
                               src={`${import.meta.env.VITE_API_URL_SHORT}${
                                 eve.img_main.url
                               }`}
+                              alt={`imagen portada del evento ${eve.name} en ${eve.state.name}`}
                               style={{
                                 objectFit: "cover",
                               }}
@@ -148,6 +147,7 @@ export default function OwlMain() {
                             <img
                               className="img-fluid w-100 h-100"
                               src={logosm}
+                              alt={`imagen de respaldo ${eve.name} en ${eve.state.name}`}
                               style={{ objectFit: "cover" }}
                             />
                           )}
@@ -219,12 +219,14 @@ export default function OwlMain() {
                           src={`${import.meta.env.VITE_API_URL_SHORT}${
                             eve.img_main.url
                           }`}
+                          alt={`imagen portada del evento ${eve.name} en ${eve.state.name}`}
                           style={{ objectFit: "cover" }}
                         />
                       ) : (
                         <img
                           className="img-fluid w-100 h-100"
                           src={logosm}
+                          alt={`imagen portada del evento ${eve.name} en ${eve.state.name}`}
                           style={{ objectFit: "cover" }}
                         />
                       )}

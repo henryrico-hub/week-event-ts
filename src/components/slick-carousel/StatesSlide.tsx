@@ -172,7 +172,7 @@ function ReelsEvent() {
                       <img
                         className="slide-image"
                         src={getImage(state.src)}
-                        alt={state.name}
+                        alt={`el estado de ${state.name}`}
                         style={{
                           objectFit: "cover",
                           display: "block",

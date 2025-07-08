@@ -1,17 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Dialog,
-  DialogPanel,
-  Disclosure,
-  DisclosureButton,
-  // DisclosurePanel,
-  // Popover,
-  // PopoverButton,
-  PopoverGroup,
-  // PopoverPanel,
-} from "@headlessui/react";
+import { Dialog, DialogPanel, PopoverGroup } from "@headlessui/react";
 import { Icon } from "@iconify-icon/react";
 import { NavLink } from "react-router-dom";
 import AppHeader from "./AdminHeader";
@@ -124,60 +114,21 @@ export default function Header() {
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
-                  <Disclosure as="div" className="-mx-3">
-                    <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-slate-100 hover:bg-gray-700">
-                      Categorias
-                      <Icon
-                        icon={"heroicons:chevron-down"}
-                        aria-hidden="true"
-                        className="flex-none group-data-[open]:rotate-180"
-                        width="20"
-                        height="20"
-                      />
-                    </DisclosureButton>
-                    {/* <DisclosurePanel className="mt-2 space-y-2 transition-all duration-300 ease-in-out transform">
-                      {[...categories].map((item, key) => (
-                        <DisclosureButton
-                          as={NavLink}
-                          key={key}
-                          to={item.href + item.url}
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="block rounded-lg py-2 pl-8 pr-3 text-sm font-semibold leading-7 text-slate-100 hover:bg-gray-700"
-                        >
-                          {item.name}
-                        </DisclosureButton>
-                      ))}
-                    </DisclosurePanel> */}
-                  </Disclosure>
+                  {/* <AppHeader user={user} setUser={setUser} /> */}
                   <NavLink
+                    to={"/admin/myEvents"}
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-slate-100 hover:bg-gray-700"
+                  >
+                    Mis Eventos
+                  </NavLink>
+                  <AppHeader user={user} setUser={setUser} />
+                  {/* <NavLink
                     to={"/"}
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-slate-100 hover:bg-gray-700"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Home
-                  </NavLink>
-                  <NavLink
-                    to={"/comunidad"}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-slate-100 hover:bg-gray-700"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Calendario
-                  </NavLink>
-                  <NavLink
-                    to={"/comunidad"}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-slate-100 hover:bg-gray-700"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Comunidad
-                  </NavLink>
-                </div>
-                <div className="py-6">
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-slate-100 hover:bg-gray-700"
-                  >
-                    Log in
-                  </a>
+                  </NavLink> */}
                 </div>
               </div>
             </div>

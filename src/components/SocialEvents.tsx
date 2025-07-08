@@ -29,8 +29,7 @@ const SizeContent = {
 export default function SocialEvents({
   latestEvent,
   loading,
-}: // setLoading,
-SocialEventsProps) {
+}: SocialEventsProps) {
   return (
     <>
       <div className="col-lg-4">
@@ -101,7 +100,7 @@ SocialEventsProps) {
             </div>
             <div className="bg-white text-center border border-top-0 p-3">
               <a href="">
-                <img className="img-fluid" src={img_lg} alt="" />
+                <img className="img-fluid" src={img_lg} alt="advertisement" />
               </a>
             </div>
           </div>
@@ -151,7 +150,7 @@ SocialEventsProps) {
                         src={`${import.meta.env.VITE_API_URL_SHORT}${
                           eve.img_main.url
                         }`}
-                        alt={`event ${eve.name}`}
+                        alt={`portada de evento ${eve.name} en ${eve.state.name}`}
                       />
                     ) : (
                       <>

@@ -198,9 +198,10 @@ export default function SingleEvent() {
                             src={`${import.meta.env.VITE_API_URL_SHORT}${
                               dataEvent.img_main.url
                             }`}
+                            alt={`imagen portada del evento ${dataEvent.name} en ${dataEvent.state?.name}`}
                           />
                         ) : (
-                          <img src={logo1} />
+                          <img src={logo1} alt={`logotipo de sitio`} />
                         )}
                       </figure>
 

@@ -51,7 +51,7 @@ const EventsTable = ({ data }: Props) => {
       onFilter: (value, record) => record.name.indexOf(value as string) === 0,
       sorter: (a, b) => a.name.localeCompare(b.name),
       sortDirections: ["ascend", "descend"],
-      width: 300,
+      width: 150,
       // render(value, record) {
       //   return (
       //     <p

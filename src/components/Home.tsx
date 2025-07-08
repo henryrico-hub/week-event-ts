@@ -43,8 +43,8 @@ export default function Home() {
       />
 
       <GenericSlide
-        slug={"ciclismo-de-ruta"}
-        title={"Ciclismo"}
+        slug={"ciclismo-de-montana"}
+        title={"Ciclismo MTB"}
         icon={"mdi:bike"}
       />
       <FeaturesCards />

@@ -20,14 +20,14 @@ const AppHeader = ({ user, setUser }: Props) => {
   return (
     <div>
       {user ? (
-        <>
-          <NavLink className="px-4" to="/admin/profile" type="link">
+        <div className="py-4 flex flex-col lg:flex-row lg:items-center gap-2">
+          <NavLink className="px-0 md:px-4" to="/admin/profile" type="link">
             {user.username}
           </NavLink>
           <Button type="primary" onClick={handleLogout}>
             Cerrar sesion
           </Button>
-        </>
+        </div>
       ) : (
         <>
           <NavLink

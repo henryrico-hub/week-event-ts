@@ -161,7 +161,7 @@ export default function OwlFeaturedNews() {
                         src={`${import.meta.env.VITE_API_URL_SHORT}${
                           even.img_main.url
                         }`}
-                        alt={`image title - ${even.name}`}
+                        alt={` portada del evento ${even.name} en ${even.state.name}`}
                         style={{
                           height: "100%",
                           width: "100%",

@@ -23,7 +23,7 @@ const CardEvent: React.FC<CardEventProps> = ({ eve, colSpan }) => {
           cover={
             eve.img_main && (
               <img
-                alt="event image"
+                alt={`imagen portada del evento ${eve.name} en ${eve.state.name}`}
                 src={`${import.meta.env.VITE_API_URL_SHORT}${eve.img_main.url}`}
                 style={{
                   width: "100%",
@@ -94,7 +94,7 @@ const CardEvent: React.FC<CardEventProps> = ({ eve, colSpan }) => {
                           }`}
                           width="35"
                           height="35"
-                          alt=""
+                          alt={`foto de perfil del organizador de ${eve.name} con nombre ${eve.author_sc.name}`}
                         />
                         {/* <img className="rounded-circle mr-2" src={`${import.meta.env.VITE_API_URL_SHORT}${eve.img_desc1.url}`} width="25" height="25" alt=""/> */}
                         <Text

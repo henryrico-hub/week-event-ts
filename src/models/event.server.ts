@@ -72,7 +72,7 @@ export async function updateParticipant(
     }
   );
 
-  return respuesta.data;
+  return respuesta;
 }
 
 // --------------------- --------------------- --------------------- ---------------------
@@ -128,7 +128,7 @@ export async function getEventsCurrents(date: string) {
     const respuesta = await fetch(
       `${
         import.meta.env.VITE_API_URL
-      }/events?fields[0]=name&fields[1]=date_event&fields[2]=url&populate[category][fields][0]=name&populate[img_main][fields][0]=url&filters[date_event][$gt]=2025-03-04&sort[0]=date_event:asc&pagination[page]=1&pagination[pageSize]=9`
+      }/events?fields[0]=name&fields[1]=date_event&fields[2]=url&populate[state][fields][0]=name&populate[category][fields][0]=name&populate[img_main][fields][0]=url&filters[date_event][$gt]=2025-03-04&sort[0]=date_event:asc&pagination[page]=1&pagination[pageSize]=9`
     );
     const resultado = await respuesta.json();
 
@@ -140,7 +140,7 @@ export async function getEventsLastOne() {
   const respuesta = await fetch(
     `${
       import.meta.env.VITE_API_URL
-    }/events?fields[0]=name&fields[1]=date_event&fields[2]=url&populate[category][fields][0]=name&populate[img_main][fields][0]=url&filters[date_event][$gt]=2024-10-13&sort[0]=date_event:desc&pagination[page]=1&pagination[pageSize]=9`
+    }/events?fields[0]=name&fields[1]=date_event&fields[2]=url&populate[category][fields][0]=name&populate[state][fields][0]=name&populate[img_main][fields][0]=url&filters[date_event][$gt]=2024-10-13&sort[0]=date_event:desc&pagination[page]=1&pagination[pageSize]=9`
   );
   const resultado = await respuesta.json();
 

@@ -92,7 +92,7 @@ const StateEventsDrawer = ({
           const events = await getEventsState(stateSelected);
           setData(events.data);
           setDataFiltered(events.data);
-          console.log(events.data);
+          // console.log(events.data);
         } catch (error) {
           console.error("Error fetching events:", error);
         }
@@ -117,7 +117,7 @@ const StateEventsDrawer = ({
       iconMap.find((item) => item.slug === category) ? category : ""
     );
     // setData((prev) => prev.filter((event) => event.category.slug === category));
-    console.log(categorySelected);
+    // console.log(categorySelected);
 
     setTimeout(() => {
       setLoading(false);
@@ -205,8 +205,8 @@ const StateEventsDrawer = ({
           {datafiltered.length ? (
             <>
               <div className="p-6">
-                {datafiltered.map((eve) => (
-                  <CardEvent eve={eve} colSpan={12} />
+                {datafiltered.map((eve, key) => (
+                  <CardEvent eve={eve} colSpan={12} key={key} />
                 ))}
               </div>
             </>

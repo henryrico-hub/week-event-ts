@@ -15,11 +15,12 @@ import {
   getParticipantListByEvent,
   updateParticipant,
 } from "src/models/event.server";
-import { EventType, Participant } from "src/types";
+import { Participant } from "src/types";
 import { Icon } from "@iconify-icon/react";
 import { FieldType } from "../Forms/Step1";
 import CountrySelect from "../Forms/FormElements/CountrySelect";
 import PhoneInput from "../Forms/FormElements/PhoneInput";
+import { formatearFechalg } from "src/utils/helpers";
 
 interface SubmitButtonProps {
   form: FormInstance;
@@ -38,7 +39,7 @@ function DetailsParticipants() {
   const [loading, setLoading] = useState<boolean>(false);
   const [participantSelected, setParticipantSelected] = useState<Participant>();
   const [updateData, setUpdateData] = useState<boolean>(false);
-  const [dataEvent, setDataEvent] = useState<EventType>();
+  // const [dataEvent, setDataEvent] = useState<EventType>();
 
   const [form] = Form.useForm();
   const variant = Form.useWatch("variant", form);
@@ -177,35 +178,22 @@ function DetailsParticipants() {
       // console.log(dataToSend, "aqui" + participantSelected?.documentId);
 
       try {
-        const response: {
-          data: {
-            birthdate: string | null;
-            createdAt: string;
-            documentId: string;
-            gender: string | null;
-            id: number;
-            maternal_surname: string | null;
-            name: string;
-            paternal_surname: string | null;
-            publishedAt: string;
-            updatedAt: string;
-            payment: string | File | null;
-            size: string;
-            package: string;
-          };
-        } = await updateParticipant(
+        const response = await updateParticipant(
           participantSelected?.documentId,
           dataToSend
         );
-        // setRegisterId(response.data.documentId.slice(0, 6));
-        // setDataParticipant(response.data);
-        setTimeout(() => {
-          successM();
-          window.scrollTo(0, 0);
-          form.setFieldsValue(initialFormValues);
-          form.resetFields();
-          setLoading(false);
-        }, 3000);
+
+        if (response.status === 200) {
+          setTimeout(() => {
+            successM();
+            window.scrollTo(0, 0);
+            form.setFieldsValue(initialFormValues);
+            form.resetFields();
+            setLoading(false);
+          }, 3000);
+          // setRegisterId(response.data.documentId.slice(0, 6));
+          // setDataParticipant(response.data);
+        }
       } catch (error) {
         console.error("Error fetching path User:", error);
         setTimeout(() => {
@@ -223,7 +211,7 @@ function DetailsParticipants() {
   const successM = () => {
     messageApi.open({
       type: "success",
-      content: "Registro correcto!",
+      content: "Cambios guardados con exito!",
     });
   };
 
@@ -300,7 +288,7 @@ function DetailsParticipants() {
           autoComplete="off"
           disabled={loading}
         >
-          <div className="flex md:flex-row flex-col justify-between bg-white rounded-xl shadow gap-2 p-6 my-4">
+          <div className="flex md:flex-row flex-col justify-between bg-white rounded-xl shadow gap-4 p-6 my-4">
             <div>
               <h2>Numero de Participante</h2>
               <span className="text-6xl">#</span>
@@ -310,12 +298,16 @@ function DetailsParticipants() {
                   : "Sin asignar"}
               </span>
             </div>
-            <div className="flex items-center">
+            <div className="flex flex-col justify-center items-center gap-2">
               <Form.Item label={null} noStyle>
                 <SubmitButton form={form} initialValues={initialFormValues}>
                   Actualizar Participante
                 </SubmitButton>
               </Form.Item>
+              <span style={{ opacity: 0.6, fontSize: 12 }}>
+                Ultima actualización:{" "}
+                {formatearFechalg(participantSelected.updatedAt)}
+              </span>
             </div>
           </div>
 
@@ -532,7 +524,7 @@ function DetailsParticipants() {
                     src={`${import.meta.env.VITE_API_URL_SHORT}${
                       participantSelected.payment[0].url
                     }`}
-                    alt={`comprobante de pago${participantSelected.name}`}
+                    alt={`comprobante de pago de ${participantSelected.name} ${participantSelected.paternalSurname}`}
                   />
                 ) : (
                   <Icon
