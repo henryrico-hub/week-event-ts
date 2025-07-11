@@ -1,5 +1,5 @@
 import React from "react";
-import { Dropdown, Space, Table, Typography } from "antd";
+import { ConfigProvider, Dropdown, Space, Table, Typography } from "antd";
 import type { MenuProps, TableColumnsType } from "antd";
 import { Icon } from "@iconify-icon/react";
 import { createStyles } from "antd-style";
@@ -52,16 +52,6 @@ const EventsTable = ({ data }: Props) => {
       sorter: (a, b) => a.name.localeCompare(b.name),
       sortDirections: ["ascend", "descend"],
       width: 150,
-      // render(value, record) {
-      //   return (
-      //     <p
-      //       onClick={() => navigate(`/admin/myEvents/${record.url}`)}
-      //       // className="hover:font-bold hover:cursor-pointer"
-      //     >
-      //       {value}
-      //     </p>
-      //   );
-      // },
     },
     {
       title: "Categoria",
@@ -143,34 +133,46 @@ const EventsTable = ({ data }: Props) => {
   // };
 
   return (
-    <Table<DataEType>
-      className={styles.customTable}
-      columns={columns}
-      dataSource={data}
-      // onChange={onChange}
-      showSorterTooltip={{ target: "sorter-icon" }}
-      scroll={{ x: "max-content", y: 55 * 5 }}
-      onRow={() => {
-        return {
-          onMouseEnter: (event) => {
-            event.currentTarget.style.fontWeight = "600";
+    <ConfigProvider
+      theme={{
+        components: {
+          Table: {
+            rowHoverBg: "#f7f7e7",
+            // borderColor: "#000",
+            // headerBg: "#FFCC00",
           },
-          onMouseLeave: (event) => {
-            event.currentTarget.style.fontWeight = "";
-          },
-          // onClick: (e) => {
-          //   const target = e.target as HTMLElement;
-          //   if (target.closest("button") || target.closest("a")) return;
-          //   navigate(`/admin/myEvents/${record.url}`);
-          // },
-          style: {
-            cursor: "pointer",
-            // fontWeight: 600,
-            // transition: "font-weight 0.2s",
-          },
-        };
+        },
       }}
-    />
+    >
+      <Table<DataEType>
+        className={styles.customTable}
+        columns={columns}
+        dataSource={data}
+        // onChange={onChange}
+        showSorterTooltip={{ target: "sorter-icon" }}
+        scroll={{ x: "max-content", y: 55 * 8 }}
+        // onRow={() => {
+        //   return {
+        //     onMouseEnter: (event) => {
+        //       event.currentTarget.style.fontWeight = "600";
+        //     },
+        //     onMouseLeave: (event) => {
+        //       event.currentTarget.style.fontWeight = "";
+        //     },
+
+        //     onClick: (e) => {
+        //       const target = e.target as HTMLElement;
+        //       if (target.closest("button") || target.closest("a")) return;
+        //       navigate(`/admin/myEvents/${record.url}`);
+        //     },
+        //     style: {
+        //       cursor: "pointer",
+
+        //     },
+        //   };
+        // }}
+      />
+    </ConfigProvider>
   );
 };
 

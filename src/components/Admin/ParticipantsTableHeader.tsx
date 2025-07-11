@@ -61,7 +61,7 @@ const EventsTable = ({ loading, data }: Props) => {
         {
           title: "Masculino",
           align: "center",
-          dataIndex: ["genderCounts", "Masculino"], // ✅ forma segura de acceder
+          dataIndex: ["genderCounts", "Masculino"],
           key: "masculino",
           width: 150,
         },
@@ -117,11 +117,8 @@ const EventsTable = ({ loading, data }: Props) => {
     };
 
     window.addEventListener("resize", handleResize);
-    // Call once to set initial state
     handleResize();
-
     return () => window.removeEventListener("resize", handleResize);
-    // eslint-disable-next-line
   }, []);
 
   return (

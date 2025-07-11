@@ -84,13 +84,13 @@ export default function ContentSideBar() {
                     <div className="col-12">
                       <div className="section-title">
                         <h4 className="m-0 text-uppercase font-weight-bold">
-                          Latest News
+                          Recien agregados
                         </h4>
                         <a
-                          className="text-secondary font-weight-medium text-decoration-none"
-                          href=""
+                          className="text-secondary font-weight-medium text-uppercase"
+                          href="#"
                         >
-                          View All
+                          ver todos
                         </a>
                       </div>
                     </div>

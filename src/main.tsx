@@ -14,7 +14,14 @@ import jQuery from "jquery";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AuthProvider>
-      <ConfigProvider locale={esES}>
+      <ConfigProvider
+        locale={esES}
+        theme={{
+          token: {
+            // fontFamily: '"Montserrat", sans-serif',
+          },
+        }}
+      >
         <App />
       </ConfigProvider>
     </AuthProvider>

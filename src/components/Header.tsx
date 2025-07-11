@@ -63,7 +63,7 @@ export default function Header() {
           <div className="col-lg-3 text-right d-none d-md-block">
             <nav className="navbar navbar-expand-sm bg-dark p-0">
               <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <a className="nav-link text-body" href="#">
                     <Icon
                       icon="ri:twitter-x-fill"
@@ -71,7 +71,7 @@ export default function Header() {
                       inline={true}
                     />
                   </a>
-                </li>
+                </li> */}
                 <li className="nav-item">
                   <a className="nav-link text-body" href="#">
                     <Icon
@@ -282,7 +282,7 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="navbar-brand d-block d-lg-none"
               >
-                <h1 className="m-0 display-4 text-uppercase text-primary">
+                <h1 className="m-0 text-uppercase text-primary">
                   Challenge
                   <span className="text-white font-weight-normal">You</span>
                 </h1>

@@ -8,9 +8,9 @@ function Footer() {
       {/* <!-- Footer Start --> */}
       <div className="footer-content container-fluid bg-dark pt-5 px-sm-3 px-md-5">
         <div className="row py-4">
-          <div className="col-lg-4 col-md-6 mb-5">
+          <div className="col-lg-3 col-md-6 mb-5">
             <h5 className="mb-4 text-white text-uppercase font-weight-bold">
-              Get In Touch
+              Contactanos
             </h5>
             <p className="font-weight-medium">
               <Icon
@@ -30,21 +30,30 @@ function Footer() {
             </p>
             <p className="font-weight-medium">
               <Icon icon={"fa-solid:envelope"} inline={true} className="mr-2" />
-              info@example.com
+              info@contact.com
             </p>
           </div>
-
-          <div className="col-lg-4 col-md-6 mb-5">
+          <div className="col-lg-3 col-md-6 mb-5">
             <h5 className="mb-4 text-white text-uppercase font-weight-bold">
-              Follow Us
+              Necesitas ayuda
+            </h5>
+            <p>
+              <a href="/dashboard" className="font-weight-medium mb-4">
+                Servicios
+              </a>
+            </p>
+          </div>
+          <div className="col-lg-3 col-md-6 mb-5">
+            <h5 className="mb-4 text-white text-uppercase font-weight-bold">
+              Siguenos
             </h5>
             <div className="d-flex justify-content-start">
-              <a
+              {/* <a
                 className="btn btn-lg btn-secondary btn-lg-square mr-2"
                 href="#"
               >
                 <Icon icon={"fa-brands:twitter"} inline={true} height={24} />
-              </a>
+              </a> */}
               <a
                 className="btn btn-lg btn-secondary btn-lg-square mr-2"
                 href="#"
@@ -55,16 +64,16 @@ function Footer() {
                 className="btn btn-lg btn-secondary btn-lg-square mr-2"
                 href="#"
               >
-                <Icon icon={"fa-brands:instagram"} inline={true} height={24} />
+                <Icon icon={"jam:instagram"} inline={true} height={26} />
               </a>
               <a className="btn btn-lg btn-secondary btn-lg-square" href="#">
                 <Icon icon={"fa-brands:youtube"} inline={true} height={24} />
               </a>
             </div>
           </div>
-          <div className="col-lg-4 col-md-6 mb-5">
+          <div className="col-lg-3 col-md-6 mb-5">
             <h5 className="mb-4 text-white text-uppercase font-weight-bold">
-              Categories
+              Categorias
             </h5>
             <div className="m-n1">
               {category.map((cat, key) => (

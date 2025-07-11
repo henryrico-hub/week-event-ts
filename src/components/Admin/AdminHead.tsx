@@ -87,7 +87,7 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="navbar-brand d-block d-lg-none"
               >
-                <h1 className="m-0 display-4 text-uppercase text-primary">
+                <h1 className="m-0 text-uppercase text-primary">
                   Challenge
                   <span className="text-white font-weight-normal">You</span>
                 </h1>
@@ -115,13 +115,20 @@ export default function Header() {
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
                   {/* <AppHeader user={user} setUser={setUser} /> */}
-                  <NavLink
-                    to={"/admin/myEvents"}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-slate-100 hover:bg-gray-700"
-                  >
-                    Mis Eventos
-                  </NavLink>
-                  <AppHeader user={user} setUser={setUser} />
+                  {user ? (
+                    <NavLink
+                      to={"/admin/myEvents"}
+                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-slate-100 hover:bg-gray-700"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Mis Eventos
+                    </NavLink>
+                  ) : null}
+                  <AppHeader
+                    user={user}
+                    setUser={setUser}
+                    setMobileMenuOpen={setMobileMenuOpen}
+                  />
                   {/* <NavLink
                     to={"/"}
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-slate-100 hover:bg-gray-700"

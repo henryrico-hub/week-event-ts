@@ -37,7 +37,7 @@ function GenericSlide({ slug, icon, title }: Props) {
         const url = `/event-categories?filters[slug][$eq]=${slug}&populate[event_category_fks][populate]=img_main`;
         const response = await getEventsParams(url);
         setData(response.data[0].event_category_fks);
-        console.log(response.data[0].event_category_fks);
+        // console.log(response.data[0].event_category_fks);
       } catch (error) {
         console.error("Error fetching events:", error);
       } finally {
@@ -47,7 +47,7 @@ function GenericSlide({ slug, icon, title }: Props) {
       }
     };
     fetchData();
-  }, []);
+  }, [slug]);
 
   setTimeout(() => {
     setLoading(false);

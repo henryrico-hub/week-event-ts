@@ -6,13 +6,11 @@ import BlockRendererClient from "./BlockRendererClient";
 import { useState, useEffect } from "react";
 import { getSingleArticle, putClapsArticle } from "../models/event.server";
 import { ArticleType } from "../types";
-/* import perfil_img from '../assets/images/user.jpg' */
 import { category } from "../data";
 import img_lg from "../assets/images/news-700x435-2.jpg";
 import TrandingEvents from "./TrandingEventsCopy";
 import { Icon } from "@iconify-icon/react";
 import { Flex, Skeleton, Typography } from "antd";
-// import { SkeletonCustom } from "./skeleton/SkeletonCustom";
 
 type StatusButton = JSX.Element;
 type paramsEventProps = {
@@ -42,14 +40,13 @@ export default function SinglePost() {
   const [artBody, setartBody] = useState<BlocksContent>();
 
   const [statusClaps, setStatusClaps] = useState("init");
-  const [errorUrl, setErrorUrl] = useState(false);
 
   useEffect(() => {
     setLoading(true);
     const fetchData = async () => {
       try {
         if (!url) {
-          setErrorUrl(true);
+          throw new Error("URL no proporcionado");
         } else {
           const events = await getSingleArticle(url);
           setdataEvent(events.data);
@@ -57,7 +54,6 @@ export default function SinglePost() {
         }
       } catch (error) {
         console.error("Error fetching events:", error);
-        console.log("error -" + errorUrl);
       } finally {
         setTimeout(() => {
           setLoading(false);

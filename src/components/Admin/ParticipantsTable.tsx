@@ -12,6 +12,7 @@ import {
   Button,
   // ConfigProvider,
   Checkbox,
+  ConfigProvider,
 } from "antd";
 import type {
   InputRef,
@@ -53,8 +54,8 @@ const useStyle = createStyles(({ css }) => {
 });
 
 export type DataPType = {
-  key2: React.Key;
-  key: React.Key;
+  key2: string;
+  key: string;
   name: string;
   participantNumber: number;
   bloodTpye: string;
@@ -115,8 +116,6 @@ const EventsTable = ({
   idEvent,
   urlE,
 }: Props) => {
-  // console.log(data && data);
-
   const navigate = useNavigate();
   const { styles } = useStyle();
   const [, setSearchText] = useState("");
@@ -243,15 +242,8 @@ const EventsTable = ({
       key: "key2",
       // fixed: "left",
       width: 90,
-      // render(value) {
-      //   return (
-      //     <Typography.Text
-      //       strong
-      //       className="flex justify-center underline text-md"
-      //     >
-      //       {value.slice(0, 6)}
-      //     </Typography.Text>
-      //   );
+      // render(record) {
+      //   return <span>{record.key}</span>;
       // },
       ...getColumnSearchProps("key2"),
     },
@@ -793,19 +785,31 @@ const EventsTable = ({
       />
 
       {/* </ConfigProvider> */}
-      <Table<DataPType>
-        bordered={true}
-        className={styles.customTable}
-        style={{ paddingTop: "16px", paddingBottom: "16px" }}
-        columns={newColumns}
-        loading={loading}
-        dataSource={data}
-        // onChange={onChange}
-        showSorterTooltip={{ target: "sorter-icon" }}
-        scroll={{ x: "max-content", y: 60 * 10 }}
-        title={() => <h2 className="text-center ">Inscritos</h2>}
-        size="small"
-      />
+      <ConfigProvider
+        theme={{
+          components: {
+            Table: {
+              rowHoverBg: "#f7f7e7",
+              // borderColor: "#000",
+              // headerBg: "#FFCC00",
+            },
+          },
+        }}
+      >
+        <Table<DataPType>
+          bordered={true}
+          className={styles.customTable}
+          style={{ paddingTop: "16px", paddingBottom: "16px" }}
+          columns={newColumns}
+          loading={loading}
+          dataSource={data}
+          // onChange={onChange}
+          showSorterTooltip={{ target: "sorter-icon" }}
+          scroll={{ x: "max-content", y: 60 * 10 }}
+          title={() => <h2 className="text-center ">Inscritos</h2>}
+          size="small"
+        />
+      </ConfigProvider>
     </>
   );
 };

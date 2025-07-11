@@ -67,7 +67,7 @@ export default function PreRegistro() {
     setTimeout(() => {
       localStorage.removeItem("formStep"); // Limpia después de usar
     }, 2000);
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     const fetchDataParticipant = async () => {
@@ -99,7 +99,7 @@ export default function PreRegistro() {
     };
 
     fetchDataParticipant();
-  }, [updateData]);
+  }, [updateData, id, registerId]);
 
   const next = () => {
     setCurrent(current + 1);
@@ -169,7 +169,6 @@ export default function PreRegistro() {
     const itemsV = steps.map((item) => ({
       id: item.id,
       title: item.id === 3 ? (current === 3 ? item.title : "") : item.title,
-
       description: current === item.id ? item.description : "",
       // subTitle: item.subTitle,
       icon: item.icon,

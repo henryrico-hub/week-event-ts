@@ -92,7 +92,7 @@ export default function OwlMain() {
       }
     };
     fetchData();
-  }, [getEventsCurrents, setcurrentEvent]);
+  }, []);
 
   return (
     <>

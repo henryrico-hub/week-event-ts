@@ -99,14 +99,13 @@ const StateEventsDrawer = ({
       };
       fetchData();
 
-      // Simple loading mock. You should add cleanup logic in real world.
       const timer = setTimeout(() => {
         setLoading(false);
       }, 2000);
 
-      return () => clearTimeout(timer); // Cleanup timeout on unmount or open change
+      return () => clearTimeout(timer);
     }
-  }, [open]);
+  }, [open, stateSelected]);
 
   const handleCategoryClick = (category: string) => {
     setLoading(true);
@@ -215,8 +214,8 @@ const StateEventsDrawer = ({
             <>
               <div className="flex justify-content-center p-6">
                 <h2 className="text-center">
-                  No se encontraron eventos en este estado. Si conoces alguno,
-                  ¡háznoslo saber!
+                  No se encontraron eventos registrados en este estado. ¿Conoces
+                  alguno? ¡Contáctanos y compártelo con nosotros!
                 </h2>
               </div>
             </>

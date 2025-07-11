@@ -28,6 +28,8 @@ import PublicRoute from "./components/Login/PublicRoute";
 import ParticipantsPage from "./components/Admin/ParticipantsPage";
 import ToTopButton from "./components/Button/ToTopButton";
 import DetailsParticipants from "./components/Admin/DetailsParticipants";
+import ServiceLayout from "./components/Layout/ServiceLayout";
+import Dashboard from "./components/ServiceNetwork/Dashborad";
 
 const categories = [
   { name: "Carrera", url: "correr" },
@@ -117,6 +119,20 @@ const router = createBrowserRouter([
             <Profile />
           </ProtectedRoute>
         ),
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <ServiceLayout />,
+    children: [
+      {
+        index: true,
+        element: <Dashboard />,
+      },
+      {
+        path: "signin",
+        element: <SignIn />,
       },
     ],
   },

@@ -44,87 +44,86 @@ function DetailsParticipants() {
   const [form] = Form.useForm();
   const variant = Form.useWatch("variant", form);
 
-  const fetchData = async () => {
-    setLoading(true);
-    try {
-      if (!urlE) {
-        throw new Error("url is required");
-      }
-      const response = await getParticipantListByEvent(urlE);
-      const foundParticipant = response.data[0].participants.find(
-        (part: Participant) => part.documentId === participant
-      );
-
-      // Si se encuentra, estructura el objeto con los campos que necesitas
-      if (foundParticipant) {
-        // console.log("fetch", foundParticipant);
-
-        const formattedParticipant: any = {
-          id: foundParticipant.id,
-          documentId: foundParticipant.documentId,
-          name: foundParticipant.name,
-          paternalSurname: foundParticipant.paternal_surname,
-          maternalSurname: foundParticipant.maternal_surname,
-          gender: foundParticipant.gender,
-          birthday: foundParticipant.birthday,
-          bloodType: foundParticipant.bloodType,
-          email: foundParticipant.email,
-          categoryP: foundParticipant.categoryP,
-          country: foundParticipant.country,
-          state: foundParticipant.state,
-          city: foundParticipant.city,
-          address: foundParticipant.address,
-          team: foundParticipant.team,
-          package: foundParticipant.package,
-          size: foundParticipant.size,
-          payment: foundParticipant.payment,
-          phone: foundParticipant.phone.split("-")[1],
-          emergencyContactName: foundParticipant.emergency_contact_name,
-          emergencyContactPhone:
-            foundParticipant.emergency_contact_phone.split("-")[1],
-          prefix1: foundParticipant.phone.split("-")[0],
-          prefix2: foundParticipant.emergency_contact_phone.split("-")[0],
-          statusP: foundParticipant.statusP,
-          participantNumber: foundParticipant.participant_number,
-          publishedAt: foundParticipant.publishedAt,
-          createdAt: foundParticipant.createdAt,
-          updatedAt: foundParticipant.updatedAt,
-        };
-
-        setParticipantSelected(formattedParticipant);
-        // console.log(formattedParticipant);
-        const initial = {
-          name: formattedParticipant.name,
-          lastname: formattedParticipant.paternalSurname,
-          lastnameS: formattedParticipant.maternalSurname,
-          birthday: formattedParticipant.birthday,
-          gender: formattedParticipant.gender,
-          email: formattedParticipant.email,
-          address: formattedParticipant.address,
-          country: formattedParticipant.country,
-          state: formattedParticipant.state,
-          city: formattedParticipant.city,
-          team: formattedParticipant.team,
-          phone: formattedParticipant.phone,
-          emergencyContactName: formattedParticipant.emergencyContactName,
-          emergencyContactPhone: formattedParticipant.emergencyContactPhone,
-          prefix1: formattedParticipant.prefix1,
-          prefix2: formattedParticipant.prefix2,
-        };
-
-        setInitialFormValues(initial);
-      }
-    } catch (error) {
-      console.error(error);
-      message.error("Error while fetching Participants!");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        if (!urlE) {
+          throw new Error("url is required");
+        }
+        const response = await getParticipantListByEvent(urlE);
+        const foundParticipant = response.data[0].participants.find(
+          (part: Participant) => part.documentId === participant
+        );
+
+        // Si se encuentra, estructura el objeto con los campos que necesitas
+        if (foundParticipant) {
+          // console.log("fetch", foundParticipant);
+
+          const formattedParticipant: any = {
+            id: foundParticipant.id,
+            documentId: foundParticipant.documentId,
+            name: foundParticipant.name,
+            paternalSurname: foundParticipant.paternal_surname,
+            maternalSurname: foundParticipant.maternal_surname,
+            gender: foundParticipant.gender,
+            birthday: foundParticipant.birthday,
+            bloodType: foundParticipant.bloodType,
+            email: foundParticipant.email,
+            categoryP: foundParticipant.categoryP,
+            country: foundParticipant.country,
+            state: foundParticipant.state,
+            city: foundParticipant.city,
+            address: foundParticipant.address,
+            team: foundParticipant.team,
+            package: foundParticipant.package,
+            size: foundParticipant.size,
+            payment: foundParticipant.payment,
+            phone: foundParticipant.phone.split("-")[1],
+            emergencyContactName: foundParticipant.emergency_contact_name,
+            emergencyContactPhone:
+              foundParticipant.emergency_contact_phone.split("-")[1],
+            prefix1: foundParticipant.phone.split("-")[0],
+            prefix2: foundParticipant.emergency_contact_phone.split("-")[0],
+            statusP: foundParticipant.statusP,
+            participantNumber: foundParticipant.participant_number,
+            publishedAt: foundParticipant.publishedAt,
+            createdAt: foundParticipant.createdAt,
+            updatedAt: foundParticipant.updatedAt,
+          };
+
+          setParticipantSelected(formattedParticipant);
+          // console.log(formattedParticipant);
+          const initial = {
+            name: formattedParticipant.name,
+            lastname: formattedParticipant.paternalSurname,
+            lastnameS: formattedParticipant.maternalSurname,
+            birthday: formattedParticipant.birthday,
+            gender: formattedParticipant.gender,
+            email: formattedParticipant.email,
+            address: formattedParticipant.address,
+            country: formattedParticipant.country,
+            state: formattedParticipant.state,
+            city: formattedParticipant.city,
+            team: formattedParticipant.team,
+            phone: formattedParticipant.phone,
+            emergencyContactName: formattedParticipant.emergencyContactName,
+            emergencyContactPhone: formattedParticipant.emergencyContactPhone,
+            prefix1: formattedParticipant.prefix1,
+            prefix2: formattedParticipant.prefix2,
+          };
+
+          setInitialFormValues(initial);
+        }
+      } catch (error) {
+        console.error(error);
+        message.error("Error while fetching Participants!");
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchData();
-  }, [, updateData]);
+  }, [updateData, urlE, participant]);
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Errores ->", errorInfo);
@@ -291,12 +290,14 @@ function DetailsParticipants() {
           <div className="flex md:flex-row flex-col justify-between bg-white rounded-xl shadow gap-4 p-6 my-4">
             <div>
               <h2>Numero de Participante</h2>
-              <span className="text-6xl">#</span>
-              <span className="text-6xl">
-                {participantSelected.participantNumber
-                  ? participantSelected.participantNumber
-                  : "Sin asignar"}
-              </span>
+
+              {participantSelected.participantNumber ? (
+                <span className="text-6xl">
+                  #{participantSelected.participantNumber}
+                </span>
+              ) : (
+                <span className="text-6xl opacity-35">Sin asignar</span>
+              )}
             </div>
             <div className="flex flex-col justify-center items-center gap-2">
               <Form.Item label={null} noStyle>

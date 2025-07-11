@@ -72,7 +72,7 @@ export default function OwlBreakingNews() {
               <div className="col-12">
                 <div className="tranding-carousel flex align-items-center">
                   <div className="bg-primary text-dark text-center font-weight-medium py-2 px-2 flex-shrink-0">
-                    Breaking News
+                    Descubre Más
                   </div>
                   <Slider
                     className="slider-container position-relative d-inline-flex align-items-center w-3/4 ml-3 pr-20"

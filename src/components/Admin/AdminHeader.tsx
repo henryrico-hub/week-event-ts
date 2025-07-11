@@ -1,19 +1,20 @@
 import { Button } from "antd";
-// import { CgWebsite } from "react-icons/cg";
 import { NavLink, useNavigate } from "react-router-dom";
 import { removeToken } from "src/utils/helpers";
 
 type Props = {
   setUser: (user: any) => void;
   user: any;
+  setMobileMenuOpen?: any;
 };
 
-const AppHeader = ({ user, setUser }: Props) => {
+const AppHeader = ({ user, setUser, setMobileMenuOpen }: Props) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
     removeToken();
     setUser(undefined);
+    setMobileMenuOpen(false);
     navigate("/admin", { replace: true });
   };
 
@@ -21,7 +22,12 @@ const AppHeader = ({ user, setUser }: Props) => {
     <div>
       {user ? (
         <div className="py-4 flex flex-col lg:flex-row lg:items-center gap-2">
-          <NavLink className="px-0 md:px-4" to="/admin/profile" type="link">
+          <NavLink
+            className="px-0 md:px-4"
+            to="/admin/profile"
+            type="link"
+            onClick={() => setMobileMenuOpen(false)}
+          >
             {user.username}
           </NavLink>
           <Button type="primary" onClick={handleLogout}>
@@ -41,6 +47,7 @@ const AppHeader = ({ user, setUser }: Props) => {
               marginRight: "8px",
               display: "inline-block",
             }}
+            onClick={() => setMobileMenuOpen(false)}
           >
             Login
           </NavLink>
@@ -56,6 +63,7 @@ const AppHeader = ({ user, setUser }: Props) => {
             }}
             to="/admin/signup"
             type="primary"
+            onClick={() => setMobileMenuOpen(false)}
           >
             SignUp
           </NavLink>
