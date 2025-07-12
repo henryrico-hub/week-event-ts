@@ -1,11 +1,11 @@
 "use client";
 
-type Props = {
-  setCollapsed?: React.Dispatch<React.SetStateAction<boolean>>;
-  collapsed: boolean;
-};
+// type Props = {
+//   setCollapsed?: React.Dispatch<React.SetStateAction<boolean>>;
+//   collapsed: boolean;
+// };
 
-export default function Header({}: Props) {
+export default function Header() {
   // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (

@@ -1,4 +1,9 @@
 import { Button } from "antd";
+import imgRegister from "src/assets/images/services/register.png";
+import imgAnalytics from "src/assets/images/services/analytics2.jpg";
+import imgCamera from "src/assets/images/services/camara2.jpg";
+import imgCrono from "src/assets/images/services/cronos2.jpg";
+import imgSupport from "src/assets/images/services/support2.png";
 
 const Section = ({
   id,
@@ -54,7 +59,7 @@ const Dashboard = () => {
       <Section
         id="signin"
         title="Inscripciones"
-        image={"src/assets/images/register.png"}
+        image={imgRegister}
         description="Gestión eficiente de inscripciones para tus eventos con formularios personalizados, seguimiento y control."
         features={[
           "Formularios dinámicos",
@@ -67,7 +72,7 @@ const Dashboard = () => {
       <Section
         id="times"
         title="Tiempos / Cronos"
-        image="src/assets/images/cronos2.jpg"
+        image={imgCrono}
         description="Controla y consulta cronometrajes precisos para tus eventos deportivos o concursos."
         features={[
           "Carga de resultados en tiempo real",
@@ -80,7 +85,7 @@ const Dashboard = () => {
       <Section
         id="photographer"
         title="Fotografía"
-        image={"src/assets/images/camara2.jpg"}
+        image={imgCamera}
         description="Accede a galerías de imágenes profesionales capturadas durante el evento."
         features={[
           "Galerías por participante o categoría",
@@ -93,7 +98,7 @@ const Dashboard = () => {
       <Section
         id="support"
         title="Soporte"
-        image={"src/assets/images/support2.png"}
+        image={imgSupport}
         description="Te brindamos asistencia personalizada antes, durante y después de tu evento."
         features={[
           "Chat en línea",
@@ -106,7 +111,7 @@ const Dashboard = () => {
       <Section
         id="analytics"
         title="Analíticas"
-        image={"src/assets/images/analytics2.jpg"}
+        image={imgAnalytics}
         description="Obtén información clave sobre participantes, tiempos, asistencia y mucho más."
         features={[
           "Panel de control en tiempo real",

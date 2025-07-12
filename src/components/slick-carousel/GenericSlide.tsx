@@ -98,7 +98,7 @@ function GenericSlide({ slug, icon, title }: Props) {
           slidesToShow: 1,
           slidesToScroll: 1,
           arrows: false,
-          rows: 2,
+          rows: 1,
         },
       },
     ],

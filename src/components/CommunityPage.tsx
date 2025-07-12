@@ -129,79 +129,92 @@ export default function CommunityPage() {
                       </div>
                     </div>
 
-                    {allArticle.map((eve, key) => (
-                      <div key={key} className="col-lg-6">
-                        <div className="position-relative mb-3">
-                          <img
-                            className=""
-                            src={`${import.meta.env.VITE_API_URL_SHORT}${
-                              eve.img_main.url
-                            }`}
-                            style={{
-                              objectFit: "cover",
-                              width: "100%",
-                              height: "180px",
-                            }}
-                          />
-                          <div className="bg-white border border-top-0 px-4 pt-3">
-                            <div className="grid grid-flow-col justify-between mb-2">
-                              <a className="text-body" aria-disabled={true}>
-                                <small>{formatearFecha(eve.date)}</small>
-                              </a>
-                              <a
-                                className="badge badge-primary text-uppercase font-weight-semi-bold py-2 px-6"
-                                aria-disabled={true}
+                    {allArticle && allArticle.length > 0 ? (
+                      allArticle.map((eve, key) => (
+                        <div key={key} className="col-lg-6">
+                          <div className="position-relative mb-3">
+                            <img
+                              className=""
+                              src={`${import.meta.env.VITE_API_URL_SHORT}${
+                                eve.img_main.url
+                              }`}
+                              style={{
+                                objectFit: "cover",
+                                width: "100%",
+                                height: "180px",
+                              }}
+                            />
+                            <div className="bg-white border border-top-0 px-4 pt-3">
+                              <div className="grid grid-flow-col justify-between mb-2">
+                                <a className="text-body" aria-disabled={true}>
+                                  <small>{formatearFecha(eve.date)}</small>
+                                </a>
+                                <a
+                                  className="badge badge-primary text-uppercase font-weight-semi-bold py-2 px-6"
+                                  aria-disabled={true}
+                                >
+                                  {eve.event_category.name}
+                                </a>
+                              </div>
+                              <Link
+                                className="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold"
+                                to={`/comunidad/post/${eve.url}`}
                               >
-                                {eve.event_category.name}
-                              </a>
+                                {eve.name}
+                              </Link>
+                              {/* <p className="descript-resume m-0">{eve.description1}</p> */}
                             </div>
-                            <Link
-                              className="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold"
-                              to={`/comunidad/post/${eve.url}`}
-                            >
-                              {eve.name}
-                            </Link>
-                            {/* <p className="descript-resume m-0">{eve.description1}</p> */}
-                          </div>
-                          <div className="d-flex justify-content-between bg-white border border-top-0 px-4 py-2">
-                            <div className="d-flex align-items-center">
-                              <img
-                                className="rounded-circle mr-2"
-                                src={`${import.meta.env.VITE_API_URL_SHORT}${
-                                  eve.author_sc.avatar.url
-                                }`}
-                                width="35"
-                                height="35"
-                                alt=""
-                              />
-                              {/* <img className="rounded-circle mr-2" src={`${import.meta.env.VITE_API_URL_SHORT}${eve.img_desc1.url}`} width="25" height="25" alt=""/> */}
-                              <small>{eve.author_sc.name}</small>
-                            </div>
-                            <div className="d-flex align-items-center">
-                              <small className="ml-3">
-                                <div className="d-flex align-items-center ml-3">
-                                  <Icon
-                                    icon={"fa-regular:eye"}
-                                    className="mr-1"
-                                  />
-                                  <Text type="secondary">12345</Text>
-                                </div>
-                              </small>
-                              {/* <small className="ml-3"><i className="far fa-comment mr-2"></i>123</small> */}
-                              <button disabled>
-                                <strong className="ml-3">
-                                  <Icon
-                                    icon={"fa6-solid:hands-clapping"}
-                                    className="mr-2"
-                                  />
-                                  {eve.claps}
-                                </strong>
-                              </button>
+                            <div className="d-flex justify-content-between bg-white border border-top-0 px-4 py-2">
+                              <div className="d-flex align-items-center">
+                                <img
+                                  className="rounded-circle mr-2"
+                                  src={`${import.meta.env.VITE_API_URL_SHORT}${
+                                    eve.author_sc.avatar.url
+                                  }`}
+                                  width="35"
+                                  height="35"
+                                  alt=""
+                                />
+                                {/* <img className="rounded-circle mr-2" src={`${import.meta.env.VITE_API_URL_SHORT}${eve.img_desc1.url}`} width="25" height="25" alt=""/> */}
+                                <small>{eve.author_sc.name}</small>
+                              </div>
+                              <div className="d-flex align-items-center">
+                                <small className="ml-3">
+                                  <div className="d-flex align-items-center ml-3">
+                                    <Icon
+                                      icon={"fa-regular:eye"}
+                                      className="mr-1"
+                                    />
+                                    <Text type="secondary">12345</Text>
+                                  </div>
+                                </small>
+                                {/* <small className="ml-3"><i className="far fa-comment mr-2"></i>123</small> */}
+                                <button disabled>
+                                  <strong className="ml-3">
+                                    <Icon
+                                      icon={"fa6-solid:hands-clapping"}
+                                      className="mr-2"
+                                    />
+                                    {eve.claps}
+                                  </strong>
+                                </button>
+                              </div>
                             </div>
                           </div>
                         </div>
+                      ))
+                    ) : (
+                      <div className="col-12 text-center py-20">
+                        <p className="text-muted mb-2">
+                          No hay publicaciones recientes aún.
+                        </p>
+                        <Icon
+                          icon="mdi:emoticon-sad-outline"
+                          width="40"
+                          height="40"
+                        />
                       </div>
-                    ))}
+                    )}
                   </>
                 )}
 

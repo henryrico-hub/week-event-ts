@@ -11,6 +11,30 @@ import img_lg from "../assets/images/news-700x435-2.jpg";
 import TrandingEvents from "./TrandingEventsCopy";
 import { Icon } from "@iconify-icon/react";
 import { Flex, Skeleton, Typography } from "antd";
+import imgLogo from "/src/assets/images/logo1.jpeg";
+
+const social = [
+  {
+    id: 1,
+    icon: "fa-brands:facebook",
+    link: "www.dsd.com",
+  },
+  {
+    id: 2,
+    icon: "fa-brands:instagram",
+    link: "www.dsd.com",
+  },
+  {
+    id: 3,
+    icon: "fa-brands:twitter",
+    link: "www.dsd.com",
+  },
+  {
+    id: 4,
+    icon: "fa-brands:linkedin",
+    link: "www.dsd.com",
+  },
+];
 
 type StatusButton = JSX.Element;
 type paramsEventProps = {
@@ -73,20 +97,12 @@ export default function SinglePost() {
           dataEvent[0].documentId,
           newDataClap
         );
-
-        /* const response = await axios.put(
-          `${import.meta.env.VITE_API_URL}/article-scs/${dataEvent[0].documentId}`,
-          {
-            data : {
-              claps: dataEvent[0].claps + 1
-            }
-          }); */
-        console.log(response);
-
-        setStatusClaps("success-bounce");
-        setTimeout(() => {
-          setStatusClaps("success");
-        }, 2000);
+        if (response.status === 200) {
+          setStatusClaps("success-bounce");
+          setTimeout(() => {
+            setStatusClaps("success");
+          }, 2000);
+        }
       } catch (error: any) {
         console.error("Error posting data:", error.message);
         setStatusClaps("error-beat");
@@ -267,65 +283,54 @@ export default function SinglePost() {
                     Follow Us
                   </h4>
                 </div>
-                <div className="bg-white border border-top-0 p-3">
-                  <a
+                <div className="relative bg-white border border-t-0 overflow-hidden">
+                  {/* Background blur layer */}
+                  <div
+                    className="absolute inset-0 bg-center bg-cover blur-sm z-0"
+                    style={{
+                      backgroundImage: `url(${imgLogo})`,
+                    }}
+                  ></div>
+
+                  {/* Content layer */}
+                  <div className="relative z-10 grid grid-cols-2">
+                    {social.map((social) => (
+                      <a
+                        key={social.id}
+                        href={social.link}
+                        className="group flex justify-center items-center no-underline py-3 bg-slate-300/35 border border-black hover:bg-blue-600/75 transition-colors duration-300"
+                      >
+                        <span className="flex justify-center items-center font-medium w-full h-full transition-transform duration-900 group-hover:scale-125 text-[#000] group-hover:text-[#FFCC00]">
+                          <Icon icon={social.icon} height={30} />
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+
+                  {/* <a
                     href=""
-                    className="d-block w-100 text-white text-decoration-none mb-3"
-                    style={{ background: "#39569E" }}
+                    className="block text-white text-decoration-none py-3"
+                    style={{ backgroundColor: "#fde98a" }}
                   >
-                    <i
-                      className="fab fa-facebook-f text-center py-4 mr-3"
-                      style={{ width: "65px", background: "rgba(0, 0, 0, .2)" }}
-                    ></i>
-                    <span className="font-weight-medium">12,345 Fans</span>
-                  </a>
-                  <a
-                    href=""
-                    className="d-block w-100 text-white text-decoration-none mb-3"
-                    style={{ background: "#52AAF4" }}
-                  >
-                    <i
-                      className="fab fa-twitter text-center py-4 mr-3"
-                      style={{ width: "65px", background: "rgba(0, 0, 0, .2)" }}
-                    ></i>
-                    <span className="font-weight-medium">12,345 Followers</span>
-                  </a>
-                  <a
-                    href=""
-                    className="d-block w-100 text-white text-decoration-none mb-3"
-                    style={{ background: "#0185AE" }}
-                  >
-                    <i
-                      className="fab fa-linkedin-in text-center py-4 mr-3"
-                      style={{ width: "65px", background: "rgba(0, 0, 0, .2)" }}
-                    ></i>
-                    <span className="font-weight-medium">12,345 Connects</span>
-                  </a>
-                  <a
-                    href=""
-                    className="d-block w-100 text-white text-decoration-none mb-3"
-                    style={{ background: "#C8359D" }}
-                  >
-                    <i
-                      className="fab fa-instagram text-center py-4 mr-3"
-                      style={{ width: "65px", background: "rgba(0, 0, 0, .2)" }}
-                    ></i>
-                    <span className="font-weight-medium">12,345 Followers</span>
-                  </a>
-                  <a
-                    href=""
-                    className="d-block w-100 text-white text-decoration-none mb-3"
-                    style={{ background: "#DC472E" }}
-                  >
-                    <i
-                      className="fab fa-youtube text-center py-4 mr-3"
-                      style={{ width: "65px", background: "rgba(0, 0, 0, .2)" }}
-                    ></i>
-                    <span className="font-weight-medium">
-                      12,345 Subscribers
+                    <span
+                      className="flex items-center font-weight-medium px-3"
+                      style={{
+                        height: "100%",
+                        width: "w-fit",
+                        background: "rgba(0, 0, 0, .2)",
+                      }}
+                    >
+                      {" "}
+                      <Icon
+                        icon={"fa-brands:facebook"}
+                        inline={true}
+                        width={26}
+                      />
+                      @Facebook
                     </span>
-                  </a>
-                  <a
+                  </a> */}
+
+                  {/*<a
                     href=""
                     className="d-block w-100 text-white text-decoration-none"
                     style={{ background: "#055570" }}
@@ -335,7 +340,7 @@ export default function SinglePost() {
                       style={{ width: "65px", background: "rgba(0, 0, 0, .2)" }}
                     ></i>
                     <span className="font-weight-medium">12,345 Followers</span>
-                  </a>
+                  </a> */}
                 </div>
               </div>
               {/* <!-- Social Follow End --> */}

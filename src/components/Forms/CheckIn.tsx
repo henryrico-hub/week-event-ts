@@ -57,7 +57,9 @@ export default function EnterCode({ setMobileMenuOpen }: Props) {
               // navigate(`/form/${url}/${idPart}`, {
               //   state: { step: 1, media: media },
               // });
-              setMobileMenuOpen && setMobileMenuOpen(false);
+              if (setMobileMenuOpen) {
+                setMobileMenuOpen(false);
+              }
               localStorage.setItem("formStep", "pending"); // o "2"
               window.location.href = `/form/${url}/${idPart}`;
               // setOpen(false);
@@ -67,7 +69,9 @@ export default function EnterCode({ setMobileMenuOpen }: Props) {
           if (statusP === "Complete") {
             setTimeout(() => {
               window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-              setMobileMenuOpen && setMobileMenuOpen(false);
+              if (setMobileMenuOpen) {
+                setMobileMenuOpen(false);
+              }
               localStorage.setItem("formStep", "complete"); // o "2"
               window.location.href = `/form/${url}/${idPart}`;
               // navigate(`/form/${url}/${idPart}`, {
