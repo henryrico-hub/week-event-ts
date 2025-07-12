@@ -182,7 +182,7 @@ function ServiceLayout() {
               height: "60px",
             }}
           >
-            <Header2 collapsed={collapsed} />
+            <Header2 />
           </Header>
 
           <Content
