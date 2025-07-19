@@ -3,7 +3,7 @@ import { Icon } from "@iconify-icon/react";
 import * as XLSX from "xlsx";
 import { useState, useEffect } from "react";
 import { getParticipantListByEvent } from "src/models/event.server";
-import { Participant } from "src/types";
+import { Participant, ParticipantFromBack } from "src/types";
 
 type Props = {
   url: string;
@@ -20,8 +20,8 @@ export default function DownloadData({ url }: Props) {
     setLoading(true);
     try {
       const response = await getParticipantListByEvent(url);
-      let participants: Participant[] = response?.data?.[0]?.participants || [];
-
+      let participants: ParticipantFromBack[] =
+        response?.data?.[0]?.participants || [];
       // 1. Filtro por estado
       if (filterCompleted) {
         participants = participants.filter((p) => p.statusP === "Complete");
@@ -39,11 +39,12 @@ export default function DownloadData({ url }: Props) {
         return;
       }
 
-      const formattedData = participants.map((item: Participant) => ({
-        numero_participante: item.participantNumber,
+      const formattedData = participants.map((item: ParticipantFromBack) => ({
+        idRegistro: item.documentId.slice(0, 6),
+        numero_participante: item.participant_number,
         nombre: item.name,
-        apellido_paterno: item.paternalSurname,
-        apellido_materno: item.maternalSurname,
+        apellido_paterno: item.paternal_surname,
+        apellido_materno: item.maternal_surname,
         fecha_nacimiento: item.birthday,
         categoria: item.categoryP,
         sexo: item.gender,
@@ -52,8 +53,18 @@ export default function DownloadData({ url }: Props) {
           ? `${import.meta.env.VITE_API_URL_SHORT}${item.payment[0].url}`
           : "Sin archivo",
         talla: item.size,
-        estado: item.statusP === "Complete" ? "Completo" : "Pendiente",
+        estatus: item.statusP === "Complete" ? "Completo" : "Pendiente",
         fecha_inscripcion: item.createdAt,
+        pais: item.country,
+        estado: item.state,
+        ciudad: item.city,
+        direccion: item.address,
+        equipo: item.team,
+        telefono: item.phone,
+        tipo_de_sangre: item.bloodType,
+        email: item.email,
+        nombre_contacto_emergencia: item.emergency_contact_name,
+        telefono_contacto_emergencia: item.emergency_contact_phone,
       }));
 
       const worksheet = XLSX.utils.json_to_sheet(formattedData);

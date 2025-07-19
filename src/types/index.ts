@@ -108,6 +108,8 @@ export type EventType = {
   packages: PackageType[];
   consecNumberPart: number;
   main_color: string;
+  maxNumberP: number;
+  endRegistrationDate: Date;
 };
 
 export type PackageType = {
@@ -176,6 +178,34 @@ export type Participant = {
   createdAt: string;
   updatedAt: string;
 };
+export type ParticipantFromBack = {
+  id: number;
+  documentId: string;
+  name: string;
+  paternal_surname: string;
+  maternal_surname: string;
+  birthday: string;
+  gender: string;
+  statusP: "Pending" | "Complete" | string;
+  categoryP: string;
+  package: string;
+  participant_number: number;
+  size: string;
+  payment: Payment[];
+  country: string;
+  state: string;
+  city: string;
+  address: string;
+  team: string;
+  phone: number;
+  bloodType: string | undefined;
+  email: string;
+  emergency_contact_name: string;
+  emergency_contact_phone: number;
+  publishedAt: string;
+  createdAt: string;
+  updatedAt: string;
+};
 
 export type Payment = {
   id: number;
@@ -196,6 +226,32 @@ export type Payment = {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
+  formats: {
+    thumbnail: {
+      name: string;
+      width: number;
+      height: number;
+      url: string;
+    };
+    small: {
+      name: string;
+      width: number;
+      height: number;
+      url: string;
+    };
+    medium: {
+      name: string;
+      width: number;
+      height: number;
+      url: string;
+    };
+    large: {
+      name: string;
+      width: number;
+      height: number;
+      url: string;
+    };
+  };
 };
 
 export type ArticleType = {

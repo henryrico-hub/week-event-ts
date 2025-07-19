@@ -192,7 +192,7 @@ function ParticipantsPage() {
   }, [updateData, url]);
 
   return (
-    <div className="container py-10">
+    <div className="container-md py-10">
       <ParticipantsTable
         numParti={consecNP}
         statsData={statsData}

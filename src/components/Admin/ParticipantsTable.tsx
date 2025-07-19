@@ -36,9 +36,9 @@ const useStyle = createStyles(({ css }) => {
     customTable: css`
       .ant-table {
         .ant-table-title {
-          background-color: #ffcc00;
+          // background-color: #ffcc00;
           font-size: 20px;
-          padding: 8px;
+          // padding: 8px;
         }
         .ant-table-container {
           .ant-table-body,
@@ -704,7 +704,6 @@ const EventsTable = ({
       setLoading(false);
     }
   };
-
   const detailsP = (record: DataPType) => {
     // Navegar a la ruta de detalles del participante usando useNavigate
     navigate(`/admin/details/${urlE}/${record.key}`);

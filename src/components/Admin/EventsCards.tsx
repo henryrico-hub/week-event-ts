@@ -66,7 +66,7 @@ const SocialCards = () => {
   }, [user.id]);
 
   return (
-    <div className="container-md py-10 h-screen">
+    <div className="container-md py-10">
       {isLoading ? (
         <div className="flex items-center justify-center h-full">
           <ConfigProvider

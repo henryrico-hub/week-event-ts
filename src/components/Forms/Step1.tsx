@@ -21,6 +21,9 @@ import ModalConfirm from "./Upload/ModalConfirm";
 import CountrySelect from "./FormElements/CountrySelect";
 import PackageForm from "./FormElements/PackageForm";
 import PhoneInput from "./FormElements/PhoneInput";
+import ExpiredModal from "./FormElements/ModalExpired";
+import { formatearFechalg } from "src/utils/helpers";
+import FullModal from "./FormElements/ModalFullEvent";
 
 const { Text } = Typography;
 export type FieldType =
@@ -56,7 +59,7 @@ interface SubmitButtonProps {
 type Step1Props = {
   next: () => void;
   setRegisterId: React.Dispatch<React.SetStateAction<string>>;
-  data: EventType | null;
+  data: EventType;
   setDataParticipant: React.Dispatch<React.SetStateAction<any>>;
 };
 
@@ -74,6 +77,39 @@ export default function Step1({
   const [loading, setLoading] = useState(false);
   const [validForm] = useState(false);
   const [open, setOpen] = useState(false);
+  const [openExpired, setOpenExpired] = useState<boolean>(false);
+  const [openFull, setOpenFull] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!data?.endRegistrationDate) return;
+    if (!data?.consecNumberPart && !data?.maxNumberP) return;
+
+    const isFull = (number: number): boolean => {
+      const numeroMaximo = data.maxNumberP;
+      const numeroConsec = number;
+      return numeroConsec >= numeroMaximo;
+    };
+
+    const isExpired = (dateEvent: Date): boolean => {
+      const currentDate = new Date();
+      const expiredDate = new Date(dateEvent);
+      return currentDate > expiredDate;
+    };
+
+    const expired = isExpired(data.endRegistrationDate);
+    const full = isFull(data.consecNumberPart);
+    // setOpenExpired(expired);
+    if (expired) {
+      setTimeout(() => {
+        setOpenExpired(true);
+      }, 1000);
+    } else if (full) {
+      setOpenFull(true);
+    } else {
+      setOpenExpired(false);
+      setOpenFull(false);
+    }
+  }, [data?.endRegistrationDate, data?.consecNumberPart, data?.maxNumberP]);
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Errores ->", errorInfo);
@@ -81,8 +117,6 @@ export default function Step1({
 
   const onFinish = (values: any) => {
     setLoading(true);
-    console.log("values", values);
-
     const createUser = async () => {
       const dataToSend: {
         name: string;
@@ -124,7 +158,6 @@ export default function Step1({
         team: values.team,
         event: data?.documentId,
       };
-      console.log(dataToSend);
 
       try {
         const response: {
@@ -184,9 +217,7 @@ export default function Step1({
   const contentText = () => {
     return (
       <Space direction="vertical" size={"small"}>
-        <Text type="secondary">
-          Continua el proceso de inscripción realizando el pago
-        </Text>
+        <Text type="secondary">Completa tu inscripción realizando el pago</Text>
       </Space>
     );
   };
@@ -219,15 +250,6 @@ export default function Step1({
       </Button>
     );
   };
-
-  // const generateUUID = (): string => {
-  //   return uuidv4();
-  // };
-
-  // const generateShortUUID = (): string => {
-  //   return uuidv4().split("-")[0].slice(0, 6);
-  // };
-
   return (
     <>
       {contextHolder}
@@ -278,7 +300,9 @@ export default function Step1({
                   <Title level={2}>{data?.name}</Title>
                   <Title level={3}>Registrate Ahora!</Title>
                   <Text style={{ fontSize: "16px" }} type="secondary" strong>
-                    Plazo de inscripción: Del dia 15 de febrero al 28 de febrero
+                    {`Plazo de inscripción: Disponible hasta el ${formatearFechalg(
+                      data?.endRegistrationDate
+                    )}`}
                   </Text>
                 </Space>
                 <Divider></Divider>
@@ -541,6 +565,8 @@ export default function Step1({
               setConfirmLoading={setLoading}
               type="success"
             />
+            <ExpiredModal openM={openExpired} />
+            <FullModal openM={openFull} />
           </>
         ) : (
           <Result

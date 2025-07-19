@@ -136,7 +136,11 @@ export default function Header() {
               {/* <Bars3Icon aria-hidden="true" className="h-6 w-6 text-gray-300" /> */}
               <Icon
                 aria-hidden="true"
-                icon={"heroicons:bars-3-16-solid"}
+                icon={
+                  mobileMenuOpen
+                    ? "heroicons:x-mark"
+                    : "heroicons:bars-3-16-solid"
+                }
                 className="text-gray-300 hover:"
                 height={"28"}
                 width={"28"}
@@ -367,6 +371,7 @@ export default function Header() {
                   >
                     Comunidad
                   </NavLink>
+                  {/*  */}
                   <CheckIn setMobileMenuOpen={setMobileMenuOpen} />
                 </div>
 

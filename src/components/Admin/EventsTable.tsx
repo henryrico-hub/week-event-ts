@@ -11,6 +11,11 @@ const useStyle = createStyles(({ css }) => {
   return {
     customTable: css`
       .ant-table {
+        .ant-table-title {
+          background-color: #fff066;
+          font-size: 20px;
+          // padding: 8px;
+        }
         .ant-table-container {
           .ant-table-body,
           .ant-table-content {
@@ -145,12 +150,14 @@ const EventsTable = ({ data }: Props) => {
       }}
     >
       <Table<DataEType>
+        title={() => <h2 className="text-center p-1">Eventos disponibles</h2>}
         className={styles.customTable}
         columns={columns}
         dataSource={data}
         // onChange={onChange}
         showSorterTooltip={{ target: "sorter-icon" }}
-        scroll={{ x: "max-content", y: 55 * 8 }}
+        scroll={{ x: "max-content", y: 60 * 8 }}
+        size="small"
         // onRow={() => {
         //   return {
         //     onMouseEnter: (event) => {

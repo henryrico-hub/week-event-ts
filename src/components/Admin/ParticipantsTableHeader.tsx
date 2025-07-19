@@ -10,8 +10,8 @@ const useStyle = createStyles(({ css }) => {
     customTable: css`
       .ant-table {
         .ant-table-title {
-          background-color: #ffcc00;
-          font-size: 14px;
+          // background-color: #ffcc00;
+          font-size: 20px;
         }
         .ant-table-container {
           .ant-table-body,

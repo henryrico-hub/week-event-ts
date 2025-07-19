@@ -227,6 +227,7 @@ export default function SingleEvent() {
                         style={{ paddingTop: 5, gap: 10, alignItems: "center" }}
                       >
                         <GradientButton
+                          data={dataEvent}
                           url={url}
                           text={"Inscripción"}
                           icon={

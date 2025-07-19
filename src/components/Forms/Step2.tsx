@@ -37,11 +37,6 @@ type Step2Props = {
   setUpdateData: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-`;
-
 export default function Step2({
   id,
   data,
@@ -103,11 +98,11 @@ export default function Step2({
         </>
       ),
     },
-    {
-      key: "3",
-      label: "This is panel header 3",
-      children: <p>{text}</p>,
-    },
+    // {
+    //   key: "3",
+    //   label: "This is panel header 3",
+    //   children: <p>{text}</p>,
+    // },
   ];
 
   return (
@@ -122,7 +117,7 @@ export default function Step2({
             style={{ backgroundColor: "white", width: "100%" }}
           >
             <Col id="check">
-              {dataP && dataP.payment && (
+              {dataP.payment !== null && dataP.payment[0]?.url ? (
                 <Col
                   style={{
                     display: "flex",
@@ -148,7 +143,7 @@ export default function Step2({
                       dataP.payment[0].url
                     }`}
                     style={{
-                      maxWidth: "250px",
+                      maxWidth: "100px",
                       border: " npx dashed #28a745",
                       boxShadow: "5px 5px 10px rgba(0,0,0,0.4)",
                     }}
@@ -167,7 +162,26 @@ export default function Step2({
 
                   <Divider />
                 </Col>
+              ) : (
+                <Alert
+                  message={
+                    <span className="font-bold text-xl">
+                      Tu lugar aún no está confirmado
+                    </span>
+                  }
+                  description={
+                    <span className="font-medium text-base">
+                      Para garantizar tu participación en el evento, realiza el
+                      pago y sube tu comprobante lo antes posible.
+                    </span>
+                  }
+                  type="info"
+                  showIcon
+                  closable
+                  className="mb-2"
+                />
               )}
+
               <Typography.Title level={3} style={{ textAlign: "center" }}>
                 <Tooltip title="$Name porporciona información de para realizar el pago para tu inscripción. No se realizan pagos en línea a través de ella. Podrá subir su comprobante de pago en una imagen o captura de pantalla del depósito en esta seccion.">
                   Informacion de pago
@@ -183,7 +197,9 @@ export default function Step2({
                 className="border-1 bg-orange-100 border-orange-200 rounded-lg m-0 p-2"
                 style={{ textAlign: "center" }}
               >
-                {`${data.category.name} - ${data.name}`}
+                {`${data.category.name} - ${data.name} - ${formatearFechalg(
+                  data.date_event
+                )}`}
               </Typography.Title>
             </Col>
             <Row>

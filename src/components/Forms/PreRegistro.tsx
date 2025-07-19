@@ -71,15 +71,16 @@ export default function PreRegistro() {
 
   useEffect(() => {
     const fetchDataParticipant = async () => {
+      if (!registerId || registerId === "") {
+        return;
+      }
       setLoading(true);
+
       try {
         if (!id) {
           throw new Error("category_id is required");
         }
-
         const participant = await getParticipant(registerId);
-        // console.log(participant.data[0]);
-
         const formattedData: Participant = {
           ...participant.data[0],
           paternalSurname: participant.data[0].paternal_surname,
