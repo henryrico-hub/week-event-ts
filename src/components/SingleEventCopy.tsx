@@ -32,6 +32,7 @@ import {
   SkeletonTitleSection,
 } from "./skeleton/SkeletonCustom";
 import CardServices from "./CardServices";
+import StravaEmbed from "./StravaEmbed";
 
 const SizeContentRigth = {
   width: "90%",
@@ -493,6 +494,8 @@ export default function SingleEvent() {
           </div>
         </div>
       )}
+
+      <StravaEmbed embedId="3131824024790328850" />
 
       {/* Reels section */}
       {dataEvent && <ReelsEvent dataEvent={dataEvent} />}
