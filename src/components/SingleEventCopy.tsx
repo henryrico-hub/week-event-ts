@@ -75,9 +75,7 @@ type paramsEventProps = {
 
 export default function SingleEvent() {
   const { url } = useParams<paramsEventProps>();
-
   const [dataEvent, setdataEvent] = useState<EventType>(); // Initialize state with an empty array
-
   const [distance, setDistance] = useState<BlocksContent>();
   const [registration, setRegistration] = useState<BlocksContent>();
   const [kit, setKit] = useState<BlocksContent>();
@@ -206,7 +204,7 @@ export default function SingleEvent() {
                             src={`${import.meta.env.VITE_API_URL_SHORT}${
                               dataEvent.img_main.url
                             }`}
-                            // width={"100%"}
+                            width={"100%"}
                           />
                         ) : (
                           <img src={logo1} />
@@ -495,7 +493,8 @@ export default function SingleEvent() {
         </div>
       )}
 
-      <StravaEmbed embedId="3131824024790328850" />
+      {/* Strava Embed */}
+      {dataEvent?.stravaRoute && <StravaEmbed data={dataEvent} />}
 
       {/* Reels section */}
       {dataEvent && <ReelsEvent dataEvent={dataEvent} />}

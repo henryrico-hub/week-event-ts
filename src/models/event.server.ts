@@ -202,7 +202,7 @@ export async function getSingleEvent(url: string) {
   const respuesta = await fetch(
     `${
       import.meta.env.VITE_API_URL
-    }/events?filters[url][$eq]=${url}&fields[0]=name&fields[1]=description1&fields[2]=date_event&fields[3]=author_desc&fields[4]=distance_category&fields[5]=city_state&fields[6]=price&fields[7]=registration_prices&fields[8]=claps&fields[9]=kit_delivery&fields[10]=services&populate[category][fields][0]=name&populate[img_main][fields]*&populate[img_desc1][fields]*&populate[img_desc2][fields]*&populate[state][fields]*&populate[reels][fields]&fields[11]=transfer_payment&fields[12]=digital_payment&fields[13]=endRegistrationDate&populate[event_category_scs][fields][]=*&populate[services_scs][fields][]=*`
+    }/events?filters[url][$eq]=${url}&fields[0]=name&fields[1]=description1&fields[2]=date_event&fields[3]=author_desc&fields[4]=distance_category&fields[5]=city_state&fields[6]=price&fields[7]=registration_prices&fields[8]=claps&fields[9]=kit_delivery&fields[10]=services&populate[category][fields][0]=name&populate[img_main][fields]*&populate[img_desc1][fields]*&populate[img_desc2][fields]*&populate[state][fields]*&populate[reels][fields]&fields[11]=transfer_payment&fields[12]=digital_payment&fields[13]=endRegistrationDate&populate[event_category_scs][fields][]=*&populate[services_scs][fields][]=*&populate[stravaRoute][fields][]=*`
   );
   const resultado = await respuesta.json();
 

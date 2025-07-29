@@ -1,6 +1,10 @@
-import { useEffect, useRef } from "react";
+import { ConfigProvider, Dropdown } from "antd";
+import { useState, useEffect, useRef } from "react";
+import { DownloadOutlined, DownOutlined } from "@ant-design/icons";
+import type { MenuProps } from "antd";
+import { EventType } from "src/types";
 
-// Tipado para evitar error de TypeScript
+// Tipado opcional
 declare global {
   interface Window {
     StravaEmbeds?: {
@@ -9,76 +13,108 @@ declare global {
   }
 }
 
-interface StravaEmbedProps {
-  embedId: string;
-  mapHash?: string;
-  style?: "standard" | "satellite" | "hybrid" | "dark" | "winter" | "light";
-}
+type Props = {
+  data: EventType | undefined;
+};
 
-export default function StravaEmbed({
-  embedId,
-  mapHash = "15.01/21.50426/-104.92648",
-  style = "satellite",
-}: StravaEmbedProps) {
+export default function StravaEmbedOnDemand({ data }: Props) {
+  console.log(data);
+
+  const [visible, setVisible] = useState(false);
   const embedRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const loadStravaScript = () => {
-      if (window.StravaEmbeds) {
-        window.StravaEmbeds.process();
-      }
-    };
-
-    const scriptId = "strava-embed-script";
-    const existingScript = document.getElementById(scriptId);
-
-    if (!existingScript) {
+    if (visible) {
       const script = document.createElement("script");
-      script.id = scriptId;
       script.src = "https://strava-embeds.com/embed.js";
       script.async = true;
-      script.onload = loadStravaScript;
+      script.onload = () => {
+        if (window.StravaEmbeds?.process) {
+          window.StravaEmbeds.process();
+        }
+      };
       document.body.appendChild(script);
-    } else {
-      // Script ya cargado, solo procesa
-      loadStravaScript();
+
+      // Limpieza opcional si desactivas luego
+      return () => {
+        script.remove();
+      };
     }
-  }, [embedId, mapHash]);
+  }, [visible]);
+
+  const items: MenuProps["items"] = [
+    {
+      label: (
+        <a
+          href={`https://www.strava.com/routes/${data?.stravaRoute?.data_embed_id}/export_gpx`}
+        >
+          Descargar GPX
+        </a>
+      ),
+      key: "1",
+      icon: <DownloadOutlined />,
+    },
+  ];
+
+  const handleMenuClick: MenuProps["onClick"] = (e) => {
+    // message.info('Click on menu item.');
+    console.log("click", e);
+  };
+  const handleButtonClick = () => {
+    setVisible(!visible);
+  };
+
+  const menuProps = {
+    items,
+    onClick: handleMenuClick,
+  };
 
   return (
-    <div className="container-md p-4">
-      <h1 className="text-center text-xl font-bold mb-4">Ruta en Strava</h1>
+    // <div
+    //   style={{
+    //     background: "linear-gradient(to bottom, #FFCC00 10%, #1E2024 100%)",
+    //   }}
+    // >
+    <div className="container-md py-5">
+      <div className="flex flex-col sm:flex-row md:justify-between justify-center items-center gap-2 p-3 mb-4">
+        <h1 className="text-2xl uppercase">Ruta del evento</h1>
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: "#ff6600",
+              colorPrimaryHover: "#cc5200",
+            },
+          }}
+        >
+          <Dropdown.Button
+            type="primary"
+            className="w-auto md:w-fit"
+            menu={menuProps}
+            placement="bottom"
+            size="large"
+            icon={<DownOutlined />}
+            onClick={handleButtonClick}
+          >
+            <span className="px-20">Ver Ruta</span>
+          </Dropdown.Button>
+        </ConfigProvider>
+      </div>
 
-      <div
-        ref={embedRef}
-        className="strava-embed-placeholder border-none "
-        data-embed-type="route"
-        data-terrain="3d"
-        data-embed-id={embedId}
-        data-style={style}
-        data-map-hash={mapHash}
-        data-from-embed="true"
-        data-full-width="true"
-      />
-
-      <div
-        className="strava-embed-placeholder"
-        data-embed-type="activity"
-        data-embed-id="12061549368"
-        data-style="standard"
-        data-from-embed="false"
-      ></div>
-      <div
-        className="strava-embed-placeholder"
-        data-embed-type="route"
-        data-embed-id="3131824024790328850"
-        data-full-width="true"
-        // data-style="satellite"
-        data-terrain="3d"
-        // data-map-hash="12.8/21.50426/-104.92648"
-        data-from-embed="true"
-      ></div>
-      <script src="https://strava-embeds.com/embed.js"></script>
+      {data?.stravaRoute && visible && (
+        <div className="bg-white rounded-lg shadow-md lg:p-10 p-0">
+          <div
+            ref={embedRef}
+            className="strava-embed-placeholder"
+            data-embed-type="route"
+            data-embed-id={data?.stravaRoute.data_embed_id}
+            data-map-hash={data?.stravaRoute.data_map_hash}
+            data-style="standard"
+            data-full-width="true"
+            data-units="metric"
+            data-from-embed="false"
+          />
+        </div>
+      )}
     </div>
   );
 }

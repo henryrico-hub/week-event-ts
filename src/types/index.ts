@@ -110,6 +110,11 @@ export type EventType = {
   main_color: string;
   maxNumberP: number;
   endRegistrationDate: Date;
+  stravaRoute: {
+    id: number;
+    data_embed_id: string;
+    data_map_hash: string;
+  };
 };
 
 export type PackageType = {
