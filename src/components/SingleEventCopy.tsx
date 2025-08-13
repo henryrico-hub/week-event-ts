@@ -33,6 +33,7 @@ import {
 } from "./skeleton/SkeletonCustom";
 import CardServices from "./CardServices";
 import StravaEmbed from "./StravaEmbed";
+import FixedButton from "./Button/FixedButton";
 
 const SizeContentRigth = {
   width: "90%",
@@ -113,9 +114,11 @@ export default function SingleEvent() {
   const toScroll = () => {
     flagScroll_m?.scrollIntoView({ behavior: "smooth" });
   };
-
   return (
     <>
+      {/* Sticky Buttom */}
+      <FixedButton data={dataEvent} />
+
       {/* Title */}
       <SkeletonTitleSection
         loading={loading}
@@ -179,137 +182,143 @@ export default function SingleEvent() {
             background: "linear-gradient(to bottom, #1E2024 10%, #FFCC00 100%)",
           }}
         >
-          <div className="container-md py-10">
+          <div className="container py-10">
             <div className="row">
               <div className="col-lg-4 col-md-12">
-                {loading ? (
-                  <SkeletonCard
-                    loading={loading}
-                    sizeContent={SizeContentCard}
-                    title={""}
-                    avatar={""}
-                    paragraph={{
-                      rows: 5,
-                      width: [100, 150, "auto", "auto", "auto"],
-                    }}
-                  >
-                    <></>
-                  </SkeletonCard>
-                ) : (
-                  <div className="card-list" id="card-flag-m">
-                    <article className="card flex lg:flex-col border-2 border-[#3A3D42]">
-                      <figure className="card-image">
-                        {dataEvent.img_main ? (
-                          <Image
-                            src={`${import.meta.env.VITE_API_URL_SHORT}${
-                              dataEvent.img_main.url
-                            }`}
-                            width={"100%"}
-                          />
-                        ) : (
-                          <img src={logo1} />
-                        )}
-                      </figure>
-                      {/* Nombre de categoria */}
-                      <a
-                        className="badge badge-primary text-uppercase font-semibold p-2 mb-2"
-                        href="#"
-                      >
-                        {dataEvent.category?.name}
-                      </a>
-                      {/* Nombre del evento */}
-                      <div className="card-header">
-                        <a href="#">{dataEvent.name}</a>
-                      </div>
-                      {/* Button actions */}
-                      <Flex
-                        style={{ paddingTop: 5, gap: 10, alignItems: "center" }}
-                      >
-                        <GradientButton
-                          data={dataEvent}
-                          url={url}
-                          text={"Inscripción"}
-                          icon={
-                            <Icon
-                              icon={"fa6-solid:user-pen"}
-                              aria-hidden="true"
+                <div className="container-md">
+                  {loading ? (
+                    <SkeletonCard
+                      loading={loading}
+                      sizeContent={SizeContentCard}
+                      title={""}
+                      avatar={""}
+                      paragraph={{
+                        rows: 5,
+                        width: [100, 150, "auto", "auto", "auto"],
+                      }}
+                    >
+                      <></>
+                    </SkeletonCard>
+                  ) : (
+                    <div className="card-list" id="card-flag-m">
+                      <article className="card flex lg:flex-col border-2 border-[#3A3D42]">
+                        <figure className="card-image">
+                          {dataEvent.img_main ? (
+                            <Image
+                              src={`${import.meta.env.VITE_API_URL_SHORT}${
+                                dataEvent.img_main.url
+                              }`}
+                              width={"100%"}
                             />
-                          }
-                        />
-
-                        <Button
-                          type="primary"
-                          shape="circle"
-                          size="large"
-                          onClick={() => {
-                            const sliderElement =
-                              document.getElementById("slider");
-                            sliderElement?.scrollIntoView({
-                              behavior: "smooth",
-                            });
+                          ) : (
+                            <img src={logo1} />
+                          )}
+                        </figure>
+                        {/* Nombre de categoria */}
+                        <a
+                          className="badge badge-primary text-uppercase font-semibold p-2 mb-2"
+                          href="#"
+                        >
+                          {dataEvent.category?.name}
+                        </a>
+                        {/* Nombre del evento */}
+                        <div className="card-header">
+                          <a href="#">{dataEvent.name}</a>
+                        </div>
+                        {/* Button actions */}
+                        <Flex
+                          style={{
+                            paddingTop: 5,
+                            gap: 10,
+                            alignItems: "center",
                           }}
                         >
-                          <Icon
-                            icon={"material-symbols:play-circle"}
-                            width={26}
+                          <GradientButton
+                            data={dataEvent}
+                            url={url}
+                            text={"Inscripción"}
+                            icon={
+                              <Icon
+                                icon={"fa6-solid:user-pen"}
+                                aria-hidden="true"
+                              />
+                            }
                           />
-                        </Button>
-                      </Flex>
-                      {/* Footer section */}
-                      <div className="card-footer">
-                        {/* Time / Price */}
-                        <div className="flex flex-col hover:text-[#FFCC00] transition-all">
-                          <div className="p-1 text-xl font-semibold">
-                            <p className="font-bold mx-2 text-xl">
-                              {`Salida: ${formatearHoraAMPM(
-                                dataEvent.date_event
-                              )}`}
-                            </p>
-                          </div>
-                          <div className="p-1 text-xl font-semibold">
-                            <p className="font-bold mx-2 text-xl">
-                              {`Costo: ${formatearPrice(dataEvent.price)}`}
-                            </p>
-                          </div>
-                        </div>
-                        {/* Date */}
-                        <div className="flex flex-col items-center gap-1 p-2 bg-[#1E2024] border-2 border-[#3A3D42] rounded-xl">
-                          <div className=" text-2xl">
-                            {formatearDayNameStyle(
-                              dataEvent.date_event
-                            ).toLocaleUpperCase()}
-                          </div>
-                          <div className="flex flex-row gap-2 text-6xl">
-                            {formatearDayStyle(dataEvent.date_event)}
-                            <div className="flex text-4xl items-center">
-                              {formatearMonthNameStyle(dataEvent.date_event)}
+
+                          <Button
+                            type="primary"
+                            shape="circle"
+                            size="large"
+                            onClick={() => {
+                              const sliderElement =
+                                document.getElementById("slider");
+                              sliderElement?.scrollIntoView({
+                                behavior: "smooth",
+                              });
+                            }}
+                          >
+                            <Icon
+                              icon={"material-symbols:play-circle"}
+                              width={26}
+                            />
+                          </Button>
+                        </Flex>
+                        {/* Footer section */}
+                        <div className="card-footer">
+                          {/* Time / Price */}
+                          <div className="flex flex-col hover:text-[#FFCC00] transition-all">
+                            <div className="p-1 text-xl font-semibold">
+                              <p className="font-bold mx-2 text-xl">
+                                {`Salida: ${formatearHoraAMPM(
+                                  dataEvent.date_event
+                                )}`}
+                              </p>
+                            </div>
+                            <div className="p-1 text-xl font-semibold">
+                              <p className="font-bold mx-2 text-xl">
+                                {`Costo: ${formatearPrice(dataEvent.price)}`}
+                              </p>
                             </div>
                           </div>
-                          <div className="flex flex-row gap-2 text-7xl">
-                            {formatearYearNameStyle(dataEvent.date_event)}
-                          </div>
-                          {/* Place */}
-                          <p className="text-2xl text-center font-bold">
-                            {`${dataEvent.city_state}, ${dataEvent.state?.name}`}
-                          </p>
-                          {/* Map */}
-                          <div className="w-full border-4 border-[#3A3D42]">
-                            <iframe
-                              width="100%"
-                              height="auto"
-                              src={`https://maps.google.com/maps?width=100%25&height=600&hl=en&q=${encodeURIComponent(
-                                `${dataEvent.city_state}, ${dataEvent.state?.name}`
-                              )}&t=&z=14&ie=UTF8&iwloc=B&output=embed`}
-                            />
+                          {/* Date */}
+                          <div className="flex flex-col items-center gap-1 p-2 bg-[#1E2024] border-2 border-[#3A3D42] rounded-xl">
+                            <div className=" text-2xl">
+                              {formatearDayNameStyle(
+                                dataEvent.date_event
+                              ).toLocaleUpperCase()}
+                            </div>
+                            <div className="flex flex-row gap-2 text-6xl">
+                              {formatearDayStyle(dataEvent.date_event)}
+                              <div className="flex text-4xl items-center">
+                                {formatearMonthNameStyle(dataEvent.date_event)}
+                              </div>
+                            </div>
+                            <div className="flex flex-row gap-2 text-7xl">
+                              {formatearYearNameStyle(dataEvent.date_event)}
+                            </div>
+                            {/* Place */}
+                            <p className="text-2xl text-center font-bold">
+                              {`${dataEvent.city_state}, ${dataEvent.state?.name}`}
+                            </p>
+                            {/* Map */}
+                            <div className="w-full border-4 border-[#3A3D42]">
+                              <iframe
+                                width="100%"
+                                height="auto"
+                                src={`https://maps.google.com/maps?width=100%25&height=600&hl=en&q=${encodeURIComponent(
+                                  `${dataEvent.city_state}, ${dataEvent.state?.name}`
+                                )}&t=&z=14&ie=UTF8&iwloc=B&output=embed`}
+                              />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </article>
-                  </div>
-                )}
+                      </article>
+                    </div>
+                  )}
+                </div>
               </div>
 
-              <div className="col-lg-8" id="flagScroll-m">
+              <div className="col-lg-8 p-0" id="flagScroll-m">
                 {loading ? (
                   <SkeletonRigthSection
                     loading={loading}
@@ -325,8 +334,8 @@ export default function SingleEvent() {
                   </SkeletonRigthSection>
                 ) : (
                   <>
-                    <div className="right-section-title">
-                      <div className="title-navs rounded-md w-full">
+                    <div className="right-section-title rounded-none md:rounded-md md:p-2 py-2">
+                      <div className="title-navs w-full">
                         <div
                           className="nav nav-pills"
                           id="nav-tab"

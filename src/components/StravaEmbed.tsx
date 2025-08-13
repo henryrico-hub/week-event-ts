@@ -1,4 +1,4 @@
-import { ConfigProvider, Dropdown } from "antd";
+import { Alert, ConfigProvider, Dropdown } from "antd";
 import { useState, useEffect, useRef } from "react";
 import { DownloadOutlined, DownOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
@@ -75,7 +75,7 @@ export default function StravaEmbedOnDemand({ data }: Props) {
     //     background: "linear-gradient(to bottom, #FFCC00 10%, #1E2024 100%)",
     //   }}
     // >
-    <div className="container-md py-5">
+    <div className="container-md py-4">
       <div className="flex flex-col sm:flex-row md:justify-between justify-center items-center gap-2 p-3 mb-4">
         <h1 className="text-2xl uppercase">Ruta del evento</h1>
         <ConfigProvider
@@ -99,21 +99,32 @@ export default function StravaEmbedOnDemand({ data }: Props) {
           </Dropdown.Button>
         </ConfigProvider>
       </div>
-
       {data?.stravaRoute && visible && (
-        <div className="bg-white rounded-lg shadow-md lg:p-10 p-0">
-          <div
-            ref={embedRef}
-            className="strava-embed-placeholder"
-            data-embed-type="route"
-            data-embed-id={data?.stravaRoute.data_embed_id}
-            data-map-hash={data?.stravaRoute.data_map_hash}
-            data-style="standard"
-            data-full-width="true"
-            data-units="metric"
-            data-from-embed="false"
+        <>
+          <Alert
+            message="Este archivo GPX no puede descargarse correctamente desde móviles. Te recomendamos volver a intentarlo en una computadora para realizar la descarga."
+            type="info"
+            showIcon
+            className="mb-4"
+            closable
           />
-        </div>
+          <div className="bg-white rounded-lg shadow-md lg:p-10 p-0">
+            {/* <span>
+              {`https://www.strava.com/routes/${data?.stravaRoute?.data_embed_id}/export_gpx`}
+            </span> */}
+            <div
+              ref={embedRef}
+              className="strava-embed-placeholder"
+              data-embed-type="route"
+              data-embed-id={data?.stravaRoute.data_embed_id}
+              data-map-hash={data?.stravaRoute.data_map_hash}
+              data-style="standard"
+              data-full-width="true"
+              data-units="metric"
+              data-from-embed="false"
+            />
+          </div>
+        </>
       )}
     </div>
   );
