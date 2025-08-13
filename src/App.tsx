@@ -30,6 +30,7 @@ import ToTopButton from "./components/Button/ToTopButton";
 import DetailsParticipants from "./components/Admin/DetailsParticipants";
 import ServiceLayout from "./components/Layout/ServiceLayout";
 import Dashboard from "./components/ServiceNetwork/Dashborad";
+import PrivacyPolicy from "./components/ServiceNetwork/PrivacyPolicy";
 
 const categories = [
   { name: "Carrera", url: "correr" },
@@ -123,7 +124,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard",
+    path: "/services",
     element: <ServiceLayout />,
     children: [
       {
@@ -131,8 +132,8 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: "signin",
-        element: <SignIn />,
+        path: "legals",
+        element: <PrivacyPolicy />,
       },
     ],
   },

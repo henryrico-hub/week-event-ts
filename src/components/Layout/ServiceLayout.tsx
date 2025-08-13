@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { Button, Layout, Menu, MenuProps, theme } from "antd";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Icon } from "@iconify-icon/react";
@@ -38,6 +38,7 @@ const siderStyle: React.CSSProperties = {
 };
 
 function ServiceLayout() {
+  const { hash } = useLocation();
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -49,54 +50,105 @@ function ServiceLayout() {
     }
   };
 
+  useEffect(() => {
+    if (hash) {
+      const target = document.querySelector(hash);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [hash]);
+
   const items: MenuItem[] = [
     getItem(
-      <a href={"#signin"} onClick={collapsedSider}>
-        Inscripciones
-      </a>,
-      "1",
-      <Icon icon={"material-symbols:assignment-add"} inline={true} width={20} />
+      "Servicios",
+      "services",
+      <Icon icon={"material-symbols:settings-applications"} inline={true} />,
+      [
+        getItem(
+          <NavLink to={"/services#signin"} onClick={collapsedSider}>
+            Inscripciones
+          </NavLink>,
+          "1",
+          <Icon
+            icon={"material-symbols:assignment-add"}
+            inline={true}
+            width={20}
+          />
+        ),
+        getItem(
+          <NavLink to={"/services#times"} onClick={collapsedSider}>
+            Tiempos / Cronos
+          </NavLink>,
+          "2",
+          <Icon
+            icon={"material-symbols:avg-time-outline-rounded"}
+            inline={true}
+            width={20}
+          />
+        ),
+        getItem(
+          <NavLink to={"/services#photographer"} onClick={collapsedSider}>
+            Fotografia
+          </NavLink>,
+          "3",
+          <Icon
+            icon={"material-symbols:monochrome-photos-rounded"}
+            inline={true}
+            width={20}
+          />
+        ),
+        getItem(
+          <NavLink to={"/services#support"} onClick={collapsedSider}>
+            Soporte
+          </NavLink>,
+          "4",
+          <Icon
+            icon={"material-symbols:support-agent-rounded"}
+            inline={true}
+            width={20}
+          />
+        ),
+        getItem(
+          <NavLink to={"/services#analytics"} onClick={collapsedSider}>
+            Analiticas
+          </NavLink>,
+          "5",
+          <Icon icon={"material-symbols:graph-7"} inline={true} width={20} />
+        ),
+      ]
     ),
     getItem(
-      <a href={"#times"} onClick={collapsedSider}>
-        Tiempos / Cronos
-      </a>,
-      "2",
+      // <NavLink to={"/services/legals#termsConditions"} onClick={collapsedSider}>
+      //   Legals
+      // </NavLink>,
+      "Legals",
+      "legals",
       <Icon
-        icon={"material-symbols:avg-time-outline-rounded"}
+        icon={"material-symbols:assignment-add"}
         inline={true}
         width={20}
-      />
+      />,
+      [
+        getItem(
+          <NavLink
+            to={"/services/legals#privacyPolicy"}
+            onClick={collapsedSider}
+          >
+            Politicas de Privacidad
+          </NavLink>,
+          "privacyPolicy",
+          <Icon
+            icon={"material-symbols:assignment-add"}
+            inline={true}
+            width={20}
+          />
+        ),
+      ]
     ),
-    getItem(
-      <a href={"#photographer"} onClick={collapsedSider}>
-        Fotografia
-      </a>,
-      "3",
-      <Icon
-        icon={"material-symbols:monochrome-photos-rounded"}
-        inline={true}
-        width={20}
-      />
-    ),
-    getItem(
-      <a href="#support" onClick={collapsedSider}>
-        Soporte
-      </a>,
-      "4",
-      <Icon
-        icon={"material-symbols:support-agent-rounded"}
-        inline={true}
-        width={20}
-      />
-    ),
-    getItem(
-      <a href={"#analytics"} onClick={collapsedSider}>
-        Analiticas
-      </a>,
-      "5",
-      <Icon icon={"material-symbols:graph-7"} inline={true} width={20} />
-    ),
+
+    // getItem(<Divider style={{ margin: "5px" }} />, "divider"),
+
     // getItem(
     //   <a href={"#dashboard"} onClick={collapsedSider}>
     //     Panel de Administrador
@@ -184,7 +236,6 @@ function ServiceLayout() {
           >
             <Header2 />
           </Header>
-
           <Content
             style={{
               minHeight: 280,

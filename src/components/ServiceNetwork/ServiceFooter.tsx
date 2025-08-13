@@ -89,7 +89,7 @@ function Footer() {
               Necesitas ayuda
             </h5>
             <p>
-              <a href="/dashboard" className="font-weight-medium mb-4 ml-2">
+              <a href="/services" className="font-weight-medium mb-4 ml-2">
                 Servicios
               </a>
             </p>

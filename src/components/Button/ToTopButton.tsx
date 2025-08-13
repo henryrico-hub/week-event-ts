@@ -5,7 +5,10 @@ export default function ToTopButton() {
   return (
     <FloatButton.BackTop
       icon={<Icon icon={"bxs:to-top"} />}
-      visibilityHeight={800}
+      visibilityHeight={900}
+      style={{
+        bottom: 80,
+      }}
     />
   );
 }
