@@ -10488,8 +10488,8 @@ body {
     z-index: 999;
     border-top-left-radius: 10px ;
     border-top-right-radius: 10px ;
-    border-top: 1px solid #dee2e6;
-    background-color: #EDEFF4;
+    /* border-top: 1px solid #dee2e6; */
+    /* background-color: #EDEFF4; */
     /* Estado oculto (abajo) */
     transform: translateY(150%);
     opacity: 0;
