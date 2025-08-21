@@ -18,8 +18,6 @@ type Props = {
 };
 
 export default function StravaEmbedOnDemand({ data }: Props) {
-  console.log(data);
-
   const [visible, setVisible] = useState(false);
   const embedRef = useRef<HTMLDivElement>(null);
 
@@ -95,7 +93,9 @@ export default function StravaEmbedOnDemand({ data }: Props) {
             icon={<DownOutlined />}
             onClick={handleButtonClick}
           >
-            <span className="px-20">Ver Ruta</span>
+            <span className="px-20">
+              {visible ? "Ocultar Ruta" : "Ver Ruta"}
+            </span>
           </Dropdown.Button>
         </ConfigProvider>
       </div>

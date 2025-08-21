@@ -1,6 +1,5 @@
 "use client";
-import { Image } from 'antd'
-
+import { Image } from "antd";
 import {
   BlocksRenderer,
   type BlocksContent,
@@ -13,16 +12,21 @@ export default function BlockRendererClient({
 }) {
   if (!content) return null;
   return (
-    <BlocksRenderer content={content} blocks={{
-      image: ({ image }) => {
-        return (
-          <Image
-            src={image.url}
-          />
-        )
-
-      }
-    }}
+    <BlocksRenderer
+      content={content}
+      blocks={{
+        image: ({ image }) => (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Image src={image.url} />
+          </div>
+        ),
+      }}
     />
   );
 }

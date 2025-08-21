@@ -69,7 +69,7 @@ function ReelsEvent({ dataEvent }: dataEventProps) {
                 <HoverVideoPlayer
                   key={key}
                   url={`${import.meta.env.VITE_API_URL_SHORT}${reel.url}`}
-                  name={reel.name}
+                  name={reel.alternativeText}
                 />
 
                 //  <div

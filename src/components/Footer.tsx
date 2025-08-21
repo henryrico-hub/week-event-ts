@@ -89,12 +89,18 @@ function Footer() {
           </div>
         </div>
       </div>
-      {/* <div className="footer-credits container-fluid py-4 px-sm-3 px-md-5" style={{background: '#111111'}}>
-      <p className="m-0 text-center">&copy; <a href="#">Your Site Name</a>. All Rights Reserved. 
-		    Design by <a href="https://htmlcodex.com">HTML Codex</a><br/>
-        Distributed by <a href="https://themewagon.com">ThemeWagon</a>
-      </p>
-    </div> */}
+      <div
+        className="footer-credits container-fluid py-4 px-sm-3 px-md-5"
+        style={{ background: "#111111" }}
+      >
+        <p className="m-0 text-center">
+          &copy; <a href="#">SpiritC</a>. All Rights Reserved.
+          {/* Design by{" "}
+          <a href="https://htmlcodex.com">HTML Codex</a> */}
+          <br />
+          {/* Distributed by <a href="https://themewagon.com">ThemeWagon</a> */}
+        </p>
+      </div>
       {/* <!-- Footer End --> */}
     </>
   );

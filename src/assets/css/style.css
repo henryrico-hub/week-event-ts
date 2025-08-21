@@ -10478,7 +10478,7 @@ body {
   display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .sticky-bottom {
     position: fixed;
     bottom: 0px;

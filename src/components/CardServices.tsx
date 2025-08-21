@@ -110,7 +110,7 @@ function CardServices({ dataEvent }: Props) {
     <div className="bg-[#1E2024]">
       <div id="services-list" className="container">
         <div className="ag-courses_box">
-          {(showAll ? elementsfromEvent : elementsfromEvent.slice(0, 6)).map(
+          {(showAll ? elementsfromEvent : elementsfromEvent.slice(0, 3)).map(
             (serv, key) => (
               <div key={key} className="ag-courses_item">
                 <a className="ag-courses-item_link">
@@ -133,7 +133,7 @@ function CardServices({ dataEvent }: Props) {
             )
           )}
         </div>
-        {elementsfromEvent.length <= 6 ? (
+        {elementsfromEvent.length <= 3 ? (
           <></>
         ) : (
           <div className="flex flex-col items-center pb-4">
