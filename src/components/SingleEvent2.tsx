@@ -96,7 +96,7 @@ export default function SingleEvent() {
   return (
     <>
       {/* Sticky Buttom */}
-      <FixedButton data={dataEvent} />
+      {url && <FixedButton data={dataEvent} url={url} />}
 
       {/* Title */}
       <SkeletonTitleSection
@@ -140,7 +140,7 @@ export default function SingleEvent() {
 
       <CardServices dataEvent={dataEvent} />
 
-      {dataEvent && <TestVIew2 data={dataEvent} />}
+      {dataEvent && url && <TestVIew2 data={dataEvent} url={url} />}
 
       {/* Card Section */}
       {dataEvent && (

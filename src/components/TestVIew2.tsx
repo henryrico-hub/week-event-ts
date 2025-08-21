@@ -1,12 +1,18 @@
 import { EventType } from "src/types";
 import { Icon } from "@iconify-icon/react";
 import { formatearFecha, formatearPrice } from "src/utils/helpers";
-
+import { useNavigate } from "react-router-dom";
 type CardProps = {
   data: EventType;
+  url: string;
 };
 
-function testView2({ data }: CardProps) {
+function testView2({ data, url }: CardProps) {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate(`/form/${url}`);
+  };
   return (
     <>
       {data && (
@@ -84,7 +90,10 @@ function testView2({ data }: CardProps) {
                       </span>
                     </div>
                     <div className="lg:hidden">
-                      <button className="w-full rounded-lg px-3 py-2 text-sm hover:text-base font-bold sm:w-auto bg-[#673AB7]/70 text-gray-100 hover:bg-[#FFCC00]/90 hover:text-black transition-all duration-300">
+                      <button
+                        onClick={handleNavigate}
+                        className="w-full rounded-lg px-3 py-2 text-sm hover:text-base font-bold sm:w-auto bg-[#673AB7]/70 text-gray-100 hover:bg-[#FFCC00]/90 hover:text-black transition-all duration-300"
+                      >
                         Registrate Ahora
                       </button>
                     </div>
@@ -103,6 +112,7 @@ function testView2({ data }: CardProps) {
                   <div className="mt-6 hidden lg:block">
                     <button
                       type="button"
+                      onClick={handleNavigate}
                       className="w-auto rounded-lg px-3 py-2 text-sm hover:text-base font-bold bg-[#673AB7]/70 text-gray-100 hover:bg-[#FFCC00]/90 hover:text-black transition-all duration-300"
                     >
                       Registrate Ahora

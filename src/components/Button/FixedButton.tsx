@@ -2,12 +2,20 @@ import { ConfigProvider } from "antd";
 import { EventType } from "src/types";
 import { formatearPrice } from "src/utils/helpers";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 type FixedButtonProps = {
   data?: EventType;
+  url: string;
 };
 
-function FixedButton({ data }: FixedButtonProps) {
+function FixedButton({ data, url }: FixedButtonProps) {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate(`/form/${url}`);
+  };
+
   useEffect(() => {
     const stickyEl = document.querySelector(".sticky-bottom");
     const scrollThreshold = 300; // píxeles de scroll para mostrar
@@ -60,7 +68,10 @@ function FixedButton({ data }: FixedButtonProps) {
           >
             Registrate Ahora
           </Button> */}
-          <button className="w-full rounded-lg px-3 py-2 text-sm hover:text-base font-bold sm:w-auto bg-[#673AB7] text-gray-100 hover:bg-[#FFCC00]/90 hover:text-black transition-all duration-300">
+          <button
+            onClick={handleNavigate}
+            className="w-full rounded-lg px-3 py-2 text-sm hover:text-base font-bold sm:w-auto bg-[#673AB7] text-gray-100 hover:bg-[#FFCC00]/90 hover:text-black transition-all duration-300"
+          >
             Registrate Ahora
           </button>
           {data && data.price && (
