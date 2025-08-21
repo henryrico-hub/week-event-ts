@@ -91,6 +91,7 @@ function testView2({ data, url }: CardProps) {
                     </div>
                     <div className="lg:hidden">
                       <button
+                        type="button"
                         onClick={handleNavigate}
                         className="w-full rounded-lg px-3 py-2 text-sm hover:text-base font-bold sm:w-auto bg-[#673AB7]/70 text-gray-100 hover:bg-[#FFCC00]/90 hover:text-black transition-all duration-300"
                       >

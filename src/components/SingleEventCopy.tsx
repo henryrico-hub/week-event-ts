@@ -33,7 +33,7 @@ import {
 } from "./skeleton/SkeletonCustom";
 import CardServices from "./CardServices";
 import StravaEmbed from "./StravaEmbed";
-import FixedButton from "./Button/FixedButton";
+// import FixedButton from "./Button/FixedButton";
 // import TestVIew from "./testVIew";
 // import TestVIew2 from "./TestVIew2";
 
@@ -121,7 +121,7 @@ export default function SingleEvent() {
       {/* <TestVIew /> */}
       {/* <TestVIew2 /> */}
       {/* Sticky Buttom */}
-      <FixedButton data={dataEvent} />
+      {/* <FixedButton data={dataEvent} /> */}
 
       {/* Title */}
       <SkeletonTitleSection

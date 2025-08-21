@@ -70,6 +70,7 @@ function FixedButton({ data, url }: FixedButtonProps) {
           </Button> */}
           <button
             onClick={handleNavigate}
+            type="button"
             className="w-full rounded-lg px-3 py-2 text-sm hover:text-base font-bold sm:w-auto bg-[#673AB7] text-gray-100 hover:bg-[#FFCC00]/90 hover:text-black transition-all duration-300"
           >
             Registrate Ahora
